@@ -1,0 +1,186 @@
+{% extends 'shop/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-lg-9 mt-2">
+        <h5>Welcome qwerty ...!</h5>
+    </div>
+    <div class="col-lg-3">
+        <ul class="d-flex">
+            <li>
+                <a href="">
+                    <img src="https://img.icons8.com/color/48/null/facebook-new.png" width="60%"/>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="https://img.icons8.com/color/48/null/whatsapp--v1.png" width="60%"/>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="https://img.icons8.com/color/48/null/instagram-new--v1.png" width="60%"/>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="https://img.icons8.com/color/48/null/google-maps-new.png" width="60%"/>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="https://img.icons8.com/color/48/null/phone.png" width="60%"/>
+                </a>
+            </li>
+            <li>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon bg-1">
+                        <i class="fa-solid fa-gem"></i>
+                    </span>
+                    <div class="dash-count">
+                        <div class="dash-title">Category</div>
+                        <div class="dash-counts">
+                            <p>12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon bg-2">
+                        <i class="fa-solid fa-ring"></i>
+                    </span>
+                    <div class="dash-count">
+                        <div class="dash-title">Products</div>
+                        <div class="dash-counts">
+                            <p>12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon bg-3">
+                        <i class="fa fa-badge-percent"></i>
+                    </span>
+                    <div class="dash-count">
+                        <div class="dash-title">Hot Deals</div>
+                        <div class="dash-counts">
+                            <p>12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon bg-3">
+                        <i class="fal fa-sparkles"></i>
+                    </span>
+                    <div class="dash-count">
+                        <div class="dash-title">New Arrivals</div>
+                        <div class="dash-counts">
+                            <p>12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">Product List</h5>
+                    </div>
+                    <div class="col-auto">
+                        <a href="" class="btn-right btn btn-sm btn-outline-primary">
+                            View All
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-stripped table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href=""><img
+                                                class="avatar avatar-sm me-2 avatar-img rounded-circle"
+                                                src="{{product.image.url}}"
+                                                alt="User Image">qwerty</a>
+                                    </h2>
+                                </td>
+                                <td>qwerty</td>
+                                <td>₹118</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <h3>QRCODE FOR MENU CARD</h3>
+                <span>..... Scan here to get your menucard details .....</span>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-12">
+                            <img src="{{qr_code.image.url}}" alt="" width="200px">
+                        </div>
+                    </div>
+                    <a href="{{qr_code.image.url}}" download class="btn badge-pill bg-primary-light m-t-10" ><i class="fa fa-download"></i> Download From Here</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+</div>
+
+
+{% endblock %}
+
+
+
+

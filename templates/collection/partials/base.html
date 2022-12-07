@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="multikart">
+    <meta name="keywords" content="multikart">
+    <meta name="author" content="multikart">
+    <link rel="icon" href="{% static 'collection/images/favicon/25.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'collection/images/favicon/25.png' %}" type="image/x-icon">
+    <title>Multikart - Multi-purpose E-commerce Html Template</title>
+
+    <!--Google font-->
+    <link href="../../../fonts.googleapis.com/css4673.css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link rel="preconnect" href="../../../fonts.gstatic.com/index.html">
+    <link href="../../../fonts.googleapis.com/css2c78b.css?family=Yellowtail&amp;display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/css/vendors/font-awesome.css' %}">
+
+    <!--Slick slider css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/css/vendors/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/css/vendors/slick-theme.css' %}">
+
+    <!-- Animate icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/css/vendors/animate.css' %}">
+
+    <!-- Themify icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/css/vendors/themify-icons.css' %}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/css/vendors/bootstrap.css' %}">
+
+    <!-- Theme css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'collection/css/style.css' %}">
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+</head>
+
+<body class="theme-color-29">
+
+
+    {% include 'collection/partials/header.html' %}
+
+
+    {% block content %}
+    {% endblock %}
+
+
+    {% include 'collection/partials/footer.html' %}
+
+
+    <!-- tap to top start -->
+    <div class="tap-top gradient-top">
+        <div><i class="fa fa-angle-double-up"></i></div>
+    </div>
+    <!-- tap to top end -->
+
+
+    <!-- latest jquery-->
+    <script src="{% static 'collection/js/jquery-3.3.1.min.js' %}"></script>
+
+    <!-- slick js-->
+    <script src="{% static 'collection/js/slick.js' %}"></script>
+    <script src="{% static 'collection/js/slick-animation.min.js' %}"></script>
+
+    <!-- wow js-->
+    <script src="{% static 'collection/js/wow.min.js' %}"></script>
+
+    <!-- menu js-->
+    <script src="{% static 'collection/js/menu.js' %}"></script>
+
+    <!-- lazyload js-->
+    <script src="{% static 'collection/js/lazysizes.min.js' %}"></script>
+
+    <!-- Bootstrap js-->
+    <script src="{% static 'collection/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Bootstrap Notification js-->
+    <script src="{% static 'collection/js/bootstrap-notify.min.js' %}"></script>
+
+    <!-- Theme js-->
+    <script src="{% static 'collection/js/theme-setting.js' %}"></script>
+    <script src="{% static 'collection/js/color-setting.js' %}"></script>
+    <script src="{% static 'collection/js/script.js' %}"></script>
+    <script src="{% static 'collection/js/custom-slick-animated.js' %}"></script>
+
+    <script>
+        new WOW().init();
+
+        function openSearch() {
+            document.getElementById("search-overlay").style.display = "block";
+        }
+
+        function closeSearch() {
+            document.getElementById("search-overlay").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

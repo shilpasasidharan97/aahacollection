@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Shops</title>
+
+    <link rel="shortcut icon" href="{% static 'website/img/logo/Logo_TV_2015.png' %}">
+    <link rel="stylesheet" href="{% static 'web/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'web/plugins/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'web/plugins/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'web/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web/plugins/datatables/datatables.min.css' %}">
+
+</head>
+
+<body class="nk-body bg-lighter npc-default has-sidebar no-touch nk-nio-theme">
+
+    <div class="main-wrapper">
+
+        {% include 'shop/partials/header.html' %}
+
+        {% include 'shop/partials/sidebar.html' %}
+
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+
+                {% block content %}
+                {% endblock %}
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web/js/feather.min.js' %}"></script>
+    <script src="{% static 'web/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'web/plugins/apexchart/apexcharts.min.js' %}"></script>
+    <script src="{% static 'web/plugins/apexchart/chart-data.js' %}"></script>
+    <script src="{% static 'web/js/script.js' %}"></script>
+    <script src="{% static 'web/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'web/plugins/datatables/datatables.min.js' %}"></script>
+    <script>
+        if ($('.datatable').length > 0) {
+		$('.datatable').DataTable({
+			language: {
+				search: '<i class="fas fa-search"></i>',
+				searchPlaceholder: "Search"
+			  }
+		});
+	}
+    </script>
+</body>
+
+</html>

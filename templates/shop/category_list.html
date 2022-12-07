@@ -1,0 +1,103 @@
+{% extends 'shop/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="page-title">Product List</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="customers.html">Product List</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dash-widget-header">
+                    <div class="col-lg-1">
+                        <span class="dash-widget-icon bg-2">
+                            <i class="fa-solid fa-ring"></i>
+                        </span>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-count">
+                            <div class="dash-title">Products jhbuyhbvghyu ygy guiyghiuyghuy  ghi</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-center">
+                        <div class="dash-count">
+                            <div class="dash-title">Count : 20</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-end">
+                        <div class="dash-count">
+                            <a href="{% url 'shop:productlist' %}" class="btn-right btn btn-sm btn-outline-primary">
+                                View All
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- <div class="dash-widget-header">
+                    <span class="dash-widget-icon bg-2">
+                        <i class="fa-solid fa-ring"></i>
+                    </span>
+                    <div class="dash-count">
+                        <ul class="d-flex px-4">
+                            <li class="li"><div class="dash-title">Products jhbuyhbvghyu ygy guiyghiuyghuy  ghi</div></li>
+                            <li class="li"><div class="dash-title">Count : 12</div></li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dash-widget-header">
+                    <div class="col-lg-1">
+                        <span class="dash-widget-icon bg-2">
+                            <i class="fa-solid fa-ring"></i>
+                        </span>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-count">
+                            <div class="dash-title">Products jhbuyhbvghyu ygy guiyghiuyghuy  ghi</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-center">
+                        <div class="dash-count">
+                            <div class="dash-title">Count : 20</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-end">
+                        <div class="dash-count">
+                            <a href="{% url 'shop:productlist' %}" class="btn-right btn btn-sm btn-outline-primary">
+                                View All
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

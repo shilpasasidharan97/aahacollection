@@ -1,0 +1,99 @@
+{% extends 'shop/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+    .avathars{
+        position: relative;
+        display: inline-block;
+    }
+</style>
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">Banner Adding</h3>
+            <ul class="breadcrumb">
+                <li class=""><a href="">Dashboard / </a>
+                </li>
+                <li class="breadcrumb-item active">Banner</li>
+            </ul>
+        </div>
+        <div class="col-auto">
+            <a href="" class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#front-page">
+                <i class="fas fa-plus"></i> Banners
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12">
+    <div class="card bg-white">
+        <div class="card-header">
+            <h5 class="card-title">Basic tabs</h5>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" href="#basictab1"
+                        data-bs-toggle="tab">Banner</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane show active" id="basictab1">
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card invoices-grid-card">
+                                <a href="">
+                                    <img class="avatars text-center images me-2 avatar-img " height="auto" src="{% static 'web/img/banner/Necklace.png' %}" alt="User Image"> 
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Front Page -->
+<div class="modal custom-modal fade invoices-preview" id="front-page" role="dialog" name="fbanner">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="card invoice-info-card">
+                            <div class="card-header">
+                                <h5 class="card-title">Add Category</h5>
+                            </div>
+                            <div class="card-body pb-0">
+                                <form action="#" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">File Input</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" type="file" name="front-image">
+                                        </div>
+                                    </div>
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-primary">Add Banner</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

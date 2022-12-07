@@ -1,0 +1,401 @@
+{% extends 'collection/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- Home slider -->
+<section class="p-0">
+    <div class="slider-animate home-slider">
+        <div>
+            <div class="home height-apply p-bottom">
+                <img src="{% static 'collection/images/gradient/slider/1.jpg' %}" alt="" class="bg-img blur-up lazyload">
+                <div class="container-lg">
+                    <div class="row">
+                        <div class="col">
+                            <div class="slider-contain height-apply">
+                                <div>
+                                    <h4>save 30%</h4>
+                                    <h1>special products</h1><a href="#"
+                                        class="btn btn-solid btn-gradient animated">shop
+                                        now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="home height-apply p-bottom">
+                <img src="{% static 'collection/images/gradient/slider/2.jpg' %}" alt="" class="bg-img blur-up lazyload">
+                <div class="container-lg">
+                    <div class="row">
+                        <div class="col">
+                            <div class="slider-contain height-apply">
+                                <div>
+                                    <h4>save 30%</h4>
+                                    <h1>special products</h1><a href="#"
+                                        class="btn btn-solid btn-gradient animated">shop
+                                        now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- category section start -->
+<section>
+    <div class="container container-lg">
+        <div class="row margin-default ratio_square">
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+                <a href="{% url 'collection:products' %}">
+                    <div class="gradient-category">
+                        <div class="gradient-border">
+                            <div class="img-sec">
+                                <img src="{% static 'collection/images/fashion/category/1.png' %}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <h4>Top wear</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+                <a href="#">
+                    <div class="gradient-category hover-effect">
+                        <div class="gradient-border">
+                            <div class="img-sec">
+                                <img src="{% static 'collection/images/fashion/category/4.png' %}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <h4>dresses</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+                <a href="#">
+                    <div class="gradient-category">
+                        <div class="gradient-border">
+                            <div class="img-sec">
+                                <img src="{% static 'collection/images/fashion/category/3.png' %}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <h4>bottom</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+                <a href="#">
+                    <div class="gradient-category">
+                        <div class="gradient-border">
+                            <div class="img-sec">
+                                <img src="{% static 'collection/images/fashion/category/2.png' %}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <h4>inner/sleep</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+                <a href="#">
+                    <div class="gradient-category">
+                        <div class="gradient-border">
+                            <div class="img-sec">
+                                <img src="{% static 'collection/images/fashion/category/5.png' %}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <h4>footwear</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+                <a href="#">
+                    <div class="gradient-category">
+                        <div class="gradient-border">
+                            <div class="img-sec">
+                                <img src="{% static 'collection/images/fashion/category/6.png' %}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <h4>sports/active</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- collection banner -->
+<section class="pb-0 ratio2_1">
+    <div class="container container-lg">
+        <div class="row partition2">
+            <div class="col-md-6">
+                <a href="#">
+                    <div class="collection-banner p-right text-center">
+                        <div class="img-part">
+                            <img src="{% static 'collection/images/gradient/banner/4.jpg' %}"
+                                class="img-fluid blur-up lazyload bg-img" alt="">
+                        </div>
+                        <div class="contain-banner">
+                            <div>
+                                <h4>save 30%</h4>
+                                <h2>men</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="#">
+                    <div class="collection-banner p-right text-center">
+                        <div class="img-part">
+                            <img src="{% static 'collection/images/gradient/banner/5.jpg' %}"
+                                class="img-fluid blur-up lazyload bg-img" alt="">
+                        </div>
+                        <div class="contain-banner">
+                            <div>
+                                <h4>save 60%</h4>
+                                <h2>women</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- collection banner start -->
+<section class="banner-goggles ratio2_1 banner-padding">
+    <div class="container container-lg">
+        <div class="row partition3">
+            <div class="col-md-4">
+                <a href="#">
+                    <div class="collection-banner p-right text-end">
+                        <div class="img-part">
+                            <img src="{% static 'collection/images/gradient/banner/1.jpg' %}"
+                                class="img-fluid blur-up lazyload bg-img" alt="">
+                        </div>
+                        <div class="contain-banner banner-3">
+                            <div>
+                                <h4>10% off</h4>
+                                <h2>speaker</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="#">
+                    <div class="collection-banner p-right text-end">
+                        <div class="img-part">
+                            <img src="{% static 'collection/images/gradient/banner/2.jpg' %}"
+                                class="img-fluid blur-up lazyload bg-img" alt="">
+                        </div>
+                        <div class="contain-banner banner-3">
+                            <div>
+                                <h4>10% off</h4>
+                                <h2>earplug</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="#">
+                    <div class="collection-banner p-right text-end">
+                        <div class="img-part">
+                            <img src="{% static 'collection/images/gradient/banner/3.jpg' %}"
+                                class="img-fluid blur-up lazyload bg-img" alt="">
+                        </div>
+                        <div class="contain-banner banner-3">
+                            <div>
+                                <h4>50% off</h4>
+                                <h2>best deal</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- product slider -->
+<section class="ratio_asos gradient-slider">
+    <div class="container container-lg">
+        <div class="row">
+            <div class="col-12">
+                <div class="title1 title-fancy">
+                    <h4>exclusive products</h4>
+                    <h2 class="title-inner1 title-gradient">special products</h2>
+                </div>
+            </div>
+            <div class="col">
+                <div class="product-5 product-m no-arrow">
+                    <div class="product-box">
+                        <div class="img-wrapper">
+                            <a href="product-page(no-sidebar).html"><img
+                                    src="{% static 'collection/images/gradient/product/4.jpg' %}"
+                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                            <div class="cart-box cart-box-bottom">
+                                <button data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart"><i
+                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)"
+                                    title="Add to Wishlist"><i class="ti-heart" aria-hidden="true"></i></a> <a
+                                    href="#" data-bs-toggle="modal" data-bs-target="#quick-view"
+                                    title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>
+                                <a href="compare.html" title="Compare"><i class="ti-reload"
+                                        aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-detail">
+                            <div class="detail-inline">
+                                <a href="product-page(no-sidebar).html">
+                                    <h6>Men's Sneaker Retro Shoes</h6>
+                                </a>
+                                <h4>$100.50</h4>
+                            </div>
+                            <ul class="color-variant pt-0">
+                                <li class="bg-light0"></li>
+                                <li class="bg-light1"></li>
+                                <li class="bg-light2"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-wrapper">
+                            <div class="lable-block"><span class="lable-gradient">new</span> <span class="lable4">on
+                                    sale</span></div>
+                            <a href="product-page(no-sidebar).html"><img
+                                    src="{% static 'collection/images/gradient/product/6.jpg' %}"
+                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                            <div class="cart-box cart-box-bottom">
+                                <button data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart"><i
+                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)"
+                                    title="Add to Wishlist"><i class="ti-heart" aria-hidden="true"></i></a> <a
+                                    href="#" data-bs-toggle="modal" data-bs-target="#quick-view"
+                                    title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>
+                                <a href="compare.html" title="Compare"><i class="ti-reload"
+                                        aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-detail">
+                            <div class="detail-inline">
+                                <a href="product-page(no-sidebar).html">
+                                    <h6>Foot Pease Socks</h6>
+                                </a>
+                                <h4>$10.80</h4>
+                            </div>
+                            <ul class="color-variant pt-0">
+                                <li class="bg-light0"></li>
+                                <li class="bg-light1"></li>
+                                <li class="bg-light2"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-wrapper">
+                            <a href="product-page(no-sidebar).html"><img
+                                    src="{% static 'collection/images/gradient/product/2.jpg' %}"
+                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                            <div class="cart-box cart-box-bottom">
+                                <button data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart"><i
+                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)"
+                                    title="Add to Wishlist"><i class="ti-heart" aria-hidden="true"></i></a> <a
+                                    href="#" data-bs-toggle="modal" data-bs-target="#quick-view"
+                                    title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>
+                                <a href="compare.html" title="Compare"><i class="ti-reload"
+                                        aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-detail">
+                            <div class="detail-inline">
+                                <a href="product-page(no-sidebar).html">
+                                    <h6>Black Belt</h6>
+                                </a>
+                                <h4>$3.60</h4>
+                            </div>
+                            <ul class="color-variant pt-0">
+                                <li class="bg-light0"></li>
+                                <li class="bg-light1"></li>
+                                <li class="bg-light2"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-wrapper">
+                            <div class="lable-block"><span class="lable-gradient">new</span> <span class="lable4">on
+                                    sale</span></div>
+                            <a href="product-page(no-sidebar).html"><img
+                                    src="{% static 'collection/images/gradient/product/5.jpg' %}"
+                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                            <div class="cart-box cart-box-bottom">
+                                <button data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart"><i
+                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)"
+                                    title="Add to Wishlist"><i class="ti-heart" aria-hidden="true"></i></a> <a
+                                    href="#" data-bs-toggle="modal" data-bs-target="#quick-view"
+                                    title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>
+                                <a href="compare.html" title="Compare"><i class="ti-reload"
+                                        aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-detail">
+                            <div class="detail-inline">
+                                <a href="product-page(no-sidebar).html">
+                                    <h6>3-Stripes Terry Hoodie</h6>
+                                </a>
+                                <h4>$60.80</h4>
+                            </div>
+                            <ul class="color-variant pt-0">
+                                <li class="bg-light0"></li>
+                                <li class="bg-light1"></li>
+                                <li class="bg-light2"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-wrapper">
+                            <div class="lable-block"><span class="lable-gradient">new</span> <span class="lable4">on
+                                    sale</span></div>
+                            <a href="product-page(no-sidebar).html"><img
+                                    src="{% static 'collection/images/gradient/product/8.jpg' %}"
+                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                            <div class="cart-box cart-box-bottom">
+                                <button data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart"><i
+                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)"
+                                    title="Add to Wishlist"><i class="ti-heart" aria-hidden="true"></i></a> <a
+                                    href="#" data-bs-toggle="modal" data-bs-target="#quick-view"
+                                    title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>
+                                <a href="compare.html" title="Compare"><i class="ti-reload"
+                                        aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-detail">
+                            <div class="detail-inline">
+                                <a href="product-page(no-sidebar).html">
+                                    <h6>Woven Track Jacket</h6>
+                                </a>
+                                <h4>$99.90</h4>
+                            </div>
+                            <ul class="color-variant pt-0">
+                                <li class="bg-light0"></li>
+                                <li class="bg-light1"></li>
+                                <li class="bg-light2"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

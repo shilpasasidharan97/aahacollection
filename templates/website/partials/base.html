@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Link of CSS files -->
+    <link rel="stylesheet" href="{% static 'website/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/odometer.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/remixicon.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/magnific-popup.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/meanmenu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+
+    <title>Aaha</title>
+
+    <link rel="icon" type="image/png" href="">
+</head>
+
+<body>
+
+    
+    {% include 'website/partials/header.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include 'website/partials/footer.html' %}
+
+
+    <div class="go-top"><i class="ri-arrow-up-s-line"></i></div>
+
+    <!-- Link of JS files -->
+    <script src="{% static 'website/js/jquery.min.js' %}"></script>
+    <script src="{% static 'website/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'website/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'website/js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'website/js/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'website/js/meanmenu.min.js' %}"></script>
+    <script src="{% static 'website/js/appear.min.js' %}"></script>
+    <script src="{% static 'website/js/odometer.min.js' %}"></script>
+    <script src="{% static 'website/js/form-validator.min.js' %}"></script>
+    <script src="{% static 'website/js/contact-form-script.js' %}"></script>
+    <script src="{% static 'website/js/ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'website/js/aos.js' %}"></script>
+    <script src="{% static 'website/js/main.js' %}"></script>
+</body>
+
+</html>

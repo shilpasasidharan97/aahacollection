@@ -1,0 +1,7 @@
+.card-table .card-body {
+	padding: 0;
+}
+.card-body {
+    position: relative;
+    padding: 1.5rem;
+}
