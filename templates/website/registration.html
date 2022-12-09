@@ -83,7 +83,7 @@
     <div class="contact-area ptb-100">
         <div class="container">
             <div class="contact-form">
-                <form id="" method="POST">
+                <form id="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
 
@@ -164,7 +164,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12"  style="text-align: start;">
                             <div class="form-group">
                                 <label for="">Upload Your logo</label>
-                                <input type="file" name="logo" class="form-control" id="logo"
+                                <input type="file" name="shoplogo" class="form-control" id="logo"
                                     placeholder="" required data-error="Please enter correct password">
                                 <div class="help-block with-errors"></div>
                             </div>
