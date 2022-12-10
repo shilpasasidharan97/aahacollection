@@ -3,124 +3,79 @@
 {% block content %}
 
 
-<!-- Home slider -->
-<section class="p-0">
-    <div class="slider-animate home-slider">
-        <div>
-            <div class="home height-apply p-bottom">
-                <img src="{% static 'collection/images/gradient/slider/1.jpg' %}" alt="" class="bg-img blur-up lazyload">
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col">
-                            <div class="slider-contain height-apply">
-                                <div>
-                                    <h4>save 30%</h4>
-                                    <h1>special products</h1><a href="#"
-                                        class="btn btn-solid btn-gradient animated">shop
-                                        now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="home height-apply p-bottom">
-                <img src="{% static 'collection/images/gradient/slider/2.jpg' %}" alt="" class="bg-img blur-up lazyload">
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col">
-                            <div class="slider-contain height-apply">
-                                <div>
-                                    <h4>save 30%</h4>
-                                    <h1>special products</h1><a href="#"
-                                        class="btn btn-solid btn-gradient animated">shop
-                                        now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <!-- category section start -->
-<section>
-    <div class="container container-lg">
-        <div class="row margin-default ratio_square">
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
+<section class="bg-light section-b-space">
+    <div class="container-lg container">
+        <div class="row margin-default ratio_square ">
+            <div class="col-xl-2 col-sm-3 col-4">
+                <a href="{% url 'collection:products' %}">
+                    <div class="img-category">
+                        <div class="pattern-bg bg1">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/1.png' %}" class="img-fluid" alt="">
+                                <img src="{% static 'collection/images/fashion/category/8.png' %}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>MENS</h4>
+                        <h4>Top wear</h4>
                     </div>
                 </a>
             </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category hover-effect">
-                        <div class="gradient-border">
+            <div class="col-xl-2 col-sm-3 col-4">
+                <a href="#">
+                    <div class="img-category hover-effect">
+                        <div class="pattern-bg bg2">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/4.png' %}" class="img-fluid" alt="">
+                                <img src="{% static 'collection/images/fashion/category/9.png' %}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>WOMENS</h4>
+                        <h4>dresses</h4>
                     </div>
                 </a>
             </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
+            <div class="col-xl-2 col-sm-3 col-4">
+                <a href="#">
+                    <div class="img-category">
+                        <div class="pattern-bg bg3">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/3.png' %}" class="img-fluid" alt="">
+                                <img src="{% static 'collection/images/fashion/category/10.png' %}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>KIDS</h4>
+                        <h4>bottom</h4>
                     </div>
                 </a>
             </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
+            <div class="col-xl-2 col-sm-3 col-4">
+                <a href="#">
+                    <div class="img-category">
+                        <div class="pattern-bg bg4">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/2.png' %}" class="img-fluid" alt="">
+                                <img src="{% static 'collection/images/fashion/category/11.png' %}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>FOOTWARE</h4>
+                        <h4>inner/sleep</h4>
                     </div>
                 </a>
             </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
+            <div class="col-xl-2 col-sm-3 col-4">
+                <a href="#">
+                    <div class="img-category">
+                        <div class="pattern-bg bg5">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/5.png' %}" class="img-fluid" alt="">
+                                <img src="{% static 'collection/images/fashion/category/12.png' %}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>JWELLERY</h4>
+                        <h4>footwear</h4>
                     </div>
                 </a>
             </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
+            <div class="col-xl-2 col-sm-3 col-4">
+                <a href="#">
+                    <div class="img-category">
+                        <div class="pattern-bg bg6">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/6.png' %}" class="img-fluid" alt="">
+                                <img src="{% static 'collection/images/fashion/category/13.png' %}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>BEAUTY MATERIALS</h4>
+                        <h4>sports/active</h4>
                     </div>
                 </a>
             </div>
@@ -129,45 +84,6 @@
 </section>
 
 
-<!-- collection banner -->
-<section class="pb-0 ratio2_1">
-    <div class="container container-lg">
-        <div class="row partition2">
-            <div class="col-md-6">
-                <a href="#">
-                    <div class="collection-banner p-right text-center">
-                        <div class="img-part">
-                            <img src="{% static 'collection/images/gradient/banner/4.jpg' %}"
-                                class="img-fluid blur-up lazyload bg-img" alt="">
-                        </div>
-                        <div class="contain-banner">
-                            <div>
-                                <h4>save 30%</h4>
-                                <h2>men</h2>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6">
-                <a href="#">
-                    <div class="collection-banner p-right text-center">
-                        <div class="img-part">
-                            <img src="{% static 'collection/images/gradient/banner/5.jpg' %}"
-                                class="img-fluid blur-up lazyload bg-img" alt="">
-                        </div>
-                        <div class="contain-banner">
-                            <div>
-                                <h4>save 60%</h4>
-                                <h2>women</h2>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <!-- collection banner start -->
