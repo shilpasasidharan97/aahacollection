@@ -14244,7 +14244,7 @@ header.stickycls {
     }
 
     .main-menu .menu-right .icon-nav .mobile-setting>div img {
-        display: none
+        /* display: none */
     }
 
     .main-menu .menu-right .icon-nav .mobile-setting .setting {
@@ -14268,11 +14268,11 @@ header.stickycls {
     }
 
     .main-menu .menu-right .icon-nav .mobile-cart>div img {
-        display: none
+        /* display: none */
     }
 
     .main-menu .menu-right .icon-nav .mobile-search {
-        right: 80%;
+        right: 72%;
         z-index: 1
     }
 
@@ -14283,7 +14283,7 @@ header.stickycls {
     }
 
     .main-menu .menu-right .icon-nav .mobile-search img {
-        display: none
+        /* display: none */
     }
 
     .main-menu .menu-right .icon-nav .mobile-search .show-div .form-group {

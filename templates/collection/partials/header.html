@@ -1,166 +1,100 @@
 {% load static %}
 
     <!-- loader start -->
-    <div class="loader_skeleton">
-        <header class="header-tools zindex-up header-style top-relative">
-            <div class="logo-menu-part">
-                <div class="container container-lg border-bottom-0 rounded-5">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="main-menu">
-                                <div class="menu-left">
-                                    <div class="brand-logo">
-                                        <a href=""> <img src="{% static 'collection/images/logo/179X34.png' %}"
-                                                class="img-fluid blur-up lazyload" alt=""></a>
-                                    </div>
+    <!-- <div class="loader_skeleton">
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header-contact">
+                            <ul>
+                                <li>Welcome to Our store</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-end">
+                        <ul class="header-dropdown">
+                            <li class="mobile-wishlist">
+                                <a href="#">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
+                                My Account
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="main-menu">
+                            <div class="menu-left">
+                                <div class="navbar">
+                                    <a href="javascript:void(0)">
+                                        <div class="bar-style"><i class="fa fa-bars sidebar-bar"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="menu-right pull-right">
-                                    <div>
-                                        <nav>
-                                            <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
-                                            <ul class="sm pixelstrap sm-horizontal">
-                                                <li>
-                                                    <div class="mobile-back text-end">Back<i
-                                                            class="fa fa-angle-right ps-2" aria-hidden="true"></i>
-                                                    </div>
-                                                </li>
-                                                <li><a href="">Home</a></li>
-                                                <li class="mega">
-                                                    <a href="#">New Arrivals <div class="lable-nav">new</div></a></li>
-                                                <li> <a href="#">product</a></li>
-                                                <li><a href="#">Hot Deals</a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <div class="top-header">
-                                        <ul class="header-dropdown">
-                                            <li class="mobile-wishlist"><a href="#"><img
-                                                        src="{% static 'collection/images/icon/heart-1.png' %}" alt=""> </a></li>
-                                            <li class="onhover-dropdown mobile-account">
-                                                <img src="{% static 'collection/images/icon/user-1.png' %}" alt="">
-                                                <ul class="onhover-show-div">
-                                                    <li>
-                                                        <a href="#" data-lng="en">
-                                                            Login
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" data-lng="es">
-                                                            Logout
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                <div class="brand-logo layout2-logo">
+                                    <a href="index.html"><img src="{% static 'collection/images/logo/179X34.png' %}"
+                                            class="img-fluid blur-up lazyload" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="menu-right pull-right">
+                                <div>
+                                    <nav>
+                                        <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
+                                        <ul class="sm pixelstrap sm-horizontal">
+                                            <li>
+                                                <div class="mobile-back text-end">Back<i class="fa fa-angle-right ps-2"
+                                                        aria-hidden="true"></i></div>
+                                            </li>
+                                            <li>
+                                                <a href="index.html">Home</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">feature<div class="lable-nav">new</div></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">shop</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">product</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">pages</a>
+                                            </li>
+                                            <li><a href="#">blog</a>
                                             </li>
                                         </ul>
-                                    </div>
-                                    <div>
-                                        <div class="icon-nav d-none d-sm-block">
-                                            <ul>
-                                                <li class="onhover-div mobile-search">
-                                                    <div><img src="{% static 'collection/images/icon/search.png' %}"
-                                                            onclick="openSearch()" class="img-fluid blur-up lazyload"
-                                                            alt="">
-                                                        <i class="ti-search" onclick="openSearch()"></i>
-                                                    </div>
-                                                    <div id="search-overlay" class="search-overlay">
-                                                        <div>
-                                                            <span class="closebtn" onclick="closeSearch()"
-                                                                title="Close Overlay">×</span>
-                                                            <div class="overlay-content">
-                                                                <div class="container">
-                                                                    <div class="row">
-                                                                        <div class="col-xl-12">
-                                                                            <form>
-                                                                                <div class="form-group">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        id="exampleInputPassword1"
-                                                                                        placeholder="Search a Product">
-                                                                                </div>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-primary"><i
-                                                                                        class="fa fa-search"></i></button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="onhover-div mobile-setting">
-                                                    <div><img src="{% static 'collection/images/icon/setting-1.png' %}"
-                                                            class="img-fluid blur-up lazyload" alt="">
-                                                        <i class="ti-settings"></i>
-                                                    </div>
-                                                    <div class="show-div setting">
-                                                        <h6>language</h6>
-                                                        <ul>
-                                                            <li><a href="#">english</a> </li>
-                                                            <li><a href="#">french</a> </li>
-                                                        </ul>
-                                                        <h6>currency</h6>
-                                                        <ul class="list-inline">
-                                                            <li><a href="#">euro</a> </li>
-                                                            <li><a href="#">rupees</a> </li>
-                                                            <li><a href="#">pound</a> </li>
-                                                            <li><a href="#">doller</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li class="onhover-div mobile-cart">
-                                                    <div><img src="{% static 'collection/images/icon/cart-1.png' %}"
-                                                            class="img-fluid blur-up lazyload" alt="">
-                                                        <i class="ti-shopping-cart"></i>
-                                                    </div>
-                                                    <ul class="show-div shopping-cart">
-                                                        <li>
-                                                            <div class="media">
-                                                                <a href="#"><img alt="" class="me-3"
-                                                                        src="{% static 'collection/images/fashion/product/1.jpg"></a>
-                                                                <div class="media-body">
-                                                                    <a href="#">
-                                                                        <h4>item name</h4>
-                                                                    </a>
-                                                                    <h4><span>1 x $ 299.00</span></h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="close-circle">
-                                                                <a href="#"><i class="fa fa-times"
-                                                                        aria-hidden="true"></i></a>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="media">
-                                                                <a href="#"><img alt="" class="me-3"
-                                                                        src="{% static 'collection/images/fashion/product/2.jpg"></a>
-                                                                <div class="media-body">
-                                                                    <a href="#">
-                                                                        <h4>item name</h4>
-                                                                    </a>
-                                                                    <h4><span>1 x $ 299.00</span></h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="close-circle">
-                                                                <a href="#"><i class="fa fa-times"
-                                                                        aria-hidden="true"></i></a>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="total">
-                                                                <h5>subtotal : <span>$299.00</span></h5>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="buttons">
-                                                                <a href="cart.html" class="view-cart">view cart</a>
-                                                                <a href="#" class="checkout">checkout</a>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                    </nav>
+                                </div>
+                                <div>
+                                    <div class="icon-nav d-none d-sm-block">
+                                        <ul>
+                                            <li class="onhover-div mobile-search">
+                                                <div><img src="{% static 'collection/images/icon/search.png' %}" onclick="openSearch()"
+                                                        class="img-fluid blur-up lazyload" alt=""> <i class="ti-search"
+                                                        onclick="openSearch()"></i></div>
+                                            </li>
+                                            <li class="onhover-div mobile-setting">
+                                                <div><img src="{% static 'collection/images/icon/setting.png' %}"
+                                                        class="img-fluid blur-up lazyload" alt=""> <i
+                                                        class="ti-settings"></i></div>
+                                            </li>
+                                            <li class="onhover-div mobile-cart">
+                                                <div href="javascript:void(0)" onclick="openCart()"><img
+                                                        src="{% static 'collection/images/icon/cart.png' %}"
+                                                        class="img-fluid blur-up lazyload" alt=""> <i
+                                                        class="ti-shopping-cart"></i></div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -172,362 +106,363 @@
         <div class="home-slider">
             <div class="home"></div>
         </div>
-        
-        <section>
-            <div class="container container-lg">
-                <div class="row margin-default ratio_square">
-                    <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                        <a href="#">
-                            <div class="gradient-category">
-                                <div class="gradient-border"></div>
-                                <h4></h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                        <a href="#">
-                            <div class="gradient-category hover-effect">
-                                <div class="gradient-border"></div>
-                                <h4></h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                        <a href="#">
-                            <div class="gradient-category">
-                                <div class="gradient-border"></div>
-                                <h4></h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                        <a href="#">
-                            <div class="gradient-category">
-                                <div class="gradient-border"></div>
-                                <h4></h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                        <a href="#">
-                            <div class="gradient-category">
-                                <div class="gradient-border"> </div>
-                                <h4></h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                        <a href="#">
-                            <div class="gradient-category">
-                                <div class="gradient-border"></div>
-                                <h4></h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="pb-0 ratio2_1">
-            <div class="container container-lg">
-                <div class="row partition2">
+        <section class="collection-banner">
+            <div class="container">
+                <div class="row">
                     <div class="col-md-6">
-                        <a href="#">
-                            <div class="collection-banner p-right text-center">
-                                <div class="ldr-bg">
-                                    <div class="contain-banner">
-                                        <div>
-                                            <h4></h4>
-                                            <h2></h2>
-                                            <h6></h6>
-                                        </div>
-                                    </div>
+                        <div class="ldr-bg">
+                            <div class="contain-banner">
+                                <div>
+                                    <h4></h4>
+                                    <h2></h2>
+                                    <h6></h6>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <a href="#">
-                            <div class="collection-banner p-right text-center">
-                                <div class="ldr-bg">
-                                    <div class="contain-banner">
-                                        <div>
-                                            <h4></h4>
-                                            <h2></h2>
-                                            <h6></h6>
-                                        </div>
-                                    </div>
+                        <div class="ldr-bg">
+                            <div class="contain-banner">
+                                <div>
+                                    <h4></h4>
+                                    <h2></h2>
+                                    <h6></h6>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="banner-goggles ratio2_1 banner-padding">
-            <div class="container container-lg">
-                <div class="row partition3">
-                    <div class="col-md-4">
-                        <a href="#">
-                            <div class="collection-banner p-right text-end">
-                                <div class="ldr-bg">
-                                    <div class="contain-banner banner-3">
-                                        <div>
-                                            <h4></h4>
-                                            <h2></h2>
-                                            <h6></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+        <div class="container section-b-space">
+            <div class="row section-t-space">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="product-para">
+                        <p class="first"></p>
+                        <p class="second"></p>
                     </div>
-                    <div class="col-md-4">
-                        <a href="#">
-                            <div class="collection-banner p-right text-end">
-                                <div class="ldr-bg">
-                                    <div class="contain-banner banner-3">
-                                        <div>
-                                            <h4></h4>
-                                            <h2></h2>
-                                            <h6></h6>
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
+                <div class="col-12">
+                    <div class="no-slider row">
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
                             </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#">
-                            <div class="collection-banner p-right text-end">
-                                <div class="ldr-bg">
-                                    <div class="contain-banner banner-3">
-                                        <div>
-                                            <h4></h4>
-                                            <h2></h2>
-                                            <h6></h6>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
                             </div>
-                        </a>
+                        </div>
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
+                            </div>
+                        </div>
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
+                            </div>
+                        </div>
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
+                            </div>
+                        </div>
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
+                            </div>
+                        </div>
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
+                            </div>
+                        </div>
+                        <div class="product-box">
+                            <div class="img-wrapper"></div>
+                            <div class="product-detail">
+                                <h4></h4>
+                                <h5></h5>
+                                <h5 class="second"></h5>
+                                <h6></h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </div> -->
     <!-- loader end -->
 
 
-    <!-- header start -->
-    <header class="header-tools zindex-up header-style top-relative">
+
+
+
+    <!-- header with social media -->
+    <header>
         <div class="mobile-fix-option"></div>
-        <div class="logo-menu-part">
-            <div class="container container-lg border-bottom-0 rounded-5">
+        <div class="top-header">
+            <div class="container">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="main-menu">
-                            <div class="menu-left">
-                                <div class="brand-logo">
-                                    <a href=""> <img src="{% static 'collection/images/logo/179X34.png' %}"
-                                            class="img-fluid blur-up lazyload" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="menu-right pull-right">
-                                <div>
-                                    <nav id="main-nav">
-                                        <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
-                                        <ul id="main-menu" class="sm pixelstrap sm-horizontal">
-                                            <li>
-                                                <div class="mobile-back text-end">Back<i class="fa fa-angle-right ps-2"
-                                                        aria-hidden="true"></i></div>
-                                            </li>
-                                            <li><a href="">Home</a></li>
-                                            <li class="mega" id="hover-cls">
-                                                <a href="#">New Arrivals <div class="lable-nav">new</div></a>
-                                                
-                                            </li>
-                                            <li>
-                                                <a href="#">product</a>
-                                                <ul>
-                                                    <li><a href="product-page(360-view).html">360 view <span
-                                                                class="new-tag">new</span></a></li>
-                                                    <li><a href="product-page(video-thumbnail).html">video
-                                                            thumbnail<span class="new-tag">new</span></a></li>
+                    <div class="col-lg-6">
+                        <div class="header-contact">
+                            <ul>
+                                <li>Welcome to Our store</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-end">
+                        <ul class="header-dropdown">
+                            <li class="mobile-wishlist">
+                                <a href="#">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="mobile-wishlist">
+                                <a href="#">
+                                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="mobile-wishlist">
+                                <a href="#">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <!-- <li class="onhover-dropdown mobile-account"> 
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                My Account
+                                <ul class="onhover-show-div">
+                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="register.html">register</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- navbar section -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="main-menu">
+
+                        <!-- CATEGORY SIDEBAR -->
+                        <div class="menu-left">
+                            <div class="navbar">
+                                <a href="javascript:void(0)" onclick="openNav()">
+                                    <div class="bar-style">
+                                        <i class="fa fa-bars sidebar-bar" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                <div id="mySidenav" class="sidenav">
+                                    <a href="javascript:void(0)" class="sidebar-overlay" onclick="closeNav()"></a>
+                                    <nav>
+                                        <div onclick="closeNav()">
+                                            <div class="sidebar-back text-start">
+                                                <i class="fa fa-angle-left pe-2" aria-hidden="true"></i> Back
+                                            </div>
+                                        </div>
+                                        <ul id="sub-menu" class="sm pixelstrap sm-vertical">
+                                            <li> <a href="#">MENS</a>
+                                                <ul class="mega-menu clothing-menu">
                                                     <li>
-                                                        <a href="#">sidebar</a>
-                                                        <ul>
-                                                            <li><a href="product-page.html">left sidebar</a></li>
-                                                            <li><a href="product-page(right-sidebar).html">right
-                                                                    sidebar</a>
-                                                            </li>
-                                                            <li><a href="product-page(no-sidebar).html">no sidebar</a>
-                                                            </li>
-                                                        </ul>
+                                                        <div class="row m-0">
+                                                            <div class="col-xl-4">
+                                                                <div class="link-section">
+                                                                    <h5>men's fashion</h5>
+                                                                    <ul>
+                                                                        <li><a href="#">sports wear</a></li>
+                                                                        <li><a href="#">western wear</a></li>
+                                                                        <li><a href="#">ethic wear</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
                                                     </li>
-                                                    <li>
-                                                        <a href="#">thumbnail image</a>
-                                                        <ul>
-                                                            <li><a href="product-page(left-image).html">left image</a>
-                                                            </li>
-                                                            <li><a href="product-page(right-image).html">right image</a>
-                                                            </li>
-                                                            <li><a href="product-page(image-outside).html">image
-                                                                    outside</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">three column</a>
-                                                        <ul>
-                                                            <li><a href="product-page(3-col-left).html">thumbnail
-                                                                    left</a>
-                                                            </li>
-                                                            <li><a href="product-page(3-col-right).html">thumbnail
-                                                                    right</a>
-                                                            </li>
-                                                            <li><a href="product-page(3-column).html">thubnail
-                                                                    bottom</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="product-page(4-image).html">four image</a></li>
-                                                    <li><a href="product-page(sticky).html">sticky</a></li>
-                                                    <li><a href="product-page(accordian).html">accordian</a></li>
-                                                    <li><a href="product-page(bundle).html">bundle</a></li>
-                                                    <li><a href="product-page(image-swatch).html">image swatch </a></li>
-                                                    <li><a href="product-page(vertical-tab).html">vertical tab</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Hot Deals</a></li>
+                                            <li> <a href="#">WOMENS</a>
+                                                <ul>
+                                                    <li><a href="#">shopper bags</a></li>
+                                                    <li><a href="#">laptop bags</a></li>
+                                                    <li><a href="#">clutches</a></li>
+                                                    <li> <a href="#">purses</a>
+                                                        <ul>
+                                                            <li><a href="#">purses</a></li>
+                                                            <li><a href="#">wallets</a></li>
+                                                            <li><a href="#">leathers</a></li>
+                                                            <li><a href="#">satchels</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li> <a href="#">footwear</a>
+                                                <ul>
+                                                    <li><a href="#">sport shoes</a></li>
+                                                    <li><a href="#">formal shoes</a></li>
+                                                    <li><a href="#">casual shoes</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">watches</a></li>
+                                            <li> <a href="#">Accessories</a>
+                                                <ul>
+                                                    <li><a href="#">fashion jewellery</a></li>
+                                                    <li><a href="#">caps and hats</a></li>
+                                                    <li><a href="#">precious jewellery</a></li>
+                                                    <li> <a href="#">more..</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">home & decor</a></li>
+                                            <li><a href="#">kitchen</a></li>
                                         </ul>
                                     </nav>
                                 </div>
-                                <div class="top-header">
-                                    <ul class="header-dropdown">
-                                        <li class="mobile-wishlist"><a href="#"><img
-                                                    src="{% static 'collection/images/icon/heart-1.png' %}" alt=""> </a></li>
-                                        <li class="onhover-dropdown mobile-account">
-                                            <img src="{% static 'collection/images/icon/user-1.png' %}" alt="">
-                                            <ul class="onhover-show-div">
+                            </div>
+                            <div class="brand-logo">
+                                <a href="index.html"><img src="{% static 'collection/images/icon/logo.png' %}"
+                                        class="img-fluid blur-up lazyload" alt=""></a>
+                            </div>
+                        </div>
+
+
+                        <!-- MAIN NAVBAR SIDEBAR -->
+                        <div class="menu-right pull-right">
+                            <div>
+                                <nav id="main-nav">
+                                    <div class="toggle-nav">
+                                        <i class="fa fa-bars sidebar-bar"></i>
+                                    </div>
+                                    <ul id="main-menu" class="sm pixelstrap sm-horizontal">
+                                        <li>
+                                            <div class="mobile-back text-end">Back
+                                                <i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a href="index.html">Home</a>
+                                        </li>
+                                        <li class="mega" id="hover-cls">
+                                            <a href="#">New Arrivals 
+                                                <div class="lable-nav">new</div>
+                                            </a> 
+                                        </li>
+                                        <li>
+                                            <a href="#">product</a>
+                                            <ul>
                                                 <li>
-                                                    <a href="#" data-lng="en">
-                                                        Login
+                                                    <a href=""> 
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                    <a href="">Womens
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" data-lng="es">
-                                                        Logout
-                                                    </a>
+                                                    <a href="#">Kids</a>
                                                 </li>
+                                                <li><a href="">Jewllery</a></li>
+                                                <li><a href="">Footware</a></li>
+                                                
                                             </ul>
                                         </li>
+                                        <li><a href="#">HOT DEALS</a></li>
+                                        <li>
+                                            <a href="#">CONTACT</a>
+                                        </li>
                                     </ul>
-                                </div>
-                                <div>
-                                    <div class="icon-nav">
-                                        <ul>
-                                            <li class="onhover-div mobile-search">
-                                                <div><img src="{% static 'collection/images/icon/search.png' %}" onclick="openSearch()"
-                                                        class="img-fluid blur-up lazyload" alt="">
-                                                    <i class="ti-search" onclick="openSearch()"></i>
-                                                </div>
-                                                <div id="search-overlay" class="search-overlay">
-                                                    <div>
-                                                        <span class="closebtn" onclick="closeSearch()"
-                                                            title="Close Overlay">×</span>
-                                                        <div class="overlay-content">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <div class="col-xl-12">
-                                                                        <form>
-                                                                            <div class="form-group">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="exampleInputPassword1"
-                                                                                    placeholder="Search a Product">
-                                                                            </div>
-                                                                            <button type="submit"
-                                                                                class="btn btn-primary"><i
-                                                                                    class="fa fa-search"></i></button>
-                                                                        </form>
-                                                                    </div>
+                                </nav>
+                            </div>
+
+                            <!-- ICONS -->
+                            <div>
+                                <div class="icon-nav">
+                                    <ul>
+                                        <li class="onhover-div mobile-search">
+                                            <div><img src="{% static 'collection/images/icon/search.png' %}" onclick="openSearch()"
+                                                    class="img-fluid blur-up lazyload" alt=""> <i class="ti-search"
+                                                    onclick="openSearch()"></i></div>
+                                            <div id="search-overlay" class="search-overlay">
+                                                <div> <span class="closebtn" onclick="closeSearch()"
+                                                        title="Close Overlay">×</span>
+                                                    <div class="overlay-content">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-xl-12">
+                                                                    <form>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control"
+                                                                                id="exampleInputPassword1"
+                                                                                placeholder="Search a Product">
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary"><i
+                                                                                class="fa fa-search"></i></button>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </li>
-                                            <li class="onhover-div mobile-setting">
-                                                <div><img src="{% static 'collection/images/icon/setting-1.png' %}"
-                                                        class="img-fluid blur-up lazyload" alt="">
-                                                    <i class="ti-settings"></i>
-                                                </div>
-                                                <div class="show-div setting">
-                                                    <h6>language</h6>
-                                                    <ul>
-                                                        <li><a href="#">english</a> </li>
-                                                        <li><a href="#">french</a> </li>
-                                                    </ul>
-                                                    <h6>currency</h6>
-                                                    <ul class="list-inline">
-                                                        <li><a href="#">euro</a> </li>
-                                                        <li><a href="#">rupees</a> </li>
-                                                        <li><a href="#">pound</a> </li>
-                                                        <li><a href="#">doller</a> </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="onhover-div mobile-cart">
-                                                <div><img src="{% static 'collection/images/icon/cart-1.png' %}"
-                                                        class="img-fluid blur-up lazyload" alt="">
-                                                    <i class="ti-shopping-cart"></i>
-                                                </div>
-                                                <ul class="show-div shopping-cart">
-                                                    <li>
-                                                        <div class="media">
-                                                            <a href="#"><img alt="" class="me-3"
-                                                                    src="{% static 'collection/images/fashion/product/1.jpg"></a>
-                                                            <div class="media-body">
-                                                                <a href="#">
-                                                                    <h4>item name</h4>
-                                                                </a>
-                                                                <h4><span>1 x $ 299.00</span></h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="close-circle">
-                                                            <a href="#"><i class="fa fa-times"
-                                                                    aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="media">
-                                                            <a href="#"><img alt="" class="me-3"
-                                                                    src="{% static 'collection/images/fashion/product/2.jpg"></a>
-                                                            <div class="media-body">
-                                                                <a href="#">
-                                                                    <h4>item name</h4>
-                                                                </a>
-                                                                <h4><span>1 x $ 299.00</span></h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="close-circle">
-                                                            <a href="#"><i class="fa fa-times"
-                                                                    aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="total">
-                                                            <h5>subtotal : <span>$299.00</span></h5>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="buttons">
-                                                            <a href="cart.html" class="view-cart">view cart</a>
-                                                            <a href="#" class="checkout">checkout</a>
-                                                        </div>
-                                                    </li>
+                                            </div>
+                                        </li>
+                                        <li class="onhover-div mobile-setting">
+                                            <div><img src="{% static 'collection/images/icon/setting.png' %}"
+                                                    class="img-fluid blur-up lazyload" alt=""> <i
+                                                    class="ti-settings"></i></div>
+                                            <div class="show-div setting">
+                                                <h6>language</h6>
+                                                <ul>
+                                                    <li><a href="#">english</a></li>
+                                                    <li><a href="#">french</a></li>
                                                 </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                                <h6>currency</h6>
+                                                <ul class="list-inline">
+                                                    <li><a href="#">euro</a></li>
+                                                    <li><a href="#">rupees</a></li>
+                                                    <li><a href="#">pound</a></li>
+                                                    <li><a href="#">doller</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="onhover-div mobile-cart">
+                                            <div href="javascript:void(0)" onclick="openCart()"><img
+                                                    src="{% static 'collection/images/icon/cart.png' %}" class="img-fluid blur-up lazyload"
+                                                    alt=""> <i class="ti-shopping-cart"></i></div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -537,3 +472,113 @@
         </div>
     </header>
     <!-- header end -->
+
+
+
+    <!-- Add to cart bar -->
+    <div id="cart_side" class=" add_to_cart bottom">
+        <a href="javascript:void(0)" class="overlay" onclick="closeCart()"></a>
+        <div class="cart-inner">
+            <div class="cart_top">
+                <h3>my cart</h3>
+                <div class="close-cart">
+                    <a href="javascript:void(0)" onclick="closeCart()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="cart_media">
+                <ul class="cart_product">
+                    <li>
+                        <div class="media">
+                            <a href="#">
+                                <img alt="" class="me-3" src="{% static 'collection/images/pro/1.jpg' %}">
+                            </a>
+                            <div class="media-body">
+                                <a href="#">
+                                    <h4>item name</h4>
+                                </a>
+                                <h4>
+                                    <span>1 x $ 299.00</span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="close-circle">
+                            <a href="#">
+                                <i class="ti-trash" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#">
+                                <img alt="" class="me-3" src="{% static 'collection/images/pro/2.jpg' %}">
+                            </a>
+                            <div class="media-body">
+                                <a href="#">
+                                    <h4>item name</h4>
+                                </a>
+                                <h4>
+                                    <span>1 x $ 299.00</span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="close-circle">
+                            <a href="#">
+                                <i class="ti-trash" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#"><img alt="" class="me-3" src="{% static 'collection/images/pro/3.jpg' %}"></a>
+                            <div class="media-body">
+                                <a href="#">
+                                    <h4>item name</h4>
+                                </a>
+                                <h4><span>1 x $ 299.00</span></h4>
+                            </div>
+                        </div>
+                        <div class="close-circle">
+                            <a href="#">
+                                <i class="ti-trash" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="cart_total">
+                    <li>
+                        <div class="total">
+                            <h5>subtotal : <span>$299.00</span></h5>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="buttons">
+                            <a href="cart.html" class="btn btn-solid btn-xs view-cart">view cart</a>
+                            <a href="#" class="btn btn-solid btn-xs checkout">checkout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Add to cart bar end-->
+
+
+
+    <script src="{% static 'collection/js/addtocart.js' %}"></script>
+    <script>
+        $(window).on('load', function () {
+            setTimeout(function () {
+                $('#exampleModal').modal('show');
+            }, 2500);
+        });
+
+        function openSearch() {
+            document.getElementById("search-overlay").style.display = "block";
+        }
+
+        function closeSearch() {
+            document.getElementById("search-overlay").style.display = "none";
+        }
+    </script>

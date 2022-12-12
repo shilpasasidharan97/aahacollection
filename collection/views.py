@@ -23,3 +23,7 @@ def productDetails(request):
 
 def cart(request):
     return render(request, 'collection/cart.html')
+
+
+def checkout(request):
+    return render(request, 'collection/checkout.html')
