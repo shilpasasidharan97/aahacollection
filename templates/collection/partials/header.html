@@ -42,7 +42,7 @@
                                     </a>
                                 </div>
                                 <div class="brand-logo layout2-logo">
-                                    <a href="index.html"><img src="{% static 'collection/images/logo/179X34.png' %}"
+                                    <a href="{% url 'collection:home' %}"><img src="{% static 'collection/images/logo/179X34.png' %}"
                                             class="img-fluid blur-up lazyload" alt=""></a>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                                         aria-hidden="true"></i></div>
                                             </li>
                                             <li>
-                                                <a href="index.html">Home</a>
+                                                <a href="{% url 'collection:home' %}">Home</a>
                                             </li>
                                             <li>
                                                 <a href="#">feature<div class="lable-nav">new</div></a>
@@ -295,7 +295,7 @@
                                             </div>
                                         </div>
                                         <ul id="sub-menu" class="sm pixelstrap sm-vertical">
-                                            <li> <a href="#">MENS</a>
+                                            <li> <a href="{% url 'collection:subcategory' %}">MENS</a>
                                                 <ul class="mega-menu clothing-menu">
                                                     <li>
                                                         <div class="row m-0">
@@ -314,7 +314,7 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li> <a href="#">WOMENS</a>
+                                            <li> <a href="{% url 'collection:subcategory' %}">WOMENS</a>
                                                 <ul>
                                                     <li><a href="#">shopper bags</a></li>
                                                     <li><a href="#">laptop bags</a></li>
@@ -329,15 +329,15 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li> <a href="#">footwear</a>
+                                            <li> <a href="{% url 'collection:subcategory' %}">footwear</a>
                                                 <ul>
                                                     <li><a href="#">sport shoes</a></li>
                                                     <li><a href="#">formal shoes</a></li>
                                                     <li><a href="#">casual shoes</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">watches</a></li>
-                                            <li> <a href="#">Accessories</a>
+                                            <li><a href="{% url 'collection:subcategory' %}">watches</a></li>
+                                            <li> <a href="{% url 'collection:subcategory' %}">Accessories</a>
                                                 <ul>
                                                     <li><a href="#">fashion jewellery</a></li>
                                                     <li><a href="#">caps and hats</a></li>
@@ -346,14 +346,14 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">home & decor</a></li>
-                                            <li><a href="#">kitchen</a></li>
+                                            <li><a href="{% url 'collection:subcategory' %}">home & decor</a></li>
+                                            <li><a href="{% url 'collection:subcategory' %}">kitchen</a></li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div class="brand-logo">
-                                <a href="index.html"><img src="{% static 'collection/images/icon/logo.png' %}"
+                                <a href="{% url 'collection:home' %}"><img src="{% static 'collection/images/logo/179X34.png' %}"
                                         class="img-fluid blur-up lazyload" alt=""></a>
                             </div>
                         </div>
@@ -373,7 +373,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="index.html">Home</a>
+                                            <a href="{% url 'collection:home' %}">Home</a>
                                         </li>
                                         <li class="mega" id="hover-cls">
                                             <a href="#">New Arrivals 
@@ -384,18 +384,17 @@
                                             <a href="#">product</a>
                                             <ul>
                                                 <li>
-                                                    <a href=""> 
-                                                        </a>
+                                                    <a href="{% url 'collection:subcategory' %}"> Mens</a>
                                                 </li>
                                                 <li>
-                                                    <a href="">Womens
+                                                    <a href="{% url 'collection:subcategory' %}">Womens
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Kids</a>
+                                                    <a href="{% url 'collection:subcategory' %}">Kids</a>
                                                 </li>
-                                                <li><a href="">Jewllery</a></li>
-                                                <li><a href="">Footware</a></li>
+                                                <li><a href="{% url 'collection:subcategory' %}">Jewllery</a></li>
+                                                <li><a href="{% url 'collection:subcategory' %}">Footware</a></li>
                                                 
                                             </ul>
                                         </li>
@@ -554,8 +553,8 @@
                     </li>
                     <li>
                         <div class="buttons">
-                            <a href="cart.html" class="btn btn-solid btn-xs view-cart">view cart</a>
-                            <a href="#" class="btn btn-solid btn-xs checkout">checkout</a>
+                            <a href="{% url 'collection:cart' %}" class="btn btn-solid btn-xs view-cart">view cart</a>
+                            <a href="{% url 'collection:checkout' %}" class="btn btn-solid btn-xs checkout">checkout</a>
                         </div>
                     </li>
                 </ul>

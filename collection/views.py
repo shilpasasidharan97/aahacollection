@@ -27,3 +27,7 @@ def cart(request):
 
 def checkout(request):
     return render(request, 'collection/checkout.html')
+
+
+def orderSuccess(request):
+    return render(request, 'collection/order_success.html')
