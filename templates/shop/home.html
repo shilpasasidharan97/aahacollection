@@ -5,13 +5,14 @@
 
 <div class="row">
     <div class="col-lg-9 mt-2">
-        <h5>Welcome qwerty ...!</h5>
+        <h5>Welcome {{user.shop|capfirst}} ...!</h5>
     </div>
     <div class="col-lg-3">
         <ul class="d-flex">
             <li>
-                <a href="">
+                <a href="{{social_media.facebook}}" target="_blank" id="facebook">
                     <img src="https://img.icons8.com/color/48/null/facebook-new.png" width="60%"/>
+                    <input type="text" value="{{social_media.facebook}}" hidden id="fb">
                 </a>
             </li>
             <li>
@@ -171,12 +172,21 @@
                     <a href="{{qr_code.image.url}}" download class="btn badge-pill bg-primary-light m-t-10" ><i class="fa fa-download"></i> Download From Here</a>
                 </div>
             </div>
-        </div>
-        
-    </div>
-    
-    
+        </div>       
+    </div>  
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script>
+    $(document).ready(function(){
+        alert()
+        var facebook = $('#fb').val()
+        alert(facebook)
+        $('#facebook').attr("href",facebook);
+    })
+</script> -->
+
 
 
 {% endblock %}

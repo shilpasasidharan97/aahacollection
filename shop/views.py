@@ -1,10 +1,20 @@
 from django.shortcuts import render
 
+from website.models import ShopQrcode, ShopSocialMediaLinks
+
 # Create your views here.
 
 
 def shopHome(request):
-    return render(request, 'shop/home.html')
+    user = request.user
+    qr_code = ShopQrcode.objects.get(shop=user.shop)
+    social_media = ShopSocialMediaLinks.objects.get(shop=user.shop)
+    context = {
+        "is_home":True,
+        "qr_code":qr_code,
+        "social_media":social_media
+    }
+    return render(request, 'shop/home.html',context)
 
 
 def categoryList(request):
@@ -32,6 +42,26 @@ def hotDealProducts(request):
 
 
 def socialMediaLinks(request):
+    if request.method == 'POST':
+        facebook = request.POST['facebook']
+        instagram = request.POST['instagram']
+        whatsapp = request.POST['whatsapp']
+        location = request.POST['location']
+        number = request.POST['number']
+        if ShopSocialMediaLinks.objects.filter(shop=request.user.shop).exists():
+            ShopSocialMediaLinks.objects.filter(shop=request.user.shop).update(facebook=facebook, whatsapp=whatsapp, instagram=instagram, location=location, phone_number=number)
+        else:
+            new_link = ShopSocialMediaLinks(shop=request.user.shop, facebook=facebook, whatsapp=whatsapp, instagram=instagram, location=location, phone_number=number)
+            new_link.save()
+    if ShopSocialMediaLinks.objects.filter(shop=request.user.shop).exists():
+        links = ShopSocialMediaLinks.objects.get(shop=request.user.shop)
+        context = {
+            "links":links
+        }
+        return render(request, 'shop/social_media.html',context)
+    else:
+        print('else')
+        pass
     return render(request, 'shop/social_media.html')
 
 
