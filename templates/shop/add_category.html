@@ -53,27 +53,143 @@
 </style>
 
 
-<div class="page-header">
-    <div class="row">
-        <div class="col-sm-6">
-            <h3 class="page-title">Category List</h3>
-            <ul class="breadcrumb">
-                <li class=""><a href="index.html">Dashboard / </a>
-                </li>
-                <li class="breadcrumb-item active"> Category</li>
-            </ul>
+
+<div class="row page-titles mx-0">
+    {% if messages %}
+
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+
+    <div>{{ message }}</div>
+
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+    <div class="alert alert-success alert-dismissible fade show">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" class="me-2">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <strong>Success!</strong> {{ message }} .
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+        </button>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+
+
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="page-title">Category List</h3>
+                <ul class="breadcrumb">
+                    <li class=""><a href="index.html">Dashboard / </a>
+                    </li>
+                    <li class="breadcrumb-item active"> Category</li>
+                </ul>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card invoices-tabs-card">
+                    <div class="card-body card-body pt-0 pb-0">
+                        <div class="invoices-main-tabs border-0 pb-0">
+                            <div class="row align-items-center">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="invoices-settings-btn invoices-settings-btn-one">
+                                        <a href="" class="btn" data-bs-toggle="modal"
+                                            data-bs-target="#invoices_preview">
+                                            <i class="fa fa-circle-plus"></i> &nbsp;&nbsp; New category
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-sm-6">
-            <div class="card invoices-tabs-card">
-                <div class="card-body card-body pt-0 pb-0">
-                    <div class="invoices-main-tabs border-0 pb-0">
-                        <div class="row align-items-center">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="invoices-settings-btn invoices-settings-btn-one">
-                                    <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#invoices_preview">
-                                        <i class="fa fa-circle-plus"></i> &nbsp;&nbsp; New category
-                                    </a>
+    </div>
+
+    <div class="row">
+
+        {% for category in all_categories %}
+        <div class="col-sm-6 col-lg- col-xl-2 col-6 d-flex">
+            <div class="card invoices-grid-card w-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <a href="" class="invoice-grid-link">{{category.name}}</a>
+                    <div class="dropdown dropdown-action">
+                        <a href="#" class="action-icon dropdown-toggle sm" data-bs-toggle="dropdown"
+                            aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_category"><i
+                                    class="far fa-edit me-2"></i>Edit</a>
+                            <a class="dropdown-item"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-middle text-center">
+                    <h2 class="card-middle-avatar text-center">
+                        <a href="">
+                            <img class="avatar text-center avatar-sm images me-2 avatar-img "
+                                src="{{category.icon.url}}" alt="User Image" width="100%">
+                        </a>
+                    </h2>
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <a href="{% url 'shop:addsubcategory' category.id %}" type="button"
+                                class="btn btn-sm btn-block btn-outline-primary">Add Subcategory</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+    <!-- ADD CATEGORY -->
+    <div class="modal custom-modal fade invoices-preview" id="invoices_preview" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="card invoice-info-card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Add Category</h5>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <form action="#" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4">Category Name</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="category-name"
+                                                    id="cat_name">
+                                                <span id="catogry"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4">File Input</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" type="file" name="category-image">
+                                            </div>
+                                        </div>
+                                        <div class="text-end mt-4">
+                                            <button type="submit" class="btn btn-primary">Add Category</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -83,120 +199,43 @@
         </div>
     </div>
 
-</div>
-
-<div class="row">
-    <div class="col-sm-6 col-lg-2 col-xl-2 col-6 d-flex">
-        <div class="card invoices-grid-card w-100">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <a href="" class="invoice-grid-link">rygtruhy</a>
-                <div class="dropdown dropdown-action">
-                    <a href="#" class="action-icon dropdown-toggle sm" data-bs-toggle="dropdown"
-                        aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_category"><i
-                                class="far fa-edit me-2"></i>Edit</a>
-                        <a class="dropdown-item"><i class="far fa-trash-alt me-2"></i>Delete</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card-middle text-center">
-                <h2 class="card-middle-avatar text-center">
-                    <a href="">
-                        <img class="avatar text-center avatar-sm images me-2 avatar-img " src="" alt="User Image">
-                    </a>
-                </h2>
-            </div>
-            <div class="card-footer">
-                <div class="row align-items-center">
-                    <div class="col-auto">
-                        <a href="{% url 'shop:addproduct' %}" type="button" class="btn btn-sm btn-block btn-outline-primary">Add Products</a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- ADD CATEGORY -->
-<div class="modal custom-modal fade invoices-preview" id="invoices_preview" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="card invoice-info-card">
-                            <div class="card-header">
-                                <h5 class="card-title">Add Category</h5>
-                            </div>
-                            <div class="card-body pb-0">
-                                <form action="#" method="POST" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-4">Category Name</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" name="cat-name" id="cat_name"
-                                                onchange="catageoryName()">
-                                            <span id="catogry"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-4">File Input</label>
-                                        <div class="col-md-8">
-                                            <input class="form-control" type="file" name="cat-image">
-                                        </div>
-                                    </div>
-                                    <div class="text-end mt-4">
-                                        <button type="submit" class="btn btn-primary">Add Category</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- EDIT PRODUCT -->
-<div class="modal custom-modal fade invoices-preview" id="edit_category" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="card invoice-info-card">
-                            <div class="card-header">
-                                <h5 class="card-title">Edit Product</h5>
-                            </div>
-                            <div class="card-body pb-0">
-                                <form id="editcategoryform" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="form-group row">
-                                        <div class="profile-img-wrap edit-img">
-                                            <img class="inline-block" src="" id="image" alt="user">
-                                            <div class="fileupload btn">
-                                                <span class="btn-text">edit</span>
-                                                <input class="upload" name="photo" type="file" id="iimage">
+    <!-- EDIT PRODUCT -->
+    <div class="modal custom-modal fade invoices-preview" id="edit_category" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="card invoice-info-card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Edit Product</h5>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <form id="editcategoryform" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <div class="profile-img-wrap edit-img">
+                                                <img class="inline-block" src="" id="image" alt="user">
+                                                <div class="fileupload btn">
+                                                    <span class="btn-text">edit</span>
+                                                    <input class="upload" name="photo" type="file" id="iimage">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-4">Product Name</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" name="name" value="" id="pname">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4">Product Name</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="name" value="" id="pname">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <input type="number" id="fid" name="fid" hidden>
-                                    <div class="text-end mt-4">
-                                        <button type="submit" class="btn btn-primary">Edit Product</button>
-                                    </div>
-                                </form>
+                                        <input type="number" id="fid" name="fid" hidden>
+                                        <div class="text-end mt-4">
+                                            <button type="submit" class="btn btn-primary">Edit Product</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -204,6 +243,5 @@
             </div>
         </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endblock %}

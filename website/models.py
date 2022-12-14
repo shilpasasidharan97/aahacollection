@@ -4,6 +4,7 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 import random
+from tinymce.models import HTMLField
 
 from PIL import Image, ImageDraw
 
@@ -95,3 +96,46 @@ class ShopSocialMediaLinks(models.Model):
 
     class Meta:
         verbose_name_plural = ("Shop Links")
+
+
+class Category(models.Model):
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=30, null=True)
+    icon = models.FileField(upload_to="catagory", null=True)
+
+    class Meta:
+        verbose_name_plural = "Categories" 
+
+    def __str__(self):
+        return str(self.name)  
+
+
+class Subcategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=30, null=True)
+    icon = models.FileField(upload_to="Subcatagory", null=True)
+
+    class Meta:
+        verbose_name_plural = "subCategories" 
+
+    def __str__(self):
+        return str(self.name)  
+
+
+class Products(models.Model):
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
+    product_id = models.CharField(max_length=30, null=True, blank=True)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
+    size = models.CharField(max_length=1500, null=True, blank=True)
+    description = models.CharField(max_length=1500, null=True, blank=True)
+    product_details = HTMLField(null=True, blank=True)
+    image = models.FileField(upload_to='products')
+    date = models.DateField(null=True, blank=True)
+    is_new_arrival = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = "Products" 
+    
+    def __str__(self):
+        return str(self.name)  

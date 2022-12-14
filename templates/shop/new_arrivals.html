@@ -16,10 +16,12 @@
 
 
 <div class="row">
+
+    {% for new in new_arrivals %}
     <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
         <div class="card invoices-grid-card w-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a href="view-invoice.html" class="invoice-grid-link">qwerty</a>
+                <a href="view-invoice.html" class="invoice-grid-link">{{new.product_id}}</a>
                 <div class="dropdown dropdown-action">
                     <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
@@ -32,17 +34,17 @@
                 </div>
             </div>
             <div class="card-middle">
-                <img class="avatar avatar-sm me-2 avatar-img" src="{% static 'web/img/banner/bangle.jpeg' %}" alt="User Image">
+                <img class="avatar avatar-sm me-2 avatar-img" src="{{new.image.url}}" alt="User Image">
             </div>
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
                         <span><i class="far fa-money-bill-alt"></i> Amount</span>
-                        <h6 class="mb-0">1,54,220</h6>
+                        <h6 class="mb-0">{{new.price}}</h6>
                     </div>
                     <div class="col-auto">
                         <span><i class="far fa-calendar-alt"></i> Added Date</span>
-                        <h6 class="mb-0">23 Mar, 2022</h6>
+                        <h6 class="mb-0">{{new.date}}</h6>
                     </div>
                 </div>
             </div>
@@ -55,6 +57,8 @@
             </div>
         </div>
     </div>
+    {% endfor %}
+
 </div>
 
 

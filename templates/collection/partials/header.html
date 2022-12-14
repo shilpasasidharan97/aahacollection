@@ -1,5 +1,14 @@
 {% load static %}
 
+<style>
+    .fab-icons li{
+        font-size: 20px;
+        padding: 0px 5px;
+    }
+    .desktop-icon li{
+        font-size: 24px;
+    }
+</style>
     <!-- loader start -->
     <!-- <div class="loader_skeleton">
         <div class="top-header">
@@ -223,39 +232,38 @@
     </div> -->
     <!-- loader end -->
 
-
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- header with social media -->
     <header>
         <div class="mobile-fix-option"></div>
+
         <div class="top-header">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="header-contact">
-                            <ul>
+                            <ul style="padding: 4px 0px;">
                                 <li>Welcome to Our store</li>
                                 <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 text-end">
-                        <ul class="header-dropdown">
+                        <ul class="header-dropdown desktop-icon">
                             <li class="mobile-wishlist">
                                 <a href="#">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    <i class="fab fa-facebook" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <li class="mobile-wishlist">
                                 <a href="#">
-                                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <li class="mobile-wishlist">
                                 <a href="#">
-                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    <i class="fab fa-instagram" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <!-- <li class="onhover-dropdown mobile-account"> 
@@ -272,8 +280,47 @@
             </div>
         </div>
 
+        <!-- mobile social -->
+        <div class="top-header d-sm-block d-lg-none d-md-none">
+            <div class="container" style="height: 40px;background-color: #f8f8f8;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="">
+                                    <ul style="padding: 9px 0px;">
+                                        <!-- <li>Welcome to Our store</li> -->
+                                        <li><i class="fa fa-phone" aria-hidden="true" style="color: var(--theme-color);"></i>Call Us: 8086634711</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-5 text-end">
+                                <ul class="fab-icons" style="padding: 5px 0px;">
+                                    <li class="">
+                                        <a href="#">
+                                            <i class="fab fa-facebook" style="color: #3b5998 ;"></i>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#">
+                                            <i class="fab fa-whatsapp" aria-hidden="true" style="color: #075E54"></i>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#">
+                                            <i class="fab fa-instagram" aria-hidden="true" style="color: #8a3ab9;"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- navbar section -->
-        <div class="container">
+        <div class="container mt-4">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="main-menu">
@@ -400,7 +447,7 @@
                                         </li>
                                         <li><a href="#">HOT DEALS</a></li>
                                         <li>
-                                            <a href="#">CONTACT</a>
+                                            <a href="{% url 'collection:contact' %}">CONTACT</a>
                                         </li>
                                     </ul>
                                 </nav>

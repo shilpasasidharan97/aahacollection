@@ -9319,12 +9319,12 @@ header.left-header .top-header {
 
 header.left-header .top-header .header-dropdown .mobile-wishlist img,
 header.left-header .top-header .header-dropdown .mobile-account img {
-    display: block
+    /* display: block */
 }
 
 header.left-header .top-header .header-dropdown .mobile-wishlist i,
 header.left-header .top-header .header-dropdown .mobile-account i {
-    display: none
+    /* display: none */
 }
 
 header.left-header .onhover-div {
@@ -10237,7 +10237,7 @@ header.header-style .onhover-dropdown:before {
 
 .main-menu .menu-left .navbar i {
     font-size: 28px;
-    color: #222;
+    color: var(--theme-color);
     cursor: pointer
 }
 

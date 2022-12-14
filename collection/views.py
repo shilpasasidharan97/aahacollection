@@ -31,3 +31,7 @@ def checkout(request):
 
 def orderSuccess(request):
     return render(request, 'collection/order_success.html')
+
+
+def contact(request):
+    return render(request, 'collection/contact.html')
