@@ -17,15 +17,17 @@
 
 
 <div class="row">
+
+    {% for products in all_products %}
     <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
         <div class="card invoices-grid-card w-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a href="view-invoice.html" class="invoice-grid-link">qwerty</a>
+                <a href="" class="invoice-grid-link">{{products.name|capfirst}}</a>
                 <div class="dropdown dropdown-action">
                     <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="edit-invoice.html"><i
+                        <a class="dropdown-item" href=""><i
                                 class="far fa-edit me-2"></i>Edit</a>
                         <a class="dropdown-item" href="javascript:void(0);"><i
                                 class="far fa-trash-alt me-2"></i>Delete</a>
@@ -33,34 +35,43 @@
                 </div>
             </div>
             <div class="card-middle">
-                <img class="avatar avatar-sm me-2 avatar-img" src="{% static 'web/img/banner/bangle.jpeg' %}" alt="User Image">
+                <img class="avatar avatar-sm me-2 avatar-img" src="{{products.image.url}}" alt="User Image">
             </div>
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
                         <span><i class="far fa-money-bill-alt"></i> Amount</span>
-                        <h6 class="mb-0">1,54,220</h6>
+                        <h6 class="mb-0">₹<span>{{products.price}}</span></h6>
                     </div>
                     <div class="col-auto">
                         <span><i class="far fa-calendar-alt"></i> Added Date</span>
-                        <h6 class="mb-0">23 Mar, 2022</h6>
+                        <h6 class="mb-0">{{products.date}}</h6>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="row align-items-center">
+                    {% if products.is_new_arrival == False %}
                     <div class="col-auto">
-                        <span class="badge bg-success-dark"><a href="" style="color: #fff;">Add to New Arrivals</a></span>
+                        <span class="badge bg-success-dark"><a href="{% url 'shop:addtonewarrivals' products.id %}" style="color: #fff;">Add to New Arrivals</a></span>
                     </div>
+                    {% else %}
+                    <div class="col-auto">
+                        <span class="badge bg-primary-dark text-white"><a href="{% url 'shop:addtonewarrivals' products.id %}" style="color: rgb(146, 24, 24);">Remove from New Arrivals</a></span>
+                    </div>
+                    {% endif %}
+
                 </div><br>
                 <div class="row align-items-center">
                     <div class="col-auto">
-                        <span class="badge bg-danger-dark"><a href="" data-bs-toggle="modal" data-bs-target="#edit_category" style="color: #fff;">Add to Ho Deal Price</a></span>
+                        <span class="badge bg-danger-dark"><a href="" data-bs-toggle="modal" data-bs-target="#edit_category" onclick="getData({{products.id}})" style="color: #fff;">Add Hot Deal Price</a></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
+
 </div>
 
 <!-- hot deal modal -->
@@ -75,20 +86,21 @@
                                 <h5 class="card-title">Add Hot Deal</h5>
                             </div>
                             <div class="card-body pb-0">
-                                <form id="editcategoryform" enctype="multipart/form-data">
+                                <form id="editcategoryform" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="name" value="" id="pname">
+                                            <input type="text" class="form-control" name="h-name" value="" id="hname">
+                                            <input type="text" name="pk" id="pk" hidden>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Hot Deal Price</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="h-price" value="" id="pname">
+                                            <input type="text" class="form-control" name="h-price" value="" id="hprice">
                                         </div>
                                     </div>
 
@@ -104,6 +116,27 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function getData(id) {
+        alert(id)
+        $.ajax({
+            url: "/shop/getproductdata/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+                $('#hname').val(responce.product_name)
+                // $('#bimage'+id).attr("src", responce.value.photo)
+                $('#pk').val(responce.id)
+                $('#hprice').val(responce.hot_deal_price)
+
+            }
+
+        })
+
+    }
+</script>
 
 
 

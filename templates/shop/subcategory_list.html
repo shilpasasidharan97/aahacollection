@@ -7,10 +7,10 @@
 <div class="page-header">
     <div class="row">
         <div class="col-sm-12">
-            <h3 class="page-title">Product List</h3>
+            <h3 class="page-title">Subcategory List</h3>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="customers.html">Product List</a></li>
+                <li class="active"><a href="customers.html">Product List</a></li>
             </ul>
         </div>
     </div>
@@ -19,7 +19,7 @@
 
 <div class="row">
 
-    {% for category in all_categories %}
+    {% for subcategory in all_subcategories %}
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -31,17 +31,17 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="dash-count">
-                            <div class="dash-title">{{category.subcategory__category__name}}</div>
+                            <div class="dash-title">{{subcategory.subcategory__name}}</div>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
                         <div class="dash-count">
-                            <div class="dash-title">Count : {{category.count}}</div>
+                            <div class="dash-title">Count :{{subcategory.count}}</div>
                         </div>
                     </div>
                     <div class="col-lg-4 text-end">
                         <div class="dash-count">
-                            <a href="{% url 'shop:subcategorylist' category.subcategory__category__id %}" class="btn-right btn btn-sm btn-outline-primary">
+                            <a href="{% url 'shop:productlist' subcategory.subcategory__id %}" class="btn-right btn btn-sm btn-outline-primary">
                                 View All
                             </a>
                         </div>

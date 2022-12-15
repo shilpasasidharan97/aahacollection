@@ -1,0 +1,116 @@
+{% extends 'shop/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class="row justify-content-lg-center">
+    <div class="col-lg-10">
+
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Profile</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-cover">
+            <div class="profile-cover-wrap">
+                <img class="profile-cover-img" src="{% static 'web/img/profiles/default.jpg' %}"
+                    alt="Profile Cover">
+
+                <div class="cover-content">
+                    <div class="custom-file-btn">
+                        <input type="file" class="custom-file-btn-input" id="cover_upload">
+                        <label class="custom-file-btn-label btn btn-sm btn-white" for="cover_upload">
+                            <i class="fas fa-camera"></i>
+                            <span class="d-none d-sm-inline-block ms-1">Update Cover</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-center mb-5">
+            <label class="avatar avatar-xxl profile-cover-avatar" for="avatar_upload">
+                <img class="avatar-img" src="{{profile.logo.url}}" alt="Profile Image">
+                <input type="file" id="avatar_upload">
+                <span class="avatar-edit">
+                    <i data-feather="edit-2" class="avatar-uploader-icon shadow-soft"></i>
+                </span>
+            </label>
+            <h2>{{profile.shop_name}} <i class="fas fa-certificate text-primary small" data-toggle="tooltip"
+                    data-placement="top" title="" data-original-title="Verified"></i></h2>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <i class="far fa-building"></i> <span>{{profile.district}}</span>
+                </li>
+                <li class="list-inline-item">
+                    <i class="fas fa-map-marker-alt"></i> {{profile.state}}
+                </li>
+                <li class="list-inline-item">
+                    <i class="fa fa-phone"></i> <span>{{profile.phone}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title d-flex justify-content-between">
+                            <span>Profile</span>
+                            <!-- <a class="btn btn-sm btn-white" href="settings.html">Edit</a> -->
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                    
+        
+
+                            <li class="py-0">
+                                <small class="text-dark">About</small><hr>
+                            </li>
+
+                            <li>
+                                name : {{profile.shop_name}}
+                            </li>
+                            <li>
+                               place :  {{profile.place}}
+                            </li>
+                            <li>
+                                District :  {{profile.district}}
+                             </li>
+                            <li>
+                                state :  {{profile.state}}
+                             </li>
+                            <li class="pt-2 pb-0">
+                                <small class="text-dark">Contacts</small><hr>
+                            </li>
+
+                            <li>
+                                email : <a href="">{{profile.email}}</a>
+                            </li>
+                            <li>
+                                phone : {{profile.phone}}
+                            </li>
+                            <li class="pt-2 pb-0">
+                                <small class="text-dark">Address</small><hr>
+                            </li>
+                            <li>
+                                {{profile.address}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

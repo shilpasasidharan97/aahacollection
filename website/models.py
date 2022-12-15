@@ -132,10 +132,19 @@ class Products(models.Model):
     product_details = HTMLField(null=True, blank=True)
     image = models.FileField(upload_to='products')
     date = models.DateField(null=True, blank=True)
-    is_new_arrival = models.BooleanField(default=True)
+    is_new_arrival = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Products" 
     
     def __str__(self):
         return str(self.name)  
+
+
+class HotDealPrice(models.Model):
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    price = models.FloatField(default=0)
+    date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Hot deal price" 
