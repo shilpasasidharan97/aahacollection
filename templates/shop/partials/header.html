@@ -1,6 +1,20 @@
 {% load static %}
 <div class="header header-one">
 
+    {% if shops.logo == '' %}
+    <div class="header-left header-left-one">
+        <a href="{% url 'shop:shophome' %}" class="logo">
+            <img src="" alt="Logo">
+        </a>
+        <a href="{% url 'shop:shophome' %}" class="white-logo">
+            <img src="" alt="Logo">
+        </a>
+        <a href="{% url 'shop:shophome' %}" class="logo logo-small">
+            <img src="" alt="Logo" width="30" height="30">
+        </a>
+    </div>
+
+    {% else %}
     <div class="header-left header-left-one">
         <a href="{% url 'shop:shophome' %}" class="logo">
             <img src="{{shops.logo.url}}" alt="Logo">
@@ -12,6 +26,7 @@
             <img src="{{shops.logo.url}}" alt="Logo" width="30" height="30">
         </a>
     </div>
+    {% endif %}
 
 
     <a href="javascript:void(0);" id="toggle_btn">

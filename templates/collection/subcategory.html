@@ -7,78 +7,20 @@
 <section class="bg-light section-b-space">
     <div class="container-lg container">
         <div class="row margin-default ratio_square ">
+            {% for sub in subcatgory_list %}
             <div class="col-xl-2 col-sm-3 col-4">
-                <a href="{% url 'collection:products' %}">
+                <a href="{% url 'collection:products' sub.id %}">
                     <div class="img-category">
                         <div class="pattern-bg bg1">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/8.png' %}" class="img-fluid bg-img" alt="">
+                                <img src="{{sub.icon.url}}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>Top wear</h4>
+                        <h4>{{sub.name|capfirst}}</h4>
                     </div>
                 </a>
             </div>
-            <div class="col-xl-2 col-sm-3 col-4">
-                <a href="#">
-                    <div class="img-category hover-effect">
-                        <div class="pattern-bg bg2">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/9.png' %}" class="img-fluid bg-img" alt="">
-                            </div>
-                        </div>
-                        <h4>dresses</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-sm-3 col-4">
-                <a href="#">
-                    <div class="img-category">
-                        <div class="pattern-bg bg3">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/10.png' %}" class="img-fluid bg-img" alt="">
-                            </div>
-                        </div>
-                        <h4>bottom</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-sm-3 col-4">
-                <a href="#">
-                    <div class="img-category">
-                        <div class="pattern-bg bg4">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/11.png' %}" class="img-fluid bg-img" alt="">
-                            </div>
-                        </div>
-                        <h4>inner/sleep</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-sm-3 col-4">
-                <a href="#">
-                    <div class="img-category">
-                        <div class="pattern-bg bg5">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/12.png' %}" class="img-fluid bg-img" alt="">
-                            </div>
-                        </div>
-                        <h4>footwear</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-sm-3 col-4">
-                <a href="#">
-                    <div class="img-category">
-                        <div class="pattern-bg bg6">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/13.png' %}" class="img-fluid bg-img" alt="">
-                            </div>
-                        </div>
-                        <h4>sports/active</h4>
-                    </div>
-                </a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

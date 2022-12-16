@@ -33,13 +33,14 @@
                 <div class="col-lg-6">
                     <div class="product-slick">
                         <div>
-                            <img src="{% static 'collection/images/pro3/1.jpg' %}" alt="" class="img-fluid blur-up lazyload image_zoom_cls-0" style="height: 360px;width: 100%;">
+                            <img src="{{product_details.image.url}}" alt="" class="img-fluid blur-up lazyload image_zoom_cls-0" style="height: 360px;width: 100%;">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 rtl-text">
                     <div class="product-right">
-                        <h2>Women Pink Shirt</h2>
+                        <h2>{{product_details.name|upper}}</h2>
+                        <h4>Product Id : &nbsp;{{product_details.product_id}}</h4>
                         <div class="rating-section">
                             <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -50,7 +51,7 @@
                             <span class="badge badge-grey-color">#1 Best seller</span>
                             <span class="label-text">in fashion</span>
                         </div>
-                        <h3 class="price-detail">₹32.96 <del>₹459.00</del><span>55% off</span></h3>
+                        <h3 class="price-detail">₹{{product_details.price}} <del>₹459.00</del><span>55% off</span></h3>
                         <div id="selectSize" class="addeffect-section product-description border-product">
                             <h6 class="error-message">please select size</h6>
                             <div class="size-box">
@@ -149,18 +150,19 @@
                         aria-labelledby="top-home-tab">
                         <div class="product-tab-discription">
                             <div class="part">
-                                <p>The Model is wearing a white blouse from our stylist's collection, see the image
-                                    for a mock-up of what the actual blouse would look like.it has text written on
-                                    it in a black cursive language which looks great on a white color.</p>
+                                <p>
+                                    {{product_details.description|capfirst}}
+                                </p>
                             </div>
                             <div class="part">
-                                <h5 class="inner-title">fabric:</h5>
+                                <p>{{product_details.product_details|safe}}</p>
+                                <!-- <h5 class="inner-title">fabric:</h5>
                                 <p>Art silk is manufactured by synthetic fibres like rayon. It's light in weight and
                                     is soft on the skin for comfort in summers.Art silk is manufactured by synthetic
                                     fibres like rayon. It's light in weight and is soft on the skin for comfort in
-                                    summers.</p>
+                                    summers.</p> -->
                             </div>
-                            <div class="part">
+                            <!-- <div class="part">
                                 <h5 class="inner-title">size & fit:</h5>
                                 <p>The model (height 5'8") is wearing a size S</p>
                             </div>
@@ -169,7 +171,7 @@
                                 <p>Top fabric: pure cotton</p>
                                 <p>Bottom fabric: pure cotton</p>
                                 <p>Hand-wash</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <!-- <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">

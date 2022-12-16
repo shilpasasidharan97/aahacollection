@@ -52,78 +52,20 @@
 <section>
     <div class="container container-lg">
         <div class="row margin-default ratio_square">
+            {% for category in category_list %}
             <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
+                <a href="{% url 'collection:subcategory' category.subcategory__category__id %}">
                     <div class="gradient-category">
                         <div class="gradient-border">
                             <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/1.png' %}" class="img-fluid" alt="">
+                                <img src="/media/{{category.subcategory__category__icon}}" class="img-fluid" alt="">
                             </div>
                         </div>
-                        <h4>MENS</h4>
+                        <h4>{{category.subcategory__category__name}}</h4>
                     </div>
                 </a>
             </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category hover-effect">
-                        <div class="gradient-border">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/4.png' %}" class="img-fluid" alt="">
-                            </div>
-                        </div>
-                        <h4>WOMENS</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/3.png' %}" class="img-fluid" alt="">
-                            </div>
-                        </div>
-                        <h4>KIDS</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/2.png' %}" class="img-fluid" alt="">
-                            </div>
-                        </div>
-                        <h4>FOOTWARE</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/5.png' %}" class="img-fluid" alt="">
-                            </div>
-                        </div>
-                        <h4>JWELLERY</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
-                            <div class="img-sec">
-                                <img src="{% static 'collection/images/fashion/category/6.png' %}" class="img-fluid" alt="">
-                            </div>
-                        </div>
-                        <h4>BEAUTY MATERIALS</h4>
-                    </div>
-                </a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

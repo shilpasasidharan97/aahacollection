@@ -7,23 +7,23 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li class="menu-title"><span>Main</span></li>
-                <li>
+                <li {% if is_home %} class="active" {% endif %}>
                     <a href="{% url 'official:officialhome' %}"><i class="fa fa-home"></i><span>Dashboard</span></a>
                 </li>
-                <li>
+                <li {% if is_list %} class="active" {% endif %}>
                     <a href="{% url 'official:customerlist' %}"><i class="fa fa-users"></i> <span>Customers List</span></a>
                 </li>
-                <li>
+                <li {% if is_new %} class="active" {% endif %}>
                     <a href="{% url 'official:newuserreg' %}"><i class="fa fa-user"></i> <span>New User</span></a>
                 </li>
-                <li>
-                    <a href="{% url 'official:banners' %}"><i class="fa fa-signs-post"></i> Home Page Banner</a>
+                <li {% if is_banner %} class="active" {% endif %}>
+                    <a href="{% url 'official:banners' %}"><i class="fa fa-signs-post"></i> <span>Home Page Banner</span></a>
                 </li>
-                <li>
+                <li {% if is_social %} class="active" {% endif %}>
                     <a href="{% url 'official:socialmedialinks' %}"><i class="fa-brands fa-facebook-f"></i> <span>Social Media Links </span></a>
                 </li>
-                <li>
-                    <a href=""><i class="fa fa-user"></i> <span>Profile </span></a>
+                <li {% if is_profile %} class="active" {% endif %}>
+                    <a href="{% url 'official:profile' %}"><i class="fa fa-user"></i> <span>Profile </span></a>
                 </li>
                 <li>
                     <a href=""><i class="fa fa-gear"></i> <span>Settings</span></a>

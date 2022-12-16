@@ -5,7 +5,7 @@ import datetime
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login
 
-from website.models import Shop, ShopQrcode
+from website.models import Shop, ShopQrcode, ShopSocialMediaLinks
 
 # Create your views here.
 
@@ -34,8 +34,10 @@ def registration(request):
                 User.objects.create_user(phone=phone_number, password=password,email=email,shop=new_shop)
                 user = authenticate(request,phone=phone_number,password=password)
                 # url = "https://aahamenu.geany.website/menucard/menucard/"+str(new_resto.id)
-                url = "http://127.0.0.1:9000/collection/"+str(new_shop.id)
+                url = "http://127.0.0.1:9000/collection/collection/"+str(new_shop.id)
                 ShopQrcode.objects.create(shop=new_shop,resto_url=url)
+                links = ShopSocialMediaLinks(shop=new_shop)
+                links.save()
                 if user is not None:
                     login(request, user)
                     return redirect('shop:shophome')

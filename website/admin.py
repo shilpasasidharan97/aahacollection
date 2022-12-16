@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from website.models import Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
+from website.models import AdminSocialMediaLinks, Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
 
 # Register your models here.
 
@@ -27,6 +27,12 @@ class ShopSocialMediaLinksAdmin(admin.ModelAdmin):
     list_display = ('shop','facebook','phone_number')
     search_fields=('shop',)
 admin.site.register(ShopSocialMediaLinks,ShopSocialMediaLinksAdmin)
+
+
+class AdminSocialMediaLinksAdmin(admin.ModelAdmin):
+    list_display = ('facebook','phone_number')
+    search_fields=()
+admin.site.register(AdminSocialMediaLinks,AdminSocialMediaLinksAdmin)
 
 
 class CategoryAdmin(admin.ModelAdmin):

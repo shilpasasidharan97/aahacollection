@@ -46,7 +46,7 @@ class Shop(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = ("Restaurant")
+        verbose_name_plural = ("Shop")
 
     def __str__(self):
         return str(self.shop_name)
@@ -80,7 +80,7 @@ class ShopQrcode(models.Model):
       super().save(*args,**kwargs)
 
     class Meta:
-        verbose_name_plural = ("Restaurant Qrcode")
+        verbose_name_plural = ("Shop Qrcode")
 
     def __str__(self):
         return str(self.shop)
@@ -98,13 +98,26 @@ class ShopSocialMediaLinks(models.Model):
         verbose_name_plural = ("Shop Links")
 
 
+class AdminSocialMediaLinks(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    facebook = models.CharField(max_length=20000, null=True, blank=True)
+    whatsapp = models.CharField(max_length=20000, null=True, blank=True)
+    instagram = models.CharField(max_length=20000, null=True, blank=True)
+    location = models.CharField(max_length=20000, null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = ("Admin Links")
+
+
 class Category(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=30, null=True)
     icon = models.FileField(upload_to="catagory", null=True)
 
     class Meta:
-        verbose_name_plural = "Categories" 
+        verbose_name_plural = ("Categories") 
 
     def __str__(self):
         return str(self.name)  
@@ -116,7 +129,7 @@ class Subcategory(models.Model):
     icon = models.FileField(upload_to="Subcatagory", null=True)
 
     class Meta:
-        verbose_name_plural = "subCategories" 
+        verbose_name_plural = ("subCategories" )
 
     def __str__(self):
         return str(self.name)  
