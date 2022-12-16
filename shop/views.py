@@ -18,6 +18,7 @@ def shopHome(request):
     hotdeal_count = HotDealPrice.objects.filter(product__subcategory__category__shop=user.shop).count()
     new_arrival_count = Products.objects.filter(subcategory__category__shop=user.shop, is_new_arrival=True).count()
     five_products = Products.objects.filter(subcategory__category__shop=user.shop)[:5]
+    print(social_media)
     context = {
         "is_home":True,
         "qr_code":qr_code,
@@ -26,7 +27,7 @@ def shopHome(request):
         "product_count":product_count,
         "hotdeal_count":hotdeal_count,
         "new_arrival_count":new_arrival_count,
-        "five_products":five_products
+        "five_products":five_products,
     }
     return render(request, 'shop/home.html',context)
 
@@ -35,6 +36,7 @@ def categoryList(request):
     # all_categories = Category.objects.filter(shop=request.user.shop)
     all_categories = Products.objects.select_related('subcategory__category').filter(subcategory__category__shop=request.user.shop).values('subcategory__category__name','subcategory__category__id').annotate(count=Count('id')).distinct()
     context = {
+        'is_list':True,
         'all_categories':all_categories
     }
     return render(request, 'shop/category_list.html', context)
@@ -43,6 +45,7 @@ def categoryList(request):
 def subcategoryList(request,id):
     all_subcategories = Products.objects.select_related('subcategory').filter(subcategory__category__shop=request.user.shop, subcategory__category__id=id).values('subcategory__name','subcategory__id').annotate(count=Count('id')).distinct()
     context = {
+        'is_list':True,
         'all_subcategories':all_subcategories
     }
     return render(request, 'shop/subcategory_list.html', context)
@@ -64,6 +67,7 @@ def productList(request,id):
             hot_price.save()
             return redirect('/shop/product-list/'+str(id))
     context = {
+        'is_list':True,
         'all_products':all_products
     }
     return render(request, 'shop/product_list.html', context)
@@ -107,6 +111,7 @@ def addCategory(request):
         messages.success(request, 'Category added successfully')
     all_categories = Category.objects.filter(shop=request.user.shop)
     context = {
+        'is_add':True,
         'all_categories':all_categories
     }
     return render(request, 'shop/add_category.html', context)
@@ -122,6 +127,7 @@ def addSubCategory(request, id):
         messages.success(request, 'Category added successfully')
     all_subcategories = Subcategory.objects.filter(category__shop=request.user.shop,category=category_id)
     context = {
+        'is_add':True,
         'all_subcategories':all_subcategories
     }
     return render(request, 'shop/add_subcategory.html', context)
@@ -156,6 +162,7 @@ def addProduct(request, id):
                 return redirect('/shop/add-product/'+str(subcategory_id.id))
     all_product = Products.objects.filter(subcategory__category__shop=request.user.shop, subcategory=subcategory_id)
     context = {
+        'is_add':True,
         'all_product':all_product
     }
     return render(request, 'shop/add_product.html', context)
@@ -164,6 +171,7 @@ def addProduct(request, id):
 def newArrivals(request):
     new_arrivals = Products.objects.filter(subcategory__category__shop=request.user.shop, is_new_arrival=True)
     context = {
+        'is_new':True,
         'new_arrivals':new_arrivals
     }
     return render(request, 'shop/new_arrivals.html', context)
@@ -172,10 +180,29 @@ def newArrivals(request):
 
 def hotDealProducts(request):
     hot_deal_products = HotDealPrice.objects.filter(product__subcategory__category__shop=request.user.shop)
+    if request.method == 'POST':
+        pname = request.POST['h-name']
+        pid = request.POST['pk']
+        product_object = Products.objects.get(id=pid)
+        price = request.POST['h-price']
+        date = datetime.datetime.now()
+        if HotDealPrice.objects.filter(product=product_object).exists():
+            HotDealPrice.objects.filter(product=product_object).update(price=price, date=date)
+            return redirect('shop:hotdealproducts')
+        else:
+            hot_price = HotDealPrice(product=product_object, price=price)
+            hot_price.save()
+            return redirect('shop:hotdealproducts')
     context = {
+        'is_hot':True,
         'hot_deal_products':hot_deal_products
     }
     return render(request, 'shop/hot_deal.html',context)
+
+
+def deleteHotDeal(request,id):
+    HotDealPrice.objects.get(id=id).delete()
+    return redirect('shop:hotdealproducts')
 
 
 def socialMediaLinks(request):
@@ -199,16 +226,23 @@ def socialMediaLinks(request):
     else:
         print('else')
         pass
-    return render(request, 'shop/social_media.html')
+    context = {
+        'is_social':True,
+    }
+    return render(request, 'shop/social_media.html', context)
 
 
 def banner(request):
-    return render(request, 'shop/banner.html')
+    context = {
+        'is_banner':True,
+    }
+    return render(request, 'shop/banner.html', context)
 
 
 def profile(request):
     profile = request.user.shop
     context = {
+        'is_profile':True,
         'profile':profile
     }
     return render(request, 'shop/profile.html', context)

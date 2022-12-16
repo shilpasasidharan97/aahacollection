@@ -13,14 +13,16 @@ urlpatterns = [
     path('add-subcategory/<int:id>',views.addSubCategory, name='addsubcategory'),
     path('add-product/<int:id>',views.addProduct, name='addproduct'),
 
-    path('new-arrivals',views.newArrivals, name='newarrivals'),
+    path('new-arrivals/',views.newArrivals, name='newarrivals'),
 
     path('add-to-newarrivals/<int:id>', views.addToNewArrivals, name='addtonewarrivals'),
     path('getproductdata/<int:id>',views.getProductData, name='getproductdata'),
 
 
-    path('hot-deal-products',views.hotDealProducts, name='hotdealproducts'),
-    path('social-media',views.socialMediaLinks, name='socialmedialink'),
+    path('hot-deal-products/',views.hotDealProducts, name='hotdealproducts'),
+    path('delete-deal/<int:id>',views.deleteHotDeal, name='deletedeal'),
+
+    path('social-media/',views.socialMediaLinks, name='socialmedialink'),
     path('banner',views.banner, name='banner'),
 
     path('profile',views.profile, name='profile'),
