@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from website.models import AdminSocialMediaLinks, Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
+from website.models import AdminSocialMediaLinks, CartItems, Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
 
 # Register your models here.
 
@@ -57,3 +57,9 @@ class HotDealPriceAdmin(admin.ModelAdmin):
     list_display = ('id', 'product', 'price',)
     search_fields=('product','price',)
 admin.site.register(HotDealPrice,HotDealPriceAdmin)
+
+
+class CartItemsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'product', 'quantity', 'total', )
+    search_fields=('product','quantity', 'total', )
+admin.site.register(CartItems,CartItemsAdmin)

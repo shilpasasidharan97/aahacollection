@@ -2,6 +2,31 @@
 {% load static %}
 {% block content %}
 
+<div class="row">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+
+    <div>{{ message }}</div>
+
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+    <div class="alert alert-success alert-dismissible fade show">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" class="me-2">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <strong>Success!</strong> {{ message }} .
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+        </button>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
 
 <!-- breadcrumb start -->
 <div class="breadcrumb-section">
@@ -33,7 +58,8 @@
                 <div class="col-lg-6">
                     <div class="product-slick">
                         <div>
-                            <img src="{{product_details.image.url}}" alt="" class="img-fluid blur-up lazyload image_zoom_cls-0" style="height: 360px;width: 100%;">
+                            <img src="{{product_details.image.url}}" alt=""
+                                class="img-fluid blur-up lazyload image_zoom_cls-0" style="height: 360px;width: 100%;">
                         </div>
                     </div>
                 </div>
@@ -51,71 +77,51 @@
                             <span class="badge badge-grey-color">#1 Best seller</span>
                             <span class="label-text">in fashion</span>
                         </div>
-                        <h3 class="price-detail">₹{{product_details.price}} <del>₹459.00</del><span>55% off</span></h3>
-                        <div id="selectSize" class="addeffect-section product-description border-product">
-                            <h6 class="error-message">please select size</h6>
-                            <div class="size-box">
-                                <ul>
-                                    <li><a href="javascript:void(0)">s</a></li>
-                                    <li><a href="javascript:void(0)">m</a></li>
-                                    <li><a href="javascript:void(0)">l</a></li>
-                                    <li><a href="javascript:void(0)">xl</a></li>
-                                </ul>
-                            </div>
-                            <h6 class="product-title">quantity</h6>
-                            <div class="qty-box">
-                                <div class="input-group"><span class="input-group-prepend"><button type="button"
-                                            class="btn quantity-left-minus" data-type="minus" data-field=""><i
-                                                class="ti-angle-left"></i></button> </span>
-                                    <input type="text" name="quantity" class="form-control input-number" value="1">
-                                    <span class="input-group-prepend"><button type="button"
-                                            class="btn quantity-right-plus" data-type="plus" data-field=""><i
-                                                class="ti-angle-right"></i></button></span>
+                        <h3 class="price-detail">₹<span id="unitprice">{{product_details.price}}</span> <del>₹459.00</del><span>55% off</span></h3>
+                            <div id="selectSize" class="addeffect-section product-description border-product">
+                                <input type="text" value="{{product_details.size}}" id="sizewithcomma" hidden>
+                                <h6 class="error-message">please select size</h6>
+                                <div class="size-box">
+                                    <ul id="size">
+                                    </ul>
+                                </div>
+                                <h6 class="product-title">quantity</h6>
+                                <div class="qty-box">
+                                    <div class="input-group">
+    
+                                        <span class="input-group-prepend">
+                                            <button type="button" onclick="quantityminus({{product_details.id}})" class="btn quantity-left-minus" data-type="minus"
+                                                data-field="">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </span>
+    
+                                        <input type="text" name="quantity" id="quantity{{product_details.id}}" min="1" class="form-control input-number"  value="1">
+                                        <span class="input-group-prepend">
+                                            <button type="button" onclick="quantityadd({{product_details.id}})" class="btn quantity-right-plus" data-type="plus" data-field="" >
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-buttons"><a href="javascript:void(0)" id="cartEffect"
-                                class="btn btn-solid hover-solid btn-animation"><i class="fa fa-shopping-cart me-1"
-                                    aria-hidden="true"></i> add to cart</a> <a href="#" class="btn btn-solid"><i
-                                    class="fa fa-bookmark fz-16 me-2" aria-hidden="true"></i>wishlist</a></div>
-                        <!-- <div class="border-product">
-                            <h6 class="product-title">Sales Ends In</h6>
-                            <div class="timer">
-                                <p id="demo"></p>
+                            <div class="product-buttons">
+                                <a  id="addtocarturl{{product_details.id}}"
+                                    class="btn btn-solid hover-solid btn-animation" onclick="radioValidation({{product_details.id}})">
+                                    <i class="fa fa-shopping-cart me-1"aria-hidden="true"></i> 
+                                    add to cart
+                                </a> 
+                                <a href="#" class="btn btn-solid">
+                                    <i class="fa fa-bookmark fz-16 me-2" aria-hidden="true"></i>
+                                    wishlist
+                                </a>
                             </div>
-                        </div>
-                        <div class="border-product">
-                            <h6 class="product-title">shipping info</h6>
-                            <ul class="shipping-info">
-                                <li>100% Original Products</li>
-                                <li>Free Delivery on order above Rs. 799</li>
-                                <li>Pay on delivery is available</li>
-                                <li>Easy 30 days returns and exchanges</li>
-                            </ul>
-                        </div> -->
-                        <!-- <div class="border-product">
-                            <h6 class="product-title">share it</h6>
-                            <div class="product-icon">
-                                <ul class="product-social">
-                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                                </ul>
-                            </div>
-                        </div> -->
-                        <!-- <div class="border-product">
-                            <h6 class="product-title">100% secure payment</h6>
-                            <img src="{% static 'collection/images/payment.png' %}" class="img-fluid mt-1" alt="">
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Section ends -->
 
 
 <!-- product-tab starts -->
@@ -129,25 +135,9 @@
                                 class="icofont icofont-ui-home"></i>Details</a>
                         <div class="material-border"></div>
                     </li>
-                    <!-- <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
-                            href="#top-profile" role="tab" aria-selected="false"><i
-                                class="icofont icofont-man-in-glasses"></i>Specification</a>
-                        <div class="material-border"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab"
-                            href="#top-contact" role="tab" aria-selected="false"><i
-                                class="icofont icofont-contacts"></i>Video</a>
-                        <div class="material-border"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" id="review-top-tab" data-bs-toggle="tab"
-                            href="#top-review" role="tab" aria-selected="false"><i
-                                class="icofont icofont-contacts"></i>Write Review</a>
-                        <div class="material-border"></div>
-                    </li> -->
                 </ul>
                 <div class="tab-content nav-material" id="top-tabContent">
-                    <div class="tab-pane fade show active" id="top-home" role="tabpanel"
-                        aria-labelledby="top-home-tab">
+                    <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
                         <div class="product-tab-discription">
                             <div class="part">
                                 <p>
@@ -156,110 +146,65 @@
                             </div>
                             <div class="part">
                                 <p>{{product_details.product_details|safe}}</p>
-                                <!-- <h5 class="inner-title">fabric:</h5>
-                                <p>Art silk is manufactured by synthetic fibres like rayon. It's light in weight and
-                                    is soft on the skin for comfort in summers.Art silk is manufactured by synthetic
-                                    fibres like rayon. It's light in weight and is soft on the skin for comfort in
-                                    summers.</p> -->
                             </div>
-                            <!-- <div class="part">
-                                <h5 class="inner-title">size & fit:</h5>
-                                <p>The model (height 5'8") is wearing a size S</p>
-                            </div>
-                            <div class="part">
-                                <h5 class="inner-title">Material & Care:</h5>
-                                <p>Top fabric: pure cotton</p>
-                                <p>Bottom fabric: pure cotton</p>
-                                <p>Hand-wash</p>
-                            </div> -->
                         </div>
                     </div>
-                    <!-- <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
-                        <p>The Model is wearing a white blouse from our stylist's collection, see the image for a
-                            mock-up of what the actual blouse would look like.it has text written on it in a black
-                            cursive language which looks great on a white color.</p>
-                        <div class="single-product-tables">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Sleeve Length</td>
-                                        <td>Sleevless</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Neck</td>
-                                        <td>Round Neck</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Occasion</td>
-                                        <td>Sports</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Fabric</td>
-                                        <td>Polyester</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fit</td>
-                                        <td>Regular Fit</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
-                        <div class="">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/BUWzX78Ye_8"
-                                allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="top-review" role="tabpanel" aria-labelledby="review-top-tab">
-                        <form class="theme-form">
-                            <div class="form-row row">
-                                <div class="col-md-12">
-                                    <div class="media">
-                                        <label>Rating</label>
-                                        <div class="media-body ms-3">
-                                            <div class="rating three-star"><i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter Your name"
-                                        required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" placeholder="Email" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="review">Review Title</label>
-                                    <input type="text" class="form-control" id="review"
-                                        placeholder="Enter your Review Subjects" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="review">Review Title</label>
-                                    <textarea class="form-control" placeholder="Wrire Your Testimonial Here"
-                                        id="exampleFormControlTextarea1" rows="6"></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn btn-solid" type="submit">Submit YOur
-                                        Review</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- product-tab ends -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+        var array = $('#sizewithcomma').val().split(",");
+        $.each(array,function(i){
+            $('#size').append('<li><a href="javascript:void(0)">'+ array[i]  +'</a><input type="radio" value="'+ array[i] +'" name="size" class="radio" id="radio-btn"></li>')
+        });
+    })
+
+    function quantityadd(id){
+        var quantity = $('#quantity'+id).val()
+        addquantity = parseInt(quantity)+parseInt(1)
+        $('#quantity'+id).val(addquantity)
+        // alert("/collection/addtocart/" + id + "/" + addquantity);
+        // $("#addtocarturl"+id).attr('href',"/collection/addtocart/" + id + "/" + addquantity);
+        
+    }
+
+
+    function quantityminus(id){
+        var quantity = $('#quantity'+id).val()
+        lessquantity = parseInt(quantity) - parseInt(1)
+        $('#quantity'+id).val(lessquantity)
+        // $("#addtocarturl"+id).attr('href',"/collection/addtocart/" + id + "/" + lessquantity);
+    }
+
+
+    function radioValidation(id) {
+        // var radio_value = $("input[type='radio'][name='size']:checked").val()
+        if (document.getElementsByName('size').checked) {
+            alert('12345')
+            // qty = $('#quantity'+id).val()
+            // window.location.href = "/collection/addtocart/" + id + "/" + qty ;
+
+        }
+        else{
+            alert()
+        }
+    }
+
+
+
+
+
+
+
+    </script>
 
 
 

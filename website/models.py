@@ -161,3 +161,23 @@ class HotDealPrice(models.Model):
 
     class Meta:
         verbose_name_plural = "Hot deal price" 
+
+    
+class CartId(models.Model):
+    cart_id = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return str(self.cart_id)
+
+
+class CartItems(models.Model):
+    cart = models.ForeignKey(CartId, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, null=True)
+    quantity = models.IntegerField(default=1, null=True)
+    total = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Cart Items"
+
+    def __str__(self):
+        return str(self.cart)
