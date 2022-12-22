@@ -4,6 +4,9 @@ from website.models import CartId, CartItems, Products, Shop, Subcategory
 
 from django.http import JsonResponse
 from django.contrib import messages
+from django.db.models import Sum
+
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -45,14 +48,15 @@ def productDetails(request,id):
 
 
 def _cart_id(request):
-#     cart = request.session.session_key
-#     if not cart:
-#         cart = request.session.create()
+    cart = request.session.session_key
+    if not cart:
+        cart = request.session.create()
     return cart
 
 
 def AddToCart(request, pid, qty):
     product = Products.objects.get(id=pid)
+    size = request.GET['size']
     try:
         cart = CartId.objects.get(cart_id=_cart_id(request))
     except CartId.DoesNotExist:
@@ -60,8 +64,10 @@ def AddToCart(request, pid, qty):
     cart.save()
 
     try:
-        cart_item = CartItems.objects.get(product=product, cart=cart)
+        cart_item = CartItems.objects.get(product=product, cart=cart, size=size)
         cart_item.quantity = cart_item.quantity + qty
+        cart_item.save()
+        cart_item.size = size
         cart_item.save()
         total_price = float(cart_item.quantity) * float(product.price)
         cart_item.total = total_price
@@ -69,8 +75,9 @@ def AddToCart(request, pid, qty):
         cart.save()
         messages.success(request, 'Successfully Add item to cart')
     except CartItems.DoesNotExist:
-        cart_item = CartItems.objects.create(product=product, quantity=qty, cart=cart)
+        cart_item = CartItems.objects.create(product=product, quantity=qty, cart=cart, size=size)
         cart_item.save()
+        cart_item.size = size
         total_price = int(qty) * float(product.price)
         cart_item.total = total_price
         cart_item.save()
@@ -79,37 +86,35 @@ def AddToCart(request, pid, qty):
     return redirect("/collection/product-details/"+str(product.id))
 
 
-# def addQuantity(request):
-#     # quantity = request.GET["quantity"]
-#     # id = request.GET["id"]
-#     # cart_obj = CartItems.objects.get(id=id)
-#     # new_quantity = int(quantity) + 1
-#     # product_total = float(new_quantity) * float(cart_obj.product.price)
-#     # cart_obj.total = product_total
-#     # cart_obj.save()
-#     # CartItems.objects.filter(id=id).update(quantity=new_quantity, total=product_total)
-#     # data = {"total": cart_obj.total, "unitprice": cart_obj.product.price}
-#     return JsonResponse({'data':'data',})
-
-
-# def lessQuantity(request):
-#     quantity = request.GET["quantity"]
-#     id = request.GET["id"]
-#     # cart_obj = CartItems.objects.get(id=id)
-#     # new_quantity = int(quantity) - 1
-#     # # product_total = float(new_quantity) * float(cart_obj.product.price)
-#     # # cart_obj.total = product_total
-#     # # cart_obj.save()
-#     # CartItems.objects.filter(id=id).update(quantity=new_quantity, total=product_total)
-#     # data = {"total": cart_obj.total, "unitprice": cart_obj.product.price}
-#     return JsonResponse({'data':'data',})
-
 
 def cart(request):
-    return render(request, 'collection/cart.html')
+    cart_item = CartItems.objects.filter(cart__cart_id=_cart_id(request))
+    sub_total = CartItems.objects.filter(cart__cart_id=_cart_id(request)).aggregate(Sum("total"))
+    context = {
+        'cart_item':cart_item,
+        'sub_total':sub_total
+    }
+    return render(request, 'collection/cart.html', context)
+
+
+@csrf_exempt
+def addquantity(request):
+    quantity = request.GET["quantity"]
+    id = request.GET["id"]
+    cart_obj = CartItems.objects.get(id=id)
+    new_quantity = int(quantity) 
+    product_total = float(new_quantity) * float(cart_obj.product.price)
+    cart_obj.total = product_total
+    cart_obj.save()
+    gtotal = CartItems.objects.filter(cart__cart_id=request.session.session_key).aggregate(Sum('total'))
+    CartItems.objects.filter(id=id).update(quantity=new_quantity, total=product_total)
+    data = {"total": cart_obj.total, "unitprice": cart_obj.product.price, 'gtotal':gtotal["total__sum"],}
+
+    return JsonResponse(data)
 
 
 def checkout(request):
+    # first-name = request.POST['fir']
     return render(request, 'collection/checkout.html')
 
 

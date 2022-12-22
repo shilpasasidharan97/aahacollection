@@ -175,6 +175,7 @@ class CartItems(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField(default=1, null=True)
     total = models.FloatField(null=True, blank=True)
+    size = models.CharField(max_length=5, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Cart Items"

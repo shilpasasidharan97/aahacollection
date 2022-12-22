@@ -42,127 +42,48 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for prd in cart_item %}
                             <tr>
                                 <td>
-                                    <a href="#"><img src="{% static 'collection/images/pro3/2.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{{prd.product.image.url}}" alt=""></a>
                                 </td>
-                                <td><a href="#">cotton shirt</a>
-                                    <div class="mobile-cart-content row">
+                                <td>
+                                    <a href="#">{{prd.product.name|capfirst}}</a>
+                                    <!-- <div class="mobile-cart-content row">
                                         <div class="col">
                                             <div class="qty-box">
                                                 <div class="input-group">
-                                                    <input type="text" name="quantity" class="form-control input-number"
+                                                    <input type="text" name="quantity" value="{{prd.product.quantity}}" class="form-control input-number"
                                                         value="1">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <h2 class="td-color">₹63.00</h2>
+                                            <h2 class="td-color">₹{{prd.product.price}}</h2>
                                         </div>
                                         <div class="col">
                                             <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
                                             </h2>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </td>
                                 <td>
-                                    <h2>₹63.00</h2>
+                                    <h2>₹{{prd.product.price}}</h2>
                                 </td>
                                 <td>
                                     <div class="qty-box">
                                         <div class="input-group">
-                                            <input type="number" name="quantity" class="form-control input-number"
-                                                value="1">
+                                            <input type="number" id="quantity{{prd.id}}" name="quantity" class="form-control input-number"
+                                            value="{{prd.quantity}}" onchange="ChangeQuantity({{prd.id}})">
                                         </div>
                                     </div>
                                 </td>
                                 <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
                                 <td>
-                                    <h2 class="td-color">₹4539.00</h2>
+                                    <h2 class="td-color" >₹<span id="total{{prd.id}}">{{prd.total}}</span></h2>
                                 </td>
                             </tr>
-                        </tbody>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#"><img src="{% static 'collection/images/pro3/35.jpg' %}" alt=""></a>
-                                </td>
-                                <td><a href="#">cotton shirt</a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col">
-                                            <div class="qty-box">
-                                                <div class="input-group">
-                                                    <input type="number" name="quantity"
-                                                        class="form-control input-number" value="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color">₹63.00</h2>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h2>₹63.00</h2>
-                                </td>
-                                <td>
-                                    <div class="qty-box">
-                                        <div class="input-group">
-                                            <input type="number" name="quantity" class="form-control input-number"
-                                                value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                                <td>
-                                    <h2 class="td-color">₹4539.00</h2>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#"><img src="{% static 'collection/images/pro3/33.jpg' %}" alt=""></a>
-                                </td>
-                                <td><a href="#">cotton shirt</a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col">
-                                            <div class="qty-box">
-                                                <div class="input-group">
-                                                    <input type="number" name="quantity"
-                                                        class="form-control input-number" value="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color">₹63.00</h2>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h2>₹63.00</h2>
-                                </td>
-                                <td>
-                                    <div class="qty-box">
-                                        <div class="input-group">
-                                            <input type="number" name="quantity" class="form-control input-number"
-                                                value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                                <td>
-                                    <h2 class="td-color">₹4539.00</h2>
-                                </td>
-                            </tr>
+                            {% endfor%}
                         </tbody>
                     </table>
                     <div class="table-responsive-md">
@@ -171,7 +92,7 @@
                                 <tr>
                                     <td>total price :</td>
                                     <td>
-                                        <h2>₹6935.00</h2>
+                                        <h2>₹<span id="gtotal">{{sub_total.total__sum}}</span></h2>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -187,5 +108,22 @@
     </section>
 
 
+<script>
+    function ChangeQuantity(id){
+        var quantity = $('#quantity'+id).val()
+        $.ajax({
+            url:'/collection/addquantity',
+            type:'GET',
+            data: {
+                'quantity': $('#quantity'+id).val(),
+                'id':id,
+            },
+            success: function (responce) {
+                $('#gtotal').html(responce.gtotal)
+                $('#total'+id).html(responce.total)
+            }
+        })
+    }
+</script>
 
 {% endblock %}

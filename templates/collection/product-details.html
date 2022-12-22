@@ -187,14 +187,16 @@
 
     function radioValidation(id) {
         // var radio_value = $("input[type='radio'][name='size']:checked").val()
-        if (document.getElementsByName('size').checked) {
-            alert('12345')
-            // qty = $('#quantity'+id).val()
-            // window.location.href = "/collection/addtocart/" + id + "/" + qty ;
+        // alert(radio_value)
+        if ( $("input[type='radio'][name='size']").is(":checked") ) {
+            size = $("input[type='radio'][name='size']:checked").val()
+            qty = $('#quantity'+id).val()
+            alert(qty)
+            window.location.href = "/collection/addtocart/" + id + "/" + qty + "?size=" + size ;
 
         }
         else{
-            alert()
+            alert('cghfgytfgtf')
         }
     }
 

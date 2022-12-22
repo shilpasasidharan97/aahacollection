@@ -13060,7 +13060,7 @@ header.stickycls {
 }
 
 .toggle-nav i {
-    font-size: 24px;
+    font-size: 16px;
     color: var(--theme-color);
     opacity: 0.6
 }
@@ -14277,7 +14277,7 @@ header.stickycls {
     }
 
     .main-menu .menu-right .icon-nav .mobile-search i {
-        display: inline-block;
+        /* display: inline-block; */
         font-size: 22px;
         color: #999
     }
@@ -35467,7 +35467,7 @@ body.dark {
     }
 
     .main-menu .menu-left .navbar i {
-        font-size: 24px
+        font-size: 16px
     }
 
     .typography_section .typography-box .typo-content.typo-buttons a:last-child {
@@ -40382,3 +40382,30 @@ body.rtl .account-setting {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+
+
+
+    .responsive-map{
+overflow: hidden;
+padding-bottom:35%;
+position:relative;
+height:0;
+}
+.responsive-map iframe{
+left:0;
+top:0;
+height:100%;
+width:100%;
+position:absolute;
+}
+@media screen and (max-width:420px) {
+    .footer-logo img{
+        width: 120px;
+    }
+}
+  
+  
+  
+  

@@ -60,6 +60,6 @@ admin.site.register(HotDealPrice,HotDealPriceAdmin)
 
 
 class CartItemsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product', 'quantity', 'total', )
+    list_display = ('id', 'product', 'quantity', 'total', 'size' )
     search_fields=('product','quantity', 'total', )
 admin.site.register(CartItems,CartItemsAdmin)
