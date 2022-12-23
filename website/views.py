@@ -36,7 +36,7 @@ def registration(request):
                 # url = "https://aahamenu.geany.website/menucard/menucard/"+str(new_resto.id)
                 url = "http://127.0.0.1:9000/collection/collection/"+str(new_shop.id)
                 ShopQrcode.objects.create(shop=new_shop,resto_url=url)
-                links = ShopSocialMediaLinks(shop=new_shop)
+                links = ShopSocialMediaLinks(shop=new_shop, whatsapp=phone_number)
                 links.save()
                 if user is not None:
                     login(request, user)

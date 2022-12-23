@@ -17,6 +17,10 @@ urlpatterns = [
     path("addquantity/", views.addquantity, name="addquantity"),
 
     path('checkout/',views.checkout,name='checkout'),
+    path('customer-checkout',views.customerCheckout,name='customercheckout'),
+
+    path('new-arrivals/',views.newArrivals,name='newarrivals'),
+
     path('order-success/',views.orderSuccess,name='ordersuccess'),
     path('contact/',views.contact,name='contact'),
 ]

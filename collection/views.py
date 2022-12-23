@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from website.models import CartId, CartItems, Products, Shop, Subcategory
+from website.models import CartId, CartItems, Products, Shop, ShopSocialMediaLinks, Subcategory
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -40,7 +40,6 @@ def products(request,id):
 
 def productDetails(request,id):
     product_details = Products.objects.get(id=id)
-    print(product_details)
     context = {
         'product_details':product_details
     }
@@ -114,12 +113,82 @@ def addquantity(request):
 
 
 def checkout(request):
-    # first-name = request.POST['fir']
-    return render(request, 'collection/checkout.html')
+    cart_item = CartItems.objects.filter(cart__cart_id=_cart_id(request))
+    grand_total = CartItems.objects.filter(cart__cart_id=_cart_id(request)).aggregate(Sum("total"))
+    context = {
+        'cart_item':cart_item,
+        'grand_total':grand_total
+    }
+    return render(request, 'collection/checkout.html',context)
+
+
+@csrf_exempt
+def customerCheckout(request):
+    first_name = request.POST['fisrtname']
+    last_name = request.POST['lastname']
+    phone = request.POST['phone']
+    email = request.POST['email']
+    messagestring = ""
+    cart_obj = CartId.objects.get(cart_id=_cart_id(request))
+    cart_items = CartItems.objects.filter(cart=cart_obj)
+    shopcart_obj = CartItems.objects.filter(cart=cart_obj).last()
+    shop_obj = ShopSocialMediaLinks.objects.filter(shop=shopcart_obj.product.subcategory.category.shop).last()
+    shop_number = shop_obj.whatsapp
+    sub_total = CartItems.objects.filter(cart__cart_id=_cart_id(request)).aggregate(Sum("total"))
+    data = []
+    try:
+        messagestring = "https://wa.me/+91" + shop_number + "?text=First Name :" + first_name + "?text=Last Name :" + last_name  + "?text=Phone:" + phone + "?text=Email:" + email + "%0a------Order Details------"
+        for i in cart_items:
+            data1 = {
+                "Product-Id":i.product.product_id,
+                "Product-name": i.product.name,
+                "quantity": i.quantity,
+                "size":i.size,
+                "price": i.product.price,
+                "sub_total": i.total,
+            }
+            data.append(data1)
+            i.delete()
+        for j in data:
+            messagestring += (
+                "%0aProduct-Id:"
+                + str(j["Product-Id"])
+                + "%0aProduct-Name:"
+                + str(j["Product-name"])
+                + "%0aQuantity:"
+                + str(j["quantity"])
+                + "%0aSize:"
+                + str(j["size"])
+                + "%0aUnit-Price:"
+                + str(j["price"])
+                + "%0aTotal :"
+                + str(j["sub_total"])
+                + "%0a-----------------------------"
+            )
+            messagestring += "%0a-----------------------------"
+        messagestring += (
+            "%0a-----------------------------\
+        Grand Total :"
+            + str(sub_total["total__sum"])
+            + "%0a-----------------------------"
+        )
+        cart_obj.delete()
+    except Exception:
+        pass
+    print(messagestring)
+    data = {
+        "link":messagestring,
+    }
+    return JsonResponse(data)
 
 
 def orderSuccess(request):
     return render(request, 'collection/order_success.html')
+
+
+def newArrivals(request):
+    new_arrivals = Products.objects.filter()
+    return render(request, 'collection/new_arrivals.html')
 
 
 def contact(request):

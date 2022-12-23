@@ -637,7 +637,7 @@
                                             <a href="">Home</a>
                                         </li>
                                         <li class="mega" id="hover-cls">
-                                            <a href="#">New Arrivals 
+                                            <a href="{% url 'collection:newarrivals' %}">New Arrivals 
                                                 <div class="lable-nav">new</div>
                                             </a> 
                                         </li>
@@ -777,7 +777,7 @@
                                     <h4>{{cart.product.name|capfirst}}</h4>
                                 </a>
                                 <h4>
-                                    <span>{{cart.quantity}} x ₹ {{cart.price}}</span>
+                                    <span>{{cart.quantity}} x ₹ {{cart.product.price}}</span>
                                 </h4>
                             </div>
                         </div>
@@ -793,7 +793,7 @@
                 <ul class="cart_total">
                     <li>
                         <div class="total">
-                            <h5>subtotal : <span>${{cart_items.total}}</span></h5>
+                            <h5>subtotal : <span>₹{{grand_total.total__sum}}</span></h5>
                         </div>
                     </li>
                     <li>

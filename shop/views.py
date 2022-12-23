@@ -101,7 +101,7 @@ def getProductData(request,id):
     return JsonResponse(data)
 
 
-
+# ADD CATEGORY
 def addCategory(request):
     if request.method == 'POST':
         category_name = request.POST['category-name'] 
@@ -117,6 +117,14 @@ def addCategory(request):
     return render(request, 'shop/add_category.html', context)
 
 
+# DELETE CATEGORY
+def deleteCategory(request, id):
+    catagory = Category.objects.get(id=id)
+    catagory.delete()
+    return redirect("shop:addcategory")
+
+
+# SUBCATEGORY ADDING
 def addSubCategory(request, id):
     category_id = Category.objects.get(id=id)
     if request.method == 'POST':
@@ -133,6 +141,14 @@ def addSubCategory(request, id):
     return render(request, 'shop/add_subcategory.html', context)
 
 
+# DELETE SUBCATEGORY
+def deleteSubCategory(request, id):
+    subcatagory = Subcategory.objects.get(id=id)
+    subcatagory.delete()
+    return redirect("shop:addsubcategory")
+
+
+# ADD PRODUCT
 def addProduct(request, id):
     subcategory_id = Subcategory.objects.get(id=id)
     if Products.objects.exists():
@@ -166,6 +182,13 @@ def addProduct(request, id):
         'all_product':all_product
     }
     return render(request, 'shop/add_product.html', context)
+
+
+# DELETE PRODUCT
+# def deleteSubCategory(request, id):
+#     product = Products.objects.get(id=id)
+#     product.delete()
+#     return redirect("shop:addsubcategory")
 
 
 def newArrivals(request):

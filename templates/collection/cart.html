@@ -112,7 +112,7 @@
     function ChangeQuantity(id){
         var quantity = $('#quantity'+id).val()
         $.ajax({
-            url:'/collection/addquantity',
+            url:'/collection/addquantity/',
             type:'GET',
             data: {
                 'quantity': $('#quantity'+id).val(),

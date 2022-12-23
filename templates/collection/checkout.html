@@ -33,7 +33,8 @@
         <div class="container">
             <div class="checkout-page">
                 <div class="checkout-form">
-                    <form>
+                    <form method="POST">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
@@ -42,19 +43,19 @@
                                 <div class="row check-out">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">First Name</div>
-                                        <input type="text" name="fisrtname" value="" placeholder="">
+                                        <input type="text" id="fisrtname" name="fisrtname" value="" placeholder="">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Last Name</div>
-                                        <input type="text" name="lastname" value="" placeholder="">
+                                        <input type="text" id="lastname" name="lastname" value="" placeholder="">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Phone</div>
-                                        <input type="text" name="phone" value="" placeholder="">
+                                        <input type="text" id="phone" name="phone" value="" placeholder="">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Email Address</div>
-                                        <input type="text" name="email" value="" placeholder="">
+                                        <input type="text" id="email" name="email" value="" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -65,18 +66,17 @@
                                             <div>Product <span>Total</span></div>
                                         </div>
                                         <ul class="qty">
-                                            <li>Pink Slim Shirt × 1 <span>₹25.10</span></li>
-                                            <li>SLim Fit Jeans × 1 <span>₹555.00</span></li>
+                                            {% for cart in cart_item %}
+                                            <li>{{cart.product.name}} × {{cart.quantity}} <span>₹{{cart.total}}</span></li>
+                                            {% endfor %}
                                         </ul>
                                         <ul class="sub-total">
-                                            <li>Subtotal <span class="count">₹380.10</span></li>
-                                        </ul>
-                                        <ul class="total">
-                                            <li>Total <span class="count">₹620.00</span></li>
+                                            <li>Total <span class="count">₹{{grand_total.total__sum}}</span></li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
-                                        <div class="text-end"><a href="{% url 'collection:ordersuccess' %}" class="btn-solid btn">Place Order</a></div>
+                                        <!-- <div class="text-end"><a href="{% url 'collection:ordersuccess' %}" CustomerDetails class="btn-solid btn">Place Order</a></div> -->
+                                        <div class="text-end"><a href="" onclick="CustomerDetails()" class="btn-solid btn">Place Order</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -89,5 +89,25 @@
     <!-- section end -->
 
 
+
+    <script>
+        function CustomerDetails(){
+        $.ajax({
+            url: '/collection/customer-checkout',
+            type:'POST',
+            data:{
+                'fisrtname': $('#fisrtname').val(),
+                'lastname': $('#lastname').val(),
+                'phone': $('#phone').val(),
+                'email': $('#email').val(),
+            },
+            success: function (responce) {
+                // alert(responce.link)
+                window.location.href = responce.link
+                
+            }
+        })
+    }
+    </script>
 
 {% endblock %}

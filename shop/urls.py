@@ -9,9 +9,14 @@ urlpatterns = [
     path('subcategory-list/<int:id>',views.subcategoryList, name='subcategorylist'),
     path('product-list/<int:id>',views.productList, name='productlist'),
 
-    path('add-category',views.addCategory, name='addcategory'),
+    path('add-category/',views.addCategory, name='addcategory'),
+    path('delete-category/<int:id>',views.deleteCategory, name='deletecatgory'),
+
     path('add-subcategory/<int:id>',views.addSubCategory, name='addsubcategory'),
+    path('delete-subcategory/<int:id>',views.deleteSubCategory, name='deletesubcatgory'),
+
     path('add-product/<int:id>',views.addProduct, name='addproduct'),
+    # path('delete-product/<int:id>',views.deleteProduct, name='delete'),
 
     path('new-arrivals/',views.newArrivals, name='newarrivals'),
 
