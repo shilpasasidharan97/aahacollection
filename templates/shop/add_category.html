@@ -128,7 +128,7 @@
                         <a href="#" class="action-icon dropdown-toggle sm" data-bs-toggle="dropdown"
                             aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_category"><i
+                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_category" onclick="DataGets({{category.id}})"><i
                                     class="far fa-edit me-2"></i>Edit</a>
                             <a class="dropdown-item" onclick="deletecategory({{category.id}})"><i class="far fa-trash-alt me-2"></i>Delete</a>
                         </div>
@@ -211,7 +211,7 @@
                                     <h5 class="card-title">Edit Product</h5>
                                 </div>
                                 <div class="card-body pb-0">
-                                    <form id="editcategoryform" enctype="multipart/form-data">
+                                    <form id="editcategoryform" method="POST" action="{% url 'shop:editcategory' %}" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="form-group row">
                                             <div class="profile-img-wrap edit-img">
@@ -230,7 +230,7 @@
                                             </div>
                                         </div>
 
-                                        <input type="number" id="fid" name="fid" hidden>
+                                        <input type="number" id="pid" name="pid" hidden>
                                         <div class="text-end mt-4">
                                             <button type="submit" class="btn btn-primary">Edit Product</button>
                                         </div>
@@ -247,6 +247,7 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // delete
         function deletecategory(id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -267,6 +268,24 @@
                 }
             })
         }
+
+        // edit category
+        function DataGets(id) {
+        $.ajax({
+            url: "/shop/get-category/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+                $('#pid').val(responce.id)
+                $('#pname').val(responce.name)
+                $('#image').attr("src", responce.icon)
+                // $('#bpk'+id).val(responce.value.id)
+
+            }
+
+        })
+
+    }
     </script>
 
     {% endblock %}

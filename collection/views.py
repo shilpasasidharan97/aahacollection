@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from website.models import CartId, CartItems, Products, Shop, ShopSocialMediaLinks, Subcategory
+from website.models import CartId, CartItems, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -11,10 +11,21 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
+def _rest_id(request):
+    cuser = request.session.session_key
+    if not cuser:
+        cuser = request.session.create()
+    return cuser
+
 
 def collectionHome(request,id):
     shop_obj = Shop.objects.get(id=id)
     category_list = Products.objects.select_related('subcategory').filter(subcategory__category__shop=shop_obj).values("subcategory__category__name", "subcategory__category__icon", "subcategory__category__id").distinct() 
+    if RestoSave.objects.filter(user_session_id=_rest_id(request), resto_pk=id).exists():
+        resto_save = RestoSave.objects.get(user_session_id=_rest_id(request), resto_pk=id)
+    else:
+        resto_save = RestoSave.objects.create(user_session_id=_rest_id(request), resto_pk=id)
+        resto_save.save()
     context = {
         'category_list':category_list
     }
@@ -83,7 +94,6 @@ def AddToCart(request, pid, qty):
         cart.save()
         messages.success(request, 'Successfully Add item to cart')
     return redirect("/collection/product-details/"+str(product.id))
-
 
 
 def cart(request):
@@ -187,8 +197,12 @@ def orderSuccess(request):
 
 
 def newArrivals(request):
-    new_arrivals = Products.objects.filter()
-    return render(request, 'collection/new_arrivals.html')
+    shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    new_arrivals = Products.objects.filter(is_new_arrival=True, subcategory__category__shop__id=shops.resto_pk)
+    context = {
+        "new_arrivals":new_arrivals,
+    }
+    return render(request, 'collection/new_arrivals.html', context)
 
 
 def contact(request):

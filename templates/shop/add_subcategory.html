@@ -95,7 +95,7 @@
                     <a href="#" class="action-icon dropdown-toggle sm" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_category"><i
+                        <a class="dropdown-item" data-bs-toggle="modal" onclick="DataGets({{subcategory.id}})" data-bs-target="#edit_category"><i
                                 class="far fa-edit me-2"></i>Edit</a>
                         <a class="dropdown-item" onclick="deletesubcategory({{subcategory.id}})"><i class="far fa-trash-alt me-2"></i>Delete</a>
                     </div>
@@ -175,26 +175,26 @@
                                 <h5 class="card-title">Edit Product</h5>
                             </div>
                             <div class="card-body pb-0">
-                                <form id="editcategoryform" enctype="multipart/form-data">
+                                <form id="editcategoryform" method="POST" action="{% url 'shop:editsubcategory' %}" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="form-group row">
                                         <div class="profile-img-wrap edit-img">
                                             <img class="inline-block" src="" id="image" alt="user">
                                             <div class="fileupload btn">
                                                 <span class="btn-text">edit</span>
-                                                <input class="upload" name="photo" type="file" id="iimage">
+                                                <input class="upload" name="photo" type="file" id="photo">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-form-label col-md-4">Product Name</label>
+                                        <label class="col-form-label col-md-4">Subcategory Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="name" value="" id="pname">
+                                            <input type="text" class="form-control" name="name" value="" id="name">
                                         </div>
                                     </div>
 
-                                    <input type="number" id="fid" name="fid" hidden>
+                                    <input type="number" id="pid" name="pid" hidden>
                                     <div class="text-end mt-4">
                                         <button type="submit" class="btn btn-primary">Edit Product</button>
                                     </div>
@@ -211,6 +211,7 @@
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // delete
         function deletesubcategory(id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -229,6 +230,23 @@
                     )
                     window.location.href = "/shop/delete-subcategory/" + id
                 }
+            })
+        }
+
+        // getdata
+        function DataGets(id) {
+            $.ajax({
+                url: "/shop/get-subcategory/" + id,
+                type: 'GET',
+
+                success: function (responce) {
+                    $('#pid').val(responce.id)
+                    $('#name').val(responce.name)
+                    $('#image').attr("src", responce.icon)
+                    // $('#bpk'+id).val(responce.value.id)
+
+                }
+
             })
         }
     </script>

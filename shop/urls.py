@@ -10,13 +10,20 @@ urlpatterns = [
     path('product-list/<int:id>',views.productList, name='productlist'),
 
     path('add-category/',views.addCategory, name='addcategory'),
+    path('get-category/<int:id>',views.getCategory, name='getcategory'),
+    path('edit-category',views.editCategory, name='editcategory'),
     path('delete-category/<int:id>',views.deleteCategory, name='deletecatgory'),
 
     path('add-subcategory/<int:id>',views.addSubCategory, name='addsubcategory'),
+    path('get-subcategory/<int:id>',views.getSubCategory, name='getsubcategory'),
+    path('edit-subcategory',views.editSubCategory, name='editsubcategory'),
     path('delete-subcategory/<int:id>',views.deleteSubCategory, name='deletesubcatgory'),
 
     path('add-product/<int:id>',views.addProduct, name='addproduct'),
-    # path('delete-product/<int:id>',views.deleteProduct, name='delete'),
+    path('view-product/<int:id>',views.viewProduct, name='view'),
+    path('get-product/<int:id>',views.getProduct, name='getproduct'),
+    path('edit-product',views.editProduct, name='editproduct'),
+    path('delete-product/<int:id>',views.deleteProduct, name='delete'),
 
     path('new-arrivals/',views.newArrivals, name='newarrivals'),
 

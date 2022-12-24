@@ -18,7 +18,6 @@ def shopHome(request):
     hotdeal_count = HotDealPrice.objects.filter(product__subcategory__category__shop=user.shop).count()
     new_arrival_count = Products.objects.filter(subcategory__category__shop=user.shop, is_new_arrival=True).count()
     five_products = Products.objects.filter(subcategory__category__shop=user.shop)[:5]
-    print(social_media)
     context = {
         "is_home":True,
         "qr_code":qr_code,
@@ -92,7 +91,6 @@ def getProductData(request,id):
         hot_deal_price = hotdeal_obj.price
     except:
         hot_deal_price = 0
-    print(product_details, '*'*10)
     data = {
         'product_name':product_details.name,
         'id':product_details.id,
@@ -117,6 +115,32 @@ def addCategory(request):
     return render(request, 'shop/add_category.html', context)
 
 
+# EDIT CATEGORY
+def getCategory(request,id):
+    category_get =Category.objects.get(id=id)
+    data = {
+        'id':category_get.id,
+        'name':category_get.name,
+        'icon':category_get.icon.url,
+    }
+    return JsonResponse(data)
+
+
+def editCategory(request):
+    if request.method == 'POST':
+        id = request.POST['pid']
+        name = request.POST['name']
+        try :
+            image = request.FILES['photo']
+            cat_obj = Category.objects.get(id=id)
+            cat_obj.icon = image
+            cat_obj.save()
+        except :
+            pass
+        Category.objects.filter(id=id).update(name=name)
+    return redirect('shop:addcategory')
+
+
 # DELETE CATEGORY
 def deleteCategory(request, id):
     catagory = Category.objects.get(id=id)
@@ -139,6 +163,33 @@ def addSubCategory(request, id):
         'all_subcategories':all_subcategories
     }
     return render(request, 'shop/add_subcategory.html', context)
+
+
+# EDIT CATEGORY
+def getSubCategory(request,id):
+    subcategory_get =Subcategory.objects.get(id=id)
+    data = {
+        'id':subcategory_get.id,
+        'name':subcategory_get.name,
+        'icon':subcategory_get.icon.url,
+    }
+    return JsonResponse(data)
+
+
+def editSubCategory(request):
+    if request.method == 'POST':
+        id = request.POST['pid']
+        name = request.POST['name']
+        cat_obj1 = Subcategory.objects.get(id=id)
+        try :
+            image = request.FILES['photo']
+            cat_obj = Subcategory.objects.get(id=id)
+            cat_obj.icon = image
+            cat_obj.save()
+        except :
+            pass
+        Subcategory.objects.filter(id=id).update(name=name)
+    return redirect('/shop/add-subcategory/'+str(cat_obj1.category.id))
 
 
 # DELETE SUBCATEGORY
@@ -184,11 +235,65 @@ def addProduct(request, id):
     return render(request, 'shop/add_product.html', context)
 
 
+# EDIT PRODUCT
+def getProduct(request,id):
+    products_get =Products.objects.get(id=id)
+    data = {
+        'id':products_get.id,
+        'product_id':products_get.product_id,
+        'name':products_get.name,
+        'price':products_get.price,
+        'size':products_get.size,
+        'description':products_get.description,
+        'product_details':products_get.product_details,
+        'image':products_get.image.url,
+    }
+    return JsonResponse(data)
+
+
+def editProduct(request):
+    if request.method == 'POST':
+        id = request.POST['pkid']
+        productid = request.POST['productid']
+        productname = request.POST['productname']
+        productprice = request.POST['productprice']
+        productsize = request.POST['productsize']
+        productdescription = request.POST['productdescription']
+        productdetails = request.POST['productdetails']
+        prd_obj1 = Products.objects.get(id=id)
+        try :
+            image = request.FILES['productphoto']
+            prd_obj = Products.objects.get(id=id)
+            prd_obj.icon = image
+            prd_obj.save()
+        except :
+            pass
+
+        Products.objects.filter(id=id).update(product_id=productid,name=productname,price=productprice,size=productsize,description=productdescription,product_details=productdetails)
+    return redirect('/shop/add-product/'+str(prd_obj1.subcategory.id))
+
+
 # DELETE PRODUCT
-# def deleteSubCategory(request, id):
-#     product = Products.objects.get(id=id)
-#     product.delete()
-#     return redirect("shop:addsubcategory")
+def deleteProduct(request, id):
+    product = Products.objects.get(id=id)
+    product.delete()
+    return JsonResponse({'aa':'aa'})
+
+
+# VIEW PRODUCT
+def viewProduct(request,id):
+    product_view = Products.objects.get(id=id)
+    data = {
+        'pid':product_view.product_id,
+        'name':product_view.name,
+        'price':product_view.price,
+        'size':product_view.size,
+        'description':product_view.description,
+        'product_details':product_view.product_details,
+        'image':product_view.image.url,
+        'date':product_view.date,
+    }
+    return JsonResponse(data)
 
 
 def newArrivals(request):
@@ -247,7 +352,6 @@ def socialMediaLinks(request):
         }
         return render(request, 'shop/social_media.html',context)
     else:
-        print('else')
         pass
     context = {
         'is_social':True,
