@@ -3,65 +3,20 @@
 {% block content %}
 
 
-<!-- Home slider -->
-<section class="p-0">
-    <div class="slider-animate home-slider">
-        <div>
-            <div class="home height-apply p-bottom">
-                <img src="{% static 'collection/images/gradient/slider/1.jpg' %}" alt="" class="bg-img blur-up lazyload">
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col">
-                            <div class="slider-contain height-apply">
-                                <div>
-                                    <h4>save 30%</h4>
-                                    <h1>special products</h1><a href="#"
-                                        class="btn btn-solid btn-gradient animated">shop
-                                        now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="home height-apply p-bottom">
-                <img src="{% static 'collection/images/gradient/slider/2.jpg' %}" alt="" class="bg-img blur-up lazyload">
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col">
-                            <div class="slider-contain height-apply">
-                                <div>
-                                    <h4>save 30%</h4>
-                                    <h1>special products</h1><a href="#"
-                                        class="btn btn-solid btn-gradient animated">shop
-                                        now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <!-- category section start -->
-<section>
-    <div class="container container-lg">
-        <div class="row margin-default ratio_square">
-            {% for category in category_list %}
-            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                <a href="{% url 'collection:subcategory' category.subcategory__category__id %}">
-                    <div class="gradient-category">
-                        <div class="gradient-border">
+<section class="bg-light section-b-space">
+    <div class="container-lg container">
+        <div class="row margin-default ratio_square ">
+            {% for sub in subcatgory_list %}
+            <div class="col-xl-2 col-sm-3 col-4">
+                <a href="{% url 'collection:products' sub.id %}">
+                    <div class="img-category">
+                        <div class="pattern-bg bg1">
                             <div class="img-sec">
-                                <img src="/media/{{category.subcategory__category__icon}}" class="img-fluid" alt="">
+                                <img src="{{sub.icon.url}}" class="img-fluid bg-img" alt="">
                             </div>
                         </div>
-                        <h4>{{category.subcategory__category__name}}</h4>
+                        <h4>{{sub.name|capfirst}}</h4>
                     </div>
                 </a>
             </div>
@@ -71,49 +26,8 @@
 </section>
 
 
-<!-- collection banner -->
-<section class="pb-0 ratio2_1">
-    <div class="container container-lg">
-        <div class="row partition2">
-            <div class="col-md-6">
-                <a href="#">
-                    <div class="collection-banner p-right text-center">
-                        <div class="img-part">
-                            <img src="{% static 'collection/images/gradient/banner/4.jpg' %}"
-                                class="img-fluid blur-up lazyload bg-img" alt="">
-                        </div>
-                        <div class="contain-banner">
-                            <div>
-                                <h4>save 30%</h4>
-                                <h2>men</h2>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6">
-                <a href="#">
-                    <div class="collection-banner p-right text-center">
-                        <div class="img-part">
-                            <img src="{% static 'collection/images/gradient/banner/5.jpg' %}"
-                                class="img-fluid blur-up lazyload bg-img" alt="">
-                        </div>
-                        <div class="contain-banner">
-                            <div>
-                                <h4>save 60%</h4>
-                                <h2>women</h2>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <!-- collection banner start -->
-<section class="banner-goggles ratio2_1 banner-padding">
+<!-- <section class="banner-goggles ratio2_1 banner-padding">
     <div class="container container-lg">
         <div class="row partition3">
             <div class="col-md-4">
@@ -166,11 +80,11 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 <!-- product slider -->
-<section class="ratio_asos gradient-slider">
+<!-- <section class="ratio_asos gradient-slider">
     <div class="container container-lg">
         <div class="row">
             <div class="col-12">
@@ -336,7 +250,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 <!-- Admin bnner -->
@@ -350,6 +264,7 @@
         </div>
     </div>
 </div>
+
 
 
 {% endblock %}

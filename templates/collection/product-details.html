@@ -1,0 +1,214 @@
+{% extends 'collection/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+
+    <div>{{ message }}</div>
+
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+    <div class="alert alert-success alert-dismissible fade show">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" class="me-2">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <strong>Success!</strong> {{ message }} .
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+        </button>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>product</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home /</a></li>
+                        <li class="active" aria-current="page"> &nbsp; product</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- section start -->
+<section>
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product-slick">
+                        <div>
+                            <img src="{{product_details.image.url}}" alt=""
+                                class="img-fluid blur-up lazyload image_zoom_cls-0" style="height: 360px;width: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 rtl-text">
+                    <div class="product-right">
+                        <h2>{{product_details.name|upper}}</h2>
+                        <h4>Product Id : &nbsp;{{product_details.product_id}}</h4>
+                        <div class="rating-section">
+                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                            </div>
+                            <h6>120 ratings</h6>
+                        </div>
+                        <div class="label-section">
+                            <span class="badge badge-grey-color">#1 Best seller</span>
+                            <span class="label-text">in fashion</span>
+                        </div>
+                        <h3 class="price-detail">₹<span id="unitprice">{{product_details.price}}</span> <del>₹459.00</del><span>55% off</span></h3>
+                            <div id="selectSize" class="addeffect-section product-description border-product">
+                                <input type="text" value="{{product_details.size}}" id="sizewithcomma" hidden>
+                                <h6 class="error-message">please select size</h6>
+                                <div class="size-box">
+                                    <ul id="size">
+                                    </ul>
+                                </div>
+                                <h6 class="product-title">quantity</h6>
+                                <div class="qty-box">
+                                    <div class="input-group">
+    
+                                        <span class="input-group-prepend">
+                                            <button type="button" onclick="quantityminus({{product_details.id}})" class="btn quantity-left-minus" data-type="minus"
+                                                data-field="">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </span>
+    
+                                        <input type="text" name="quantity" id="quantity{{product_details.id}}" min="1" class="form-control input-number"  value="1">
+                                        <span class="input-group-prepend">
+                                            <button type="button" onclick="quantityadd({{product_details.id}})" class="btn quantity-right-plus" data-type="plus" data-field="" >
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-buttons">
+                                <a  id="addtocarturl{{product_details.id}}"
+                                    class="btn btn-solid hover-solid btn-animation" onclick="radioValidation({{product_details.id}})">
+                                    <i class="fa fa-shopping-cart me-1"aria-hidden="true"></i> 
+                                    add to cart
+                                </a> 
+                                <a href="#" class="btn btn-solid">
+                                    <i class="fa fa-bookmark fz-16 me-2" aria-hidden="true"></i>
+                                    wishlist
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- product-tab starts -->
+<section class="tab-product m-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab"
+                            href="#top-home" role="tab" aria-selected="true"><i
+                                class="icofont icofont-ui-home"></i>Details</a>
+                        <div class="material-border"></div>
+                    </li>
+                </ul>
+                <div class="tab-content nav-material" id="top-tabContent">
+                    <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                        <div class="product-tab-discription">
+                            <div class="part">
+                                <p>
+                                    {{product_details.description|capfirst}}
+                                </p>
+                            </div>
+                            <div class="part">
+                                <p>{{product_details.product_details|safe}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+        var array = $('#sizewithcomma').val().split(",");
+        $.each(array,function(i){
+            $('#size').append('<li><a href="javascript:void(0)">'+ array[i]  +'</a><input type="radio" value="'+ array[i] +'" name="size" class="radio" id="radio-btn"></li>')
+        });
+    })
+
+    function quantityadd(id){
+        var quantity = $('#quantity'+id).val()
+        addquantity = parseInt(quantity)+parseInt(1)
+        $('#quantity'+id).val(addquantity)
+        // alert("/collection/addtocart/" + id + "/" + addquantity);
+        // $("#addtocarturl"+id).attr('href',"/collection/addtocart/" + id + "/" + addquantity);
+        
+    }
+
+
+    function quantityminus(id){
+        var quantity = $('#quantity'+id).val()
+        lessquantity = parseInt(quantity) - parseInt(1)
+        $('#quantity'+id).val(lessquantity)
+        // $("#addtocarturl"+id).attr('href',"/collection/addtocart/" + id + "/" + lessquantity);
+    }
+
+
+    function radioValidation(id) {
+        // var radio_value = $("input[type='radio'][name='size']:checked").val()
+        // alert(radio_value)
+        if ( $("input[type='radio'][name='size']").is(":checked") ) {
+            size = $("input[type='radio'][name='size']:checked").val()
+            qty = $('#quantity'+id).val()
+            alert(qty)
+            window.location.href = "/collection/addtocart/" + id + "/" + qty + "?size=" + size ;
+
+        }
+        else{
+            alert('cghfgytfgtf')
+        }
+    }
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+{% endblock %}

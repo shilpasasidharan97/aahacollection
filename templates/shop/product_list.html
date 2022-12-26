@@ -3,13 +3,65 @@
 {% block content %}
 
 
+<style>
+    /*  */
+    .profile-img-wrap.edit-img {
+        border-radius: 50%;
+        margin: 0 auto 30px;
+        position: relative;
+    }
+
+    .profile-img-wrap {
+        height: 120px;
+        position: absolute;
+        width: 120px;
+        background: #ffffff;
+        overflow: hidden;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        vertical-align: middle;
+    }
+
+    .profile-img-wrap .fileupload {
+        background: rgba(33, 33, 33, 0.5);
+        border: none;
+        padding: 3px 10px;
+        border-radius: 0;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .profile-img-wrap .fileupload .btn-text {
+        color: #ffffff;
+    }
+
+    .profile-img-wrap .fileupload .upload {
+        cursor: pointer;
+        filter: alpha(opacity=0);
+        font-size: 20px;
+        opacity: 0;
+        margin: 0;
+        padding: 5px;
+        position: absolute;
+        top: -3px;
+        right: -3px;
+    }
+</style>
+
+
+
 <div class="page-header">
     <div class="row align-items-center">
         <div class="col">
             <h3 class="page-title">Product List</h3>
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Dashboard  / </a></li>
-                <li class="active"> Product List</li>
+                <li class="breadcrumb-item"><a href="{% url 'shop:shophome' %}">Dashboard  / </a></li>
+                <li class="active">&nbsp; Product List</li>
             </ul>
         </div>
     </div>
@@ -17,50 +69,63 @@
 
 
 <div class="row">
+
+    {% for products in all_products %}
     <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
         <div class="card invoices-grid-card w-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a href="view-invoice.html" class="invoice-grid-link">qwerty</a>
+                <a href="" class="invoice-grid-link">{{products.name|capfirst}}</a>
                 <div class="dropdown dropdown-action">
                     <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="edit-invoice.html"><i
+                        <a class="dropdown-item" onclick="Datagets({{products.id}})" data-bs-toggle="modal" data-bs-target="#edit_product"><i
                                 class="far fa-edit me-2"></i>Edit</a>
-                        <a class="dropdown-item" href="javascript:void(0);"><i
+                        <a class="dropdown-item" onclick="productGet({{products.id}})" data-bs-toggle="modal" data-bs-target="#product_preview"><i
+                            class="far fa-eye me-2"></i>View</a>
+                        <a class="dropdown-item" onclick="deleteproduct({{products.id}})"><i
                                 class="far fa-trash-alt me-2"></i>Delete</a>
                     </div>
                 </div>
             </div>
             <div class="card-middle">
-                <img class="avatar avatar-sm me-2 avatar-img" src="{% static 'web/img/banner/bangle.jpeg' %}" alt="User Image">
+                <img class="avatar avatar-sm me-2 avatar-img" src="{{products.image.url}}" alt="User Image">
             </div>
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
                         <span><i class="far fa-money-bill-alt"></i> Amount</span>
-                        <h6 class="mb-0">1,54,220</h6>
+                        <h6 class="mb-0">₹<span>{{products.price}}</span></h6>
                     </div>
                     <div class="col-auto">
                         <span><i class="far fa-calendar-alt"></i> Added Date</span>
-                        <h6 class="mb-0">23 Mar, 2022</h6>
+                        <h6 class="mb-0">{{products.date}}</h6>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="row align-items-center">
+                    {% if products.is_new_arrival == False %}
                     <div class="col-auto">
-                        <span class="badge bg-success-dark"><a href="" style="color: #fff;">Add to New Arrivals</a></span>
+                        <span class="badge bg-success-dark"><a href="{% url 'shop:addtonewarrivals' products.id %}" style="color: #fff;">Add to New Arrivals</a></span>
                     </div>
+                    {% else %}
+                    <div class="col-auto">
+                        <span class="badge bg-primary-dark text-white"><a href="{% url 'shop:addtonewarrivals' products.id %}" style="color: rgb(146, 24, 24);">Remove from New Arrivals</a></span>
+                    </div>
+                    {% endif %}
+
                 </div><br>
                 <div class="row align-items-center">
                     <div class="col-auto">
-                        <span class="badge bg-danger-dark"><a href="" data-bs-toggle="modal" data-bs-target="#edit_category" style="color: #fff;">Add to Ho Deal Price</a></span>
+                        <span class="badge bg-danger-dark"><a href="" data-bs-toggle="modal" data-bs-target="#edit_category" onclick="getData({{products.id}})" style="color: #fff;">Add Hot Deal Price</a></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
+
 </div>
 
 <!-- hot deal modal -->
@@ -75,20 +140,21 @@
                                 <h5 class="card-title">Add Hot Deal</h5>
                             </div>
                             <div class="card-body pb-0">
-                                <form id="editcategoryform" enctype="multipart/form-data">
+                                <form id="editcategoryform" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="name" value="" id="pname">
+                                            <input type="text" class="form-control" name="h-name" value="" id="hname">
+                                            <input type="text" name="pk" id="pk" hidden>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Hot Deal Price</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="h-price" value="" id="pname">
+                                            <input type="text" class="form-control" name="h-price" value="" id="hprice">
                                         </div>
                                     </div>
 
@@ -104,6 +170,219 @@
         </div>
     </div>
 </div>
+
+
+<!-- PRODUCT VIEW MODAL -->
+<div class="modal custom-modal fade invoices-preview" id="product_preview" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="card invoice-info-card">
+                            <div class="card-body pb-0">
+                                <div class="invoice-item invoice-item-one">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="invoice-info">
+                                                <div class="invoice-head">
+                                                    <h2 class="text-primary" id="prdid">Butter Shake</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="invoice-item invoice-item-bg">
+                                    <div class="invoice-circle-img">
+                                        <img src="{% static 'web/img/invoice-circle1.png' %}" alt=""
+                                            class="invoice-circle1">
+                                        <img src="{% static 'web/img/invoice-circle2.png' %}" alt=""
+                                            class="invoice-circle2">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-12">
+                                            <div class="invoice-info">
+                                                <img class="avatar text-center avatar-sm me-2 avatar-img" id="proimage" style="height: auto;" alt="User Image"> 
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9 col-md-12">
+                                            <strong class="customer-text-one">Product</strong>
+                                            <h6 class="invoice-name">Name & : <span id="prname"></span></h6>
+                                            <p class="invoice-details invoice-details-two">price : <span id="prprice"></span><br></p>
+                                            <p class="invoice-details invoice-details-two">Size : <span id="size"></span></p>
+                                            <p class="invoice-details invoice-details-two">Date : <span id="date"></span></p>
+                                            <strong class="customer-text-one">Description</strong>
+                                            <!-- <h6 class="invoice-name">Lorem ipsum dolor sit amet </h6> -->
+                                            <p class="invoice-details invoice-details-two" id="description"> </p>
+                                            <strong class="customer-text-one">Details</strong>
+                                            <p id="details"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- EDIT PRODUCT -->
+<div class="modal custom-modal fade invoices-preview" id="edit_product" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="card invoice-info-card">
+                            <div class="card-header">
+                                <h5 class="card-title">Edit Product</h5>
+                            </div>
+                            <div class="card-body pb-0">
+                                <form action="{% url 'shop:editproduct' %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="form-group row">
+                                        <div class="profile-img-wrap edit-img">
+                                            <img class="inline-block" src="" id="productimage" alt="user">
+                                            <div class="fileupload btn">
+                                                <span class="btn-text">edit</span>
+                                                <input class="upload" name="productphoto" type="file" id="productphoto">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Product Id</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="productid" class="form-control" readonly name="productid">
+                                        </div>
+                                    </div>
+
+                                    <input type="text" id="pkid" name="pkid" hidden>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Product Name</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="productname" class="form-control" name="productname">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Price</label>
+                                        <div class="col-md-8">
+                                            <input type="number" class="form-control" id="productprice" name="productprice">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Size</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="productsize" name="productsize">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Description</label>
+                                        <div class="col-md-8">
+                                            <textarea name="productdescription" id="productdescription" cols="15" rows="10" class="form-control">
+                                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic necessitatibus ducimus ipsa. Aut, eum qui aliquid quaerat rerum sit sint iusto cupiditate non hic, ducimus praesentium obcaecati neque? Sed, minima.
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Details</label>
+                                        <div class="col-md-8">
+                                            <textarea name="productdetails" id="productdetails" cols="15" rows="10" class="form-control">
+                                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic necessitatibus ducimus ipsa. Aut, eum qui aliquid quaerat rerum sit sint iusto cupiditate non hic, ducimus praesentium obcaecati neque? Sed, minima.
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-primary">Edit Product</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function getData(id) {
+        alert(id)
+        $.ajax({
+            url: "/shop/getproductdata/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+                $('#hname').val(responce.product_name)
+                // $('#bimage'+id).attr("src", responce.value.photo)
+                $('#pk').val(responce.id)
+                $('#hprice').val(responce.hot_deal_price)
+
+            }
+
+        })
+
+    }
+
+    function productGet(id) {
+        $.ajax({
+            url: "/shop/view-product/" +id,
+            type: 'GET',
+
+            success: function (responce) {
+                $('#prdid').html(responce.pid)
+                $('#prname').html(responce.name)
+                $('#prprice').html(responce.price)
+                $('#size').html(responce.size)
+                $('#description').html(responce.description)
+                $('#details').html(responce.product_details)
+                $('#date').html(responce.date)
+                $('#proimage').attr("src", responce.image)
+
+            }
+
+        })
+
+    }
+
+    // edit
+    function Datagets(id) {
+        alert()
+        $.ajax({
+            url: "/shop/get-product/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+                $('#pkid').val(responce.id)
+                $('#productid').val(responce.product_id)
+                $('#productname').val(responce.name)
+                $('#productprice').val(responce.price)
+                $('#productsize').val(responce.size)
+                $('#productdescription').val(responce.description)
+                $('#productdetails').val(responce.product_details)
+                $('#productimage').attr("src", responce.image)
+                // $('#bpk'+id).val(responce.value.id)
+
+            }
+
+        })
+
+    }
+</script>
 
 
 

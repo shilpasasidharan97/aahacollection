@@ -412,7 +412,7 @@ h3 {
 }
 
 h4 {
-    font-size: 18px;
+    font-size: 16px;
     text-transform: capitalize;
     font-weight: 400;
     letter-spacing: 0.03em;
@@ -9319,12 +9319,12 @@ header.left-header .top-header {
 
 header.left-header .top-header .header-dropdown .mobile-wishlist img,
 header.left-header .top-header .header-dropdown .mobile-account img {
-    display: block
+    /* display: block */
 }
 
 header.left-header .top-header .header-dropdown .mobile-wishlist i,
 header.left-header .top-header .header-dropdown .mobile-account i {
-    display: none
+    /* display: none */
 }
 
 header.left-header .onhover-div {
@@ -10237,7 +10237,7 @@ header.header-style .onhover-dropdown:before {
 
 .main-menu .menu-left .navbar i {
     font-size: 28px;
-    color: #222;
+    color: var(--theme-color);
     cursor: pointer
 }
 
@@ -13060,7 +13060,7 @@ header.stickycls {
 }
 
 .toggle-nav i {
-    font-size: 24px;
+    font-size: 16px;
     color: var(--theme-color);
     opacity: 0.6
 }
@@ -14244,7 +14244,7 @@ header.stickycls {
     }
 
     .main-menu .menu-right .icon-nav .mobile-setting>div img {
-        display: none
+        /* display: none */
     }
 
     .main-menu .menu-right .icon-nav .mobile-setting .setting {
@@ -14268,22 +14268,22 @@ header.stickycls {
     }
 
     .main-menu .menu-right .icon-nav .mobile-cart>div img {
-        display: none
+        /* display: none */
     }
 
     .main-menu .menu-right .icon-nav .mobile-search {
-        right: 80%;
+        right: 72%;
         z-index: 1
     }
 
     .main-menu .menu-right .icon-nav .mobile-search i {
-        display: inline-block;
+        /* display: inline-block; */
         font-size: 22px;
         color: #999
     }
 
     .main-menu .menu-right .icon-nav .mobile-search img {
-        display: none
+        /* display: none */
     }
 
     .main-menu .menu-right .icon-nav .mobile-search .show-div .form-group {
@@ -35467,7 +35467,7 @@ body.dark {
     }
 
     .main-menu .menu-left .navbar i {
-        font-size: 24px
+        font-size: 16px
     }
 
     .typography_section .typography-box .typo-content.typo-buttons a:last-child {
@@ -40382,3 +40382,30 @@ body.rtl .account-setting {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+
+
+
+    .responsive-map{
+overflow: hidden;
+padding-bottom:35%;
+position:relative;
+height:0;
+}
+.responsive-map iframe{
+left:0;
+top:0;
+height:100%;
+width:100%;
+position:absolute;
+}
+@media screen and (max-width:420px) {
+    .footer-logo img{
+        width: 120px;
+    }
+}
+  
+  
+  
+  

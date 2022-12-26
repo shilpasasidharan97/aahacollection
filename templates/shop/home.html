@@ -5,32 +5,33 @@
 
 <div class="row">
     <div class="col-lg-9 mt-2">
-        <h5>Welcome qwerty ...!</h5>
+        <h5>Welcome {{user.shop|capfirst}} ...!</h5>
     </div>
     <div class="col-lg-3">
         <ul class="d-flex">
             <li>
-                <a href="">
+                <a href="{{social_media.facebook}}" target="_blank" id="facebook">
                     <img src="https://img.icons8.com/color/48/null/facebook-new.png" width="60%"/>
+                    <input type="text" value="{{social_media.facebook}}" hidden id="fb">
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{social_media.whatsapp}}" target="_blank">
                     <img src="https://img.icons8.com/color/48/null/whatsapp--v1.png" width="60%"/>
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{social_media.instagram}}" target="_blank">
                     <img src="https://img.icons8.com/color/48/null/instagram-new--v1.png" width="60%"/>
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{social_media.location}}" target="_blank">
                     <img src="https://img.icons8.com/color/48/null/google-maps-new.png" width="60%"/>
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="tel:+91{{social_media.phone_number}}">
                     <img src="https://img.icons8.com/color/48/null/phone.png" width="60%"/>
                 </a>
             </li>
@@ -52,7 +53,7 @@
                     <div class="dash-count">
                         <div class="dash-title">Category</div>
                         <div class="dash-counts">
-                            <p>12</p>
+                            <p>{{category_count}}</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                     <div class="dash-count">
                         <div class="dash-title">Products</div>
                         <div class="dash-counts">
-                            <p>12</p>
+                            <p>{{product_count}}</p>
                         </div>
                     </div>
                 </div>
@@ -86,7 +87,7 @@
                     <div class="dash-count">
                         <div class="dash-title">Hot Deals</div>
                         <div class="dash-counts">
-                            <p>12</p>
+                            <p>{{hotdeal_count}}</p>
                         </div>
                     </div>
                 </div>
@@ -103,7 +104,7 @@
                     <div class="dash-count">
                         <div class="dash-title">New Arrivals</div>
                         <div class="dash-counts">
-                            <p>12</p>
+                            <p>{{new_arrival_count}}</p>
                         </div>
                     </div>
                 </div>
@@ -121,7 +122,7 @@
                         <h5 class="card-title">Product List</h5>
                     </div>
                     <div class="col-auto">
-                        <a href="" class="btn-right btn btn-sm btn-outline-primary">
+                        <a href="{% url 'shop:categorylist' %}" class="btn-right btn btn-sm btn-outline-primary">
                             View All
                         </a>
                     </div>
@@ -135,21 +136,25 @@
                                 <th>Product</th>
                                 <th>Category</th>
                                 <th>Amount</th>
+                                <th>ProductId</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {% for prd in five_products %}
                             <tr>
+                                <td>{{prd.product_id}}</td>
                                 <td>
                                     <h2 class="table-avatar">
                                         <a href=""><img
-                                                class="avatar avatar-sm me-2 avatar-img rounded-circle"
-                                                src="{{product.image.url}}"
-                                                alt="User Image">qwerty</a>
+                                                class="avatar me-2 avatar-img rounded-circle"
+                                                src="{{prd.image.url}}" width="3.5em" height="3.5em"
+                                                alt="User Image">{{prd.name}}</a>
                                     </h2>
                                 </td>
-                                <td>qwerty</td>
-                                <td>₹118</td>
+                                <td>{{prd.subcategory.name}}</td>
+                                <td>₹ {{prd.price}}</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -171,12 +176,21 @@
                     <a href="{{qr_code.image.url}}" download class="btn badge-pill bg-primary-light m-t-10" ><i class="fa fa-download"></i> Download From Here</a>
                 </div>
             </div>
-        </div>
-        
-    </div>
-    
-    
+        </div>       
+    </div>  
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script>
+    $(document).ready(function(){
+        alert()
+        var facebook = $('#fb').val()
+        alert(facebook)
+        $('#facebook').attr("href",facebook);
+    })
+</script> -->
+
 
 
 {% endblock %}

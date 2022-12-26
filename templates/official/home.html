@@ -58,7 +58,7 @@
                             <div class="dash-count">
                                 <div class="dash-title">Customers</div>
                                 <div class="dash-counts">
-                                    <p>741</p>
+                                    <p>{{all_shop_count}}</p>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                 <h5 class="card-title">Resturant List</h5>
                             </div>
                             <div class="col-auto">
-                                <a href="" class="btn-right btn btn-sm btn-outline-primary">
+                                <a href="{% url 'official:customerlist' %}" class="btn-right btn btn-sm btn-outline-primary">
                                     View All
                                 </a>
                             </div>
@@ -98,19 +98,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for shop in five_shop %}
                                     <tr>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href=""><img
-                                                        class="avatar avatar-sm me-2 avatar-img rounded-circle"
-                                                        src="{% static 'web/img/building.png' %}"
-                                                        alt="User Image">qwert</a>
+                                                <a href="">
+                                                    {% if shop.logo == '' %}
+                                                    <img
+                                                        class="avatar me-2 avatar-img rounded-circle"
+                                                        src="{% static 'web/img/profiles/pro.jpg' %}"
+                                                        alt="User Image">
+                                                    {% else %}
+                                                    <img
+                                                        class="avatar me-2 avatar-img rounded-circle"
+                                                        src="{{shop.logo.url}}"
+                                                        alt="User Image">
+                                                    {% endif %}
+                                                    {{shop.shop_name}}</a>
                                             </h2>
                                         </td>
-                                        <td>qwerty</td>
-                                        <td>qwerty</td>
-                                        <td>qwerty</td>
+                                        <td>{{shop.phone}}</td>
+                                        <td>{{shop.date|date}}</td>
+                                        <td>{{shop.email}}</td>
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -132,27 +143,27 @@
                             <div class="dash-counts">
                                 <ul class="d-flex">
                                     <li>
-                                        <a href="">
+                                        <a href="{{social_media.facebook}}" target="_blank">
                                             <img src="https://img.icons8.com/color/48/null/facebook-new.png" width="60%"/>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="{{social_media.whatsapp}}" target="_blank">
                                             <img src="https://img.icons8.com/color/48/null/whatsapp--v1.png" width="60%"/>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="{{social_media.instagram}}" target="_blank">
                                             <img src="https://img.icons8.com/color/48/null/instagram-new--v1.png" width="60%"/>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="{{social_media.location}}" target="_blank">
                                             <img src="https://img.icons8.com/color/48/null/google-maps-new.png" width="60%"/>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="tel:+91{{social_media.phone_number}}" target="_blank">
                                             <img src="https://img.icons8.com/color/48/null/phone.png" width="60%"/>
                                         </a>
                                     </li>
@@ -165,7 +176,7 @@
                         </div>
                     </div>
                     <div class="text-end mt-3">
-                        <a href="" class="btn-right btn btn-sm btn-outline-primary text-end">Update</a>
+                        <a href="{% url 'official:socialmedialinks' %}" class="btn-right btn btn-sm btn-outline-primary text-end">Update</a>
                     </div>
                 </div>
             </div>

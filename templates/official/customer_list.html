@@ -8,9 +8,9 @@
         <div class="col">
             <h3 class="page-title">Customers</h3>
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">Dashboard</a>
+                <li class="breadcrumb-item"><a href="{% url 'official:officialhome' %}">Dashboard /</a>
                 </li>
-                <li class="breadcrumb-item active">Customers</li>
+                <li class="active">&nbsp;Customers</li>
             </ul>
         </div>
         <div class="col-auto">
@@ -40,48 +40,33 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            {% for shop in all_shops %}
                             <tr>
                                 <td>
                                     <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm me-2"><img
+                                        {% if shop.logo == '' %}
+                                        <a href="" class="avatar me-2"><img
+                                            class="avatar-img rounded-circle"
+                                            src="{% static 'web/img/profiles/pro.jpg' %}"
+                                            alt="User Image"></a>
+                                        {% else %}
+                                        <a href="" class="avatar me-2"><img
                                                 class="avatar-img rounded-circle"
-                                                src="assets/img/profiles/avatar-02.jpg"
+                                                src="{{shop.logo.url}}"
                                                 alt="User Image"></a>
-                                        <a href="profile.html">Brian Johnson <span>9876543210</span></a>
+                                        {% endif %}
+                                        <a href="">{{shop.shop_name}} <span>{{shop.phone}}</span></a>
                                     </h2>
                                 </td>
-                                <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                        class="__cf_email__"
-                                        data-cfemail="6705150e06090d080f0914080927021f060a170b024904080a">[email&#160;protected]</a>
+                                <td><a href="">{{shop.email}}</a>
                                 </td>
-                                <td>16 Nov 2020</td>
+                                <td>{{shop.date|date:"d - m - y"}}</td>
                                 <td><span class="badge badge-pill bg-success-light">Active</span></td>
                                 <td class="text-end">
                                     <a href="edit-customer.html"
-                                        class="btn btn-sm btn-white text-success me-2"><i
-                                            class="far fa-edit me-1"></i> Edit</a>
-                                    <a href="javascript:void(0);"
-                                        class="btn btn-sm btn-white text-danger me-2"><i
-                                            class="far fa-trash-alt me-1"></i>Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm me-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/profiles/avatar-03.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Marie Canales <span>9876543210</span></a>
-                                    </h2>
-                                </td>
-                                <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                        class="__cf_email__"
-                                        data-cfemail="ee838f9c878b8d8f808f828b9dae8b968f839e828bc08d8183">[email&#160;protected]</a>
-                                </td>
-                                <td>8 Nov 2020</td>
-                                <td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
-                                <td class="text-end">
+                                        class="btn btn-sm btn-white text-primary me-2"><i
+                                            class="far fa-edit me-1"></i> View</a>
                                     <a href="edit-customer.html"
                                         class="btn btn-sm btn-white text-success me-2"><i
                                             class="far fa-edit me-1"></i> Edit</a>
@@ -90,6 +75,8 @@
                                             class="far fa-trash-alt me-1"></i>Delete</a>
                                 </td>
                             </tr>
+                            {% endfor %}
+
                         </tbody>
                     </table>
                 </div>

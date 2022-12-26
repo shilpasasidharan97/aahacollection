@@ -3,14 +3,68 @@
 {% block content %}
 
 
+<style>
+    /*  */
+    .profile-img-wrap.edit-img {
+        border-radius: 50%;
+        margin: 0 auto 30px;
+        position: relative;
+    }
+
+    .profile-img-wrap {
+        height: 120px;
+        position: absolute;
+        width: 120px;
+        background: #ffffff;
+        overflow: hidden;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        vertical-align: middle;
+    }
+
+    .profile-img-wrap .fileupload {
+        background: rgba(33, 33, 33, 0.5);
+        border: none;
+        padding: 3px 10px;
+        border-radius: 0;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .profile-img-wrap .fileupload .btn-text {
+        color: #ffffff;
+    }
+
+    .profile-img-wrap .fileupload .upload {
+        cursor: pointer;
+        filter: alpha(opacity=0);
+        font-size: 20px;
+        opacity: 0;
+        margin: 0;
+        padding: 5px;
+        position: absolute;
+        top: -3px;
+        right: -3px;
+    }
+</style>
+
+
+
+
+
 <div class="page-header">
     <div class="row">
         <div class="col-sm-6">
             <h3 class="page-title">Add Product </h3>
             <ul class="breadcrumb">
-                <li class=""><a href="">Dashboard / </a></li>
-                <li class=""><a href="">&nbsp; Category / </a></li>
-                <li class="breadcrumb-item active">&nbsp; Product</li>
+                <li class=""><a href="{% url 'shop:shophome' %}">Dashboard / </a></li>
+                <li class=""><a href="{% url 'shop:addcategory' %}">&nbsp;Add Category / </a></li>
+                <li class="breadcrumb-item active">&nbsp;Add Product</li>
             </ul>
         </div>
         <div class="col-sm-6">
@@ -34,19 +88,23 @@
 </div>
 
 <div class="row">
+
+    {% for product in all_product %}
     <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
         <div class="card invoices-grid-card w-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a href="" class="invoice-grid-link"> product id</a>
+                <a href="" class="invoice-grid-link">{{product.product_id|upper}}</a>
                 <div class="dropdown dropdown-action">
                     <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- <a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#edit_product">
                             <i class="far fa-edit me-2"></i>Edit</a> -->
-                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#product_preview">
+                        <a class="dropdown-item" onclick="productGet({{product.id}})" data-bs-toggle="modal" data-bs-target="#product_preview">
                             <i class="far fa-eye me-2"></i>View</a>
-                        <a class="dropdown-item"><i
+                        <a class="dropdown-item" data-bs-toggle="modal" onclick="DataGets({{product.id}})" data-bs-target="#edit_product">
+                            <i class="far fa-edit me-2"></i>Edit</a>
+                        <a class="dropdown-item" onclick="deleteproduct({{product.id}})"><i
                                 class="far fa-trash-alt me-2"></i>Delete</a>
                     </div>
                 </div>
@@ -54,19 +112,21 @@
             <div class="card-middle text-center">
                 <h2 class="card-middle-avatar text-center">
                     <a href="">
-                        <img class="avatar text-center avatar-sm images me-2 avatar-img " src="" alt="User Image"> 
+                        <img class="avatar text-center avatar-sm images me-2 avatar-img " src="{{product.image.url}}" alt="User Image"> 
                     </a>
                 </h2>
             </div>
             <div class="card-footer">
                 <div class="row ">
                     <div class="col-auto">
-                        <p class="">Product Name</p>
+                        <p class="">{{product.name|capfirst}}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
+
 </div>
 
 
@@ -106,6 +166,13 @@
                                             <input type="number" class="form-control" name="p_price">
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Size Available</label>
+                                        <div class="col-md-8">
+                                            <span>Size added with ',',(eg:S,M,L)</span>
+                                            <input type="text" class="form-control" name="p_size">
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Description</label>
@@ -117,7 +184,7 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product Details</label>
                                         <div class="col-md-8">
-                                            <textarea id="" cols="15" rows="10" class="form-control" name="p_details">
+                                            <textarea id="mytextarea" cols="15" rows="10" class="form-control" name="p_details">
                                             </textarea>
                                         </div>
                                     </div>
@@ -130,7 +197,7 @@
                                     </div>
 
                             
-                                    <input type="checkbox" name="new_arrival"> New Arrival
+                                    <input type="checkbox" name="new_arrival" name="new_arrivals"> New Arrival
 
                                     <div class="text-end mt-4">
                                         <button type="submit" class="btn btn-primary">Add Product</button>
@@ -158,44 +225,67 @@
                                 <h5 class="card-title">Edit Product</h5>
                             </div>
                             <div class="card-body pb-0">
-                                <form action="#">
+                                <form action="{% url 'shop:editproduct' %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="form-group row">
+                                        <div class="profile-img-wrap edit-img">
+                                            <img class="inline-block" src="" id="productimage" alt="user">
+                                            <div class="fileupload btn">
+                                                <span class="btn-text">edit</span>
+                                                <input class="upload" name="productphoto" type="file" id="productphoto">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">Product Id</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="productid" class="form-control" readonly name="productid">
+                                        </div>
+                                    </div>
+
+                                    <input type="text" id="pkid" name="pkid" hidden>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" value="butter shake">
+                                            <input type="text" id="productname" class="form-control" name="productname">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Price</label>
                                         <div class="col-md-8">
-                                            <input type="number" class="form-control" value="50">
+                                            <input type="number" class="form-control" id="productprice" name="productprice">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-form-label col-md-4">Ingredients</label>
+                                        <label class="col-form-label col-md-4">Size</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" value="qwerty, qwerty, qwerty,">
+                                            <input type="text" class="form-control" id="productsize" name="productsize">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Description</label>
                                         <div class="col-md-8">
-                                            <textarea name="" id="" cols="15" rows="10" class="form-control">
+                                            <textarea name="productdescription" id="productdescription" cols="15" rows="10" class="form-control">
                                                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic necessitatibus ducimus ipsa. Aut, eum qui aliquid quaerat rerum sit sint iusto cupiditate non hic, ducimus praesentium obcaecati neque? Sed, minima.
                                             </textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-form-label col-md-4">Product Image</label>
+                                        <label class="col-form-label col-md-4">Details</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="file">
+                                            <textarea name="productdetails" id="productdetails" cols="15" rows="10" class="form-control">
+                                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic necessitatibus ducimus ipsa. Aut, eum qui aliquid quaerat rerum sit sint iusto cupiditate non hic, ducimus praesentium obcaecati neque? Sed, minima.
+                                            </textarea>
                                         </div>
                                     </div>
+
                                     <div class="text-end mt-4">
                                         <button type="submit" class="btn btn-primary">Edit Product</button>
                                     </div>
@@ -227,7 +317,7 @@
                                         <div class="col-md-6">
                                             <div class="invoice-info">
                                                 <div class="invoice-head">
-                                                    <h2 class="text-primary" id="producthead">Butter Shake</h2>
+                                                    <h2 class="text-primary" id="prdid">Butter Shake</h2>
                                                 </div>
                                             </div>
                                         </div>
@@ -244,32 +334,20 @@
                                     <div class="row">
                                         <div class="col-lg-3 col-md-12">
                                             <div class="invoice-info">
-                                                <img class="avatar text-center avatar-sm me-2 avatar-img " id="proimage" alt="User Image"> 
+                                                <img class="avatar text-center avatar-sm me-2 avatar-img " id="proimage" style="height: auto;" alt="User Image"> 
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="invoice-info">
-                                                <strong class="customer-text-one">Product</strong>
-                                                <h6 class="invoice-name">Name : <span id="prname"></span></h6>
-                                                <p class="invoice-details invoice-details-two">
-                                                    price : <span id="prprice"></span><br>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="invoice-info ">
-                                                <strong class="customer-text-one">Ingrediants</strong>
-                                                <!-- <h6 class="invoice-name">Lorem ipsum dolor sit amet </h6> -->
-                                                <p class="invoice-details invoice-details-two" id="incri">
-                                                
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="invoice-info invoice-info-one border-0">
-                                                <strong class="customer-text-one">Description</strong>
-                                                <p id="des"></p>
-                                            </div>
+                                        <div class="col-lg-9 col-md-12">
+                                            <strong class="customer-text-one">Product</strong>
+                                            <h6 class="invoice-name">Name & : <span id="prname"></span></h6>
+                                            <p class="invoice-details invoice-details-two">price : <span id="prprice"></span><br></p>
+                                            <p class="invoice-details invoice-details-two">Size : <span id="size"></span></p>
+                                            <p class="invoice-details invoice-details-two">Date : <span id="date"></span></p>
+                                            <strong class="customer-text-one">Description</strong>
+                                            <!-- <h6 class="invoice-name">Lorem ipsum dolor sit amet </h6> -->
+                                            <p class="invoice-details invoice-details-two" id="description"> </p>
+                                            <strong class="customer-text-one">Details</strong>
+                                            <p id="details"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -281,6 +359,58 @@
         </div>
     </div>
 </div>
+
+
+<script src="https://cdn.tiny.cloud/1/nklzzr80nbh42fu5eby0d4ipfkv57tp61il9if12c53ie9le/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: "#mytextarea"
+    });
+    
+    function productGet(id) {
+        $.ajax({
+            url: "/shop/view-product/" +id,
+            type: 'GET',
+
+            success: function (responce) {
+                $('#prdid').html(responce.pid)
+                $('#prname').html(responce.name)
+                $('#prprice').html(responce.price)
+                $('#size').html(responce.size)
+                $('#description').html(responce.description)
+                $('#details').html(responce.product_details)
+                $('#date').html(responce.date)
+                $('#proimage').attr("src", responce.image)
+
+            }
+
+        })
+
+    }
+
+    // edit
+    function DataGets(id) {
+        $.ajax({
+            url: "/shop/get-product/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+                $('#pkid').val(responce.id)
+                $('#productid').val(responce.product_id)
+                $('#productname').val(responce.name)
+                $('#productprice').val(responce.price)
+                $('#productsize').val(responce.size)
+                $('#productdescription').val(responce.description)
+                $('#productdetails').val(responce.product_details)
+                $('#productimage').attr("src", responce.image)
+                // $('#bpk'+id).val(responce.value.id)
+
+            }
+
+        })
+
+    }
+</script>
 
 
 {% endblock %}

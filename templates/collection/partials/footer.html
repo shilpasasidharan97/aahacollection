@@ -1,24 +1,59 @@
 {% load static %}
+
+<style>
+    .responsive-map{
+overflow: hidden;
+padding-bottom:35%;
+position:relative;
+height:0;
+}
+.responsive-map iframe{
+left:0;
+top:0;
+height:100%;
+width:100%;
+position:absolute;
+}
+@media screen and (max-width:420px) {
+    .footer-logo img{
+        width: 120px;
+    }
+}
+</style>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-12 p-0">
+            <div class="responsive-map">
+                <iframe src="{{social_link.location}}" frameborder="0"></iframe>
+                <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7830.496655374881!2d75.84064002100834!3d11.094861018423579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba653d791682b85%3A0x357e3b847d947097!2sG%20U%20P%20School%20Ariyallur!5e0!3m2!1sen!2sin!4v1672035906374!5m2!1sen!2sin" ></iframe> -->
+                <!-- <iframe src="https://www.google.com/maps/embed?pb=https://www.google.com/maps/place/G+U+P+School+Ariyallur/@11.094861,75.84064,16z/data=!4m5!3m4!1s0x3ba653d791682b85:0x357e3b847d947097!8m2!3d11.0936459!4d75.8428495" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
  <!-- footer -->
- <footer class="footer-light mt-4">
+ <footer class="footer-light">
     <section class="section-b-space light-layout">
         <div class="container container-lg">
             <div class="row footer-theme partition-f">
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-title footer-mobile-title">
-                        <h4>about</h4>
+                        <h4 style="font-size: 12px;">about</h4>
                     </div>
                     <div class="footer-contant">
-                        <div class="footer-logo"><img src="{% static 'collection/images/icon/logo/36.png' %}" alt=""></div>
+                        <div class="footer-logo"><img src="{% static 'collection/images/logo/179X34.png' %}" alt=""></div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                             ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
                         <div class="footer-social">
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -26,7 +61,7 @@
                 <div class="col offset-xl-1">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>my account</h4>
+                            <h4 style="font-size: 12px;">my account</h4>
                         </div>
                         <div class="footer-contant">
                             <ul>
@@ -42,7 +77,7 @@
                 <div class="col">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>why we choose</h4>
+                            <h4 style="font-size: 12px;">why we choose</h4>
                         </div>
                         <div class="footer-contant">
                             <ul>
@@ -58,12 +93,12 @@
                 <div class="col">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>store information</h4>
+                            <h4 style="font-size: 12px;">store information</h4>
                         </div>
                         <div class="footer-contant">
                             <ul class="contact-list">
-                                <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India
-                                    345-659</li>
+                                <!-- <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India
+                                    345-659</li> -->
                                 <li><i class="fa fa-phone"></i>Call Us: 123-456-7898</li>
                                 <li><i class="fa fa-envelope"></i>Email Us: <a href="#">Support@Fiot.com</a></li>
                                 <li><i class="fa fa-fax"></i>Fax: 123456</li>
@@ -80,10 +115,10 @@
                 <div class="col-xl-6 col-md-6 col-sm-12">
                     <div class="footer-end">
                         <p><i class="fa fa-copyright" aria-hidden="true"></i> 2017-18 themeforest powered by
-                            pixelstrap</p>
+                            gedexo</p>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-6 col-sm-12">
+                <!-- <div class="col-xl-6 col-md-6 col-sm-12">
                     <div class="payment-card-bottom">
                         <ul>
                             <li>
@@ -103,7 +138,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

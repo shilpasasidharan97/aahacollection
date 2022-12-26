@@ -3,7 +3,6 @@
 {% block content %}
 
 
-
 <!-- breadcrumb start -->
 <div class="breadcrumb-section">
     <div class="container">
@@ -43,7 +42,7 @@
                                 <div class="collection-product-wrapper">
                                     <div class="product-wrapper-grid">
                                         <div class="row margin-res">
-                                            {% for prd in product_list %}
+                                            {% for prd in new_arrivals %}
                                             <div class="col-xl-3 col-6 col-grid-box">
                                                 <div class="product-box">
                                                     <div class="img-wrapper">
@@ -127,6 +126,17 @@
 </section>
 
 
+<!-- Admin bnner -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="top-banner-wrapper">
+                <a href="">
+                    <img src="{% static 'collection/images/mega-menu/2.jpg' %}" class="img-fluid blur-up lazyload" alt=""></a>
+            </div>           
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}
