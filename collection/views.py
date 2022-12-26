@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from website.models import CartId, CartItems, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
+from website.models import CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -21,13 +21,18 @@ def _rest_id(request):
 def collectionHome(request,id):
     shop_obj = Shop.objects.get(id=id)
     category_list = Products.objects.select_related('subcategory').filter(subcategory__category__shop=shop_obj).values("subcategory__category__name", "subcategory__category__icon", "subcategory__category__id").distinct() 
+    category_looping = Category.objects.filter(shop=shop_obj)
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
     if RestoSave.objects.filter(user_session_id=_rest_id(request), resto_pk=id).exists():
         resto_save = RestoSave.objects.get(user_session_id=_rest_id(request), resto_pk=id)
     else:
         resto_save = RestoSave.objects.create(user_session_id=_rest_id(request), resto_pk=id)
         resto_save.save()
     context = {
-        'category_list':category_list
+        'category_list':category_list,
+        "category_looping":category_looping,
+        "shop_obj":shop_obj,
+        "social_link":social_link
     }
     return render(request, 'collection/home.html', context)
 
@@ -35,24 +40,39 @@ def collectionHome(request,id):
 
 def subCategory(request,id):
     subcatgory_list = Subcategory.objects.filter(category__id=id)
+    shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    shop_obj = Shop.objects.get(id=shop_session.resto_pk)
+    category_looping = Category.objects.filter(shop=shop_obj)
     context = {
-        'subcatgory_list':subcatgory_list
+        'subcatgory_list':subcatgory_list,
+        "category_looping":category_looping,
+        "shop_obj":shop_obj
     }
     return render(request, 'collection/subcategory.html', context)
 
 
 def products(request,id):
     product_list = Products.objects.filter(subcategory__id=id)
+    shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    shop_obj = Shop.objects.get(id=shop_session.resto_pk)
+    category_looping = Category.objects.filter(shop=shop_obj)
     context = {
-        'product_list':product_list
+        'product_list':product_list,
+        "category_looping":category_looping,
+        "shop_obj":shop_obj
     }
     return render(request, 'collection/product.html', context)
 
 
 def productDetails(request,id):
     product_details = Products.objects.get(id=id)
+    shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    shop_obj = Shop.objects.get(id=shop_session.resto_pk)
+    category_looping = Category.objects.filter(shop=shop_obj)
     context = {
-        'product_details':product_details
+        'product_details':product_details,
+        "category_looping":category_looping,
+        "shop_obj":shop_obj
     }
     return render(request, 'collection/product-details.html', context)
 
@@ -99,9 +119,13 @@ def AddToCart(request, pid, qty):
 def cart(request):
     cart_item = CartItems.objects.filter(cart__cart_id=_cart_id(request))
     sub_total = CartItems.objects.filter(cart__cart_id=_cart_id(request)).aggregate(Sum("total"))
+    shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    shop_obj = Shop.objects.get(id=shop_session.resto_pk)
+    category_looping = Category.objects.filter(shop=shop_obj)
     context = {
         'cart_item':cart_item,
-        'sub_total':sub_total
+        'sub_total':sub_total,
+        "category_looping":category_looping,
     }
     return render(request, 'collection/cart.html', context)
 
@@ -125,9 +149,14 @@ def addquantity(request):
 def checkout(request):
     cart_item = CartItems.objects.filter(cart__cart_id=_cart_id(request))
     grand_total = CartItems.objects.filter(cart__cart_id=_cart_id(request)).aggregate(Sum("total"))
+    shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    shop_obj = Shop.objects.get(id=shop_session.resto_pk)
+    category_looping = Category.objects.filter(shop=shop_obj)
     context = {
         'cart_item':cart_item,
-        'grand_total':grand_total
+        'grand_total':grand_total,
+        "category_looping":category_looping,
+        "shop_obj":shop_obj
     }
     return render(request, 'collection/checkout.html',context)
 
@@ -199,11 +228,22 @@ def orderSuccess(request):
 def newArrivals(request):
     shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     new_arrivals = Products.objects.filter(is_new_arrival=True, subcategory__category__shop__id=shops.resto_pk)
+    shop_obj = Shop.objects.get(id=shops.resto_pk)
+    category_looping = Category.objects.filter(shop=shop_obj)
     context = {
         "new_arrivals":new_arrivals,
+        "category_looping":category_looping,
+        "shop_obj":shop_obj
     }
     return render(request, 'collection/new_arrivals.html', context)
 
 
 def contact(request):
-    return render(request, 'collection/contact.html')
+    shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    shop_obj = Shop.objects.get(id=shop_session.resto_pk)
+    category_looping = Category.objects.filter(shop=shop_obj)
+    context = {
+        "category_looping":category_looping,
+        "shop_obj":shop_obj
+    }
+    return render(request, 'collection/contact.html', context)

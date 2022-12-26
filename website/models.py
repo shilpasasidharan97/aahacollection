@@ -116,6 +116,9 @@ class Category(models.Model):
     name = models.CharField(max_length=30, null=True)
     icon = models.FileField(upload_to="catagory", null=True)
 
+    def get_subcategory(self):
+        return Subcategory.objects.filter(category=self)
+
     class Meta:
         verbose_name_plural = ("Categories") 
 

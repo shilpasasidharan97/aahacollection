@@ -452,47 +452,6 @@
     <header>
         <div class="mobile-fix-option"></div>
 
-        {% comment %} <div class="top-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header-contact">
-                            <ul style="padding: 4px 0px;">
-                                <li>Welcome to Our store</li>
-                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-end">
-                        <ul class="header-dropdown desktop-icon">
-                            <li class="mobile-wishlist">
-                                <a href="#">
-                                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="mobile-wishlist">
-                                <a href="#">
-                                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="mobile-wishlist">
-                                <a href="#">
-                                    <i class="fab fa-instagram" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <!-- <li class="onhover-dropdown mobile-account"> 
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                My Account
-                                <ul class="onhover-show-div">
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">register</a></li>
-                                </ul>
-                            </li> -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div> {% endcomment %}
 
         {% comment %} <!-- mobile social -->
         <div class="top-header d-sm-block d-lg-none d-md-none">
@@ -556,17 +515,18 @@
                                             </div>
                                         </div>
                                         <ul id="sub-menu" class="sm pixelstrap sm-vertical">
-                                            <li> <a href="">MENS</a>
+
+                                            {% for allcate in category_looping %}
+                                            <li> <a href="{% url 'collection:subcategory' allcate.id %}">{{allcate.name|capfirst}}</a>
                                                 <ul class="mega-menu clothing-menu">
                                                     <li>
                                                         <div class="row m-0">
                                                             <div class="col-xl-4">
                                                                 <div class="link-section">
-                                                                    <h5>men's fashion</h5>
                                                                     <ul>
-                                                                        <li><a href="#">sports wear</a></li>
-                                                                        <li><a href="#">western wear</a></li>
-                                                                        <li><a href="#">ethic wear</a></li>
+                                                                        {% for sub in allcate.get_subcategory %}
+                                                                        <li><a href="#">{{sub.name|capfirst}}</a></li>
+                                                                        {% endfor %}
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -575,46 +535,14 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li> <a href="">WOMENS</a>
-                                                <ul>
-                                                    <li><a href="#">shopper bags</a></li>
-                                                    <li><a href="#">laptop bags</a></li>
-                                                    <li><a href="#">clutches</a></li>
-                                                    <li> <a href="#">purses</a>
-                                                        <ul>
-                                                            <li><a href="#">purses</a></li>
-                                                            <li><a href="#">wallets</a></li>
-                                                            <li><a href="#">leathers</a></li>
-                                                            <li><a href="#">satchels</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li> <a href="">footwear</a>
-                                                <ul>
-                                                    <li><a href="#">sport shoes</a></li>
-                                                    <li><a href="#">formal shoes</a></li>
-                                                    <li><a href="#">casual shoes</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="">watches</a></li>
-                                            <li> <a href="">Accessories</a>
-                                                <ul>
-                                                    <li><a href="#">fashion jewellery</a></li>
-                                                    <li><a href="#">caps and hats</a></li>
-                                                    <li><a href="#">precious jewellery</a></li>
-                                                    <li> <a href="#">more..</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="">home & decor</a></li>
-                                            <li><a href="">kitchen</a></li>
+                                            {% endfor %}
+                                            
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div class="brand-logo">
-                                <a href=""><img src="{% static 'collection/images/logo/179X34.png' %}"
+                                <a href="{% url 'collection:home' shop_obj.id %}"><img src="{% static 'collection/images/logo/179X34.png' %}"
                                         class="img-fluid blur-up lazyload" alt=""></a>
                             </div>
                         </div>
@@ -634,7 +562,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="">Home</a>
+                                            <a href="{% url 'collection:home' shop_obj.id %}">Home</a>
                                         </li>
                                         <li class="mega" id="hover-cls">
                                             <a href="{% url 'collection:newarrivals' %}">New Arrivals 
@@ -642,21 +570,13 @@
                                             </a> 
                                         </li>
                                         <li>
-                                            <a href="#">product</a>
+                                            <a href="">Product</a>
                                             <ul>
+                                                {% for allcate in category_looping %}
                                                 <li>
-                                                    <a href=""> Mens</a>
+                                                    <a href="{% url 'collection:subcategory' allcate.id %}"> {{allcate.name|capfirst}}</a>
                                                 </li>
-                                                <li>
-                                                    <a href="">Womens
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">Kids</a>
-                                                </li>
-                                                <li><a href="">Jewllery</a></li>
-                                                <li><a href="">Footware</a></li>
-                                                
+                                                {% endfor %}
                                             </ul>
                                         </li>
                                         <li><a href="#">HOT DEALS</a></li>
