@@ -193,3 +193,15 @@ class RestoSave(models.Model):
 
     def __str__(self):
         return str(self.user_session_id)
+
+
+
+
+
+class AdminHomeBanner(models.Model):
+    banner = models.FileField(upload_to="Admin home banner", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
