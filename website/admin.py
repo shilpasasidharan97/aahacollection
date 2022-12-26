@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from website.models import AdminSocialMediaLinks, CartItems, Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
+from website.models import AdminSocialMediaLinks, BreakingNews, CartItems, Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
 
 # Register your models here.
 
@@ -63,3 +63,5 @@ class CartItemsAdmin(admin.ModelAdmin):
     list_display = ('id', 'product', 'quantity', 'total', 'size' )
     search_fields=('product','quantity', 'total', )
 admin.site.register(CartItems,CartItemsAdmin)
+
+admin.site.register(BreakingNews)

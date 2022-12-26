@@ -229,6 +229,7 @@ def newArrivals(request):
     shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     new_arrivals = Products.objects.filter(is_new_arrival=True, subcategory__category__shop__id=shops.resto_pk)
     shop_obj = Shop.objects.get(id=shops.resto_pk)
+    
     category_looping = Category.objects.filter(shop=shop_obj)
     context = {
         "new_arrivals":new_arrivals,
@@ -237,13 +238,82 @@ def newArrivals(request):
     }
     return render(request, 'collection/new_arrivals.html', context)
 
-
+@csrf_exempt
 def contact(request):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    social_objects = ShopSocialMediaLinks.objects.filter(shop=shop_obj).last()
+    shop_number = social_objects.whatsapp
+    print(shop_number)
+
+    # first_name = request.POST['firstname']
+    # last_name = request.POST['lastname']
+    # phone = request.POST['phone']
+    # email = request.POST['email']
+    # address = request.POST['address']
+    # messagestring = ""
+    # messagestring = "https://wa.me/+91" + shop_number + "?text=First Name :" + first_name + "?text=Last Name :" + last_name  + "?text=Phone:" + phone + "?text=Email:" + email + "%0a------Order Details------"
+    # try:
+    #     messagestring = "https://wa.me/+91" + shop_number + "?text=First Name :" + first_name + "?text=Last Name :" + last_name  + "?text=Phone:" + phone + "?text=Email:" + email + "%0a------Order Details------"
+    #     for i in cart_items:
+    #         data1 = {
+    #             "Product-Id":i.product.product_id,
+    #             "Product-name": i.product.name,
+    #             "quantity": i.quantity,
+    #             "size":i.size,
+    #             "price": i.product.price,
+    #             "sub_total": i.total,
+    #         }
+    #         data.append(data1)
+    #         i.delete()
+    #     for j in data:
+    #         messagestring += (
+    #             "%0aProduct-Id:"
+    #             + str(j["Product-Id"])
+    #             + "%0aProduct-Name:"
+    #             + str(j["Product-name"])
+    #             + "%0aQuantity:"
+    #             + str(j["quantity"])
+    #             + "%0aSize:"
+    #             + str(j["size"])
+    #             + "%0aUnit-Price:"
+    #             + str(j["price"])
+    #             + "%0aTotal :"
+    #             + str(j["sub_total"])
+    #             + "%0a-----------------------------"
+    #         )
+    #         messagestring += "%0a-----------------------------"
+    #     messagestring += (
+    #         "%0a-----------------------------\
+    #     Grand Total :"
+    #         + str(sub_total["total__sum"])
+    #         + "%0a-----------------------------"
+    #     )
+    #     cart_obj.delete()
+    # except Exception:
+    #     pass
     context = {
         "category_looping":category_looping,
-        "shop_obj":shop_obj
+        "shop_obj":shop_obj,
     }
     return render(request, 'collection/contact.html', context)
+
+
+@csrf_exempt
+def contactData(request):
+    shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    shop_obj = Shop.objects.get(id=shop_session.resto_pk)
+    social_objects = ShopSocialMediaLinks.objects.filter(shop=shop_obj).last()
+    shop_number = social_objects.whatsapp
+    first_name = request.POST['firstname']
+    print(first_name,'1'*7)
+    last_name = request.POST['lastname']
+    phone = request.POST['phone']
+    email = request.POST['email']
+    address = request.POST['address']
+    messagestring = "https://wa.me/+91" + shop_number + "?text=First Name :" + first_name + "?text=Last Name :" + last_name  + "?text=Phone:" + phone + "?text=Email:" + email + "?text=Address:" + address + "%0a------Order Details------"
+    data = {
+        "link":messagestring
+    }
+    return JsonResponse(data)

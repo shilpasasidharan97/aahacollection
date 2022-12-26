@@ -21,8 +21,8 @@
                                 <h6>Contact Us</h6>
                             </div>
                             <div class="media-body">
-                                <p>+91 123 - 456 - 7890</p>
-                                <p>+86 163 - 451 - 7894</p>
+                                <p>{{shop_obj.phone}}</p>
+                                <!-- <p>+86 163 - 451 - 7894</p> -->
                             </div>
                         </li>
                         <li>
@@ -30,8 +30,7 @@
                                 <h6>Address</h6>
                             </div>
                             <div class="media-body">
-                                <p>ABC Complex,Near xyz, New York</p>
-                                <p>USA 123456</p>
+                                <p>{{shop_obj.address}}</p>
                             </div>
                         </li>
                         <li>
@@ -40,11 +39,11 @@
                                 <h6>Address</h6>
                             </div>
                             <div class="media-body">
-                                <p>Support@Shopcart.com</p>
-                                <p>info@shopcart.com</p>
+                                <p>{{shop_obj.email}}</p>
+                                <!-- <p>info@shopcart.com</p> -->
                             </div>
                         </li>
-                        <li>
+                        <!-- <li>
                             <div class="contact-icon"><i class="fa fa-fax" aria-hidden="true"></i>
                                 <h6>Fax</h6>
                             </div>
@@ -52,40 +51,41 @@
                                 <p>Support@Shopcart.com</p>
                                 <p>info@shopcart.com</p>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <form class="theme-form">
+                <form class="theme-form" method="POST">
+                    {% csrf_token %}
                     <div class="form-row row">
                         <div class="col-md-6">
                             <label for="name">First Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter Your name"
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter Your Firstname"
                                 required="">
                         </div>
                         <div class="col-md-6">
                             <label for="email">Last Name</label>
-                            <input type="text" class="form-control" id="last-name" placeholder="Email" required="">
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
                         </div>
                         <div class="col-md-6">
                             <label for="review">Phone number</label>
-                            <input type="text" class="form-control" id="review" placeholder="Enter your number"
-                                required="">
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your number"
+                               >
                         </div>
                         <div class="col-md-6">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                         </div>
                         <div class="col-md-12">
                             <label for="review">Write Your Message</label>
                             <textarea class="form-control" placeholder="Write Your Message"
-                                id="exampleFormControlTextarea1" rows="6"></textarea>
+                                id="address" rows="6" name="address"></textarea>
                         </div>
                         <div class="col-md-12">
-                            <button class="btn btn-solid" type="submit">Send Your Message</button>
+                            <a  href="" class="btn-solid btn" onclick="Contact()">Send Your Message</a>
                         </div>
                     </div>
                 </form>
@@ -93,6 +93,28 @@
         </div>
     </div>
 </section>
+
+<script>
+    function Contact(){
+        alert()
+        $.ajax({
+            
+            url:'/collection/contactdata/',
+            type:'POST',
+            data: {
+                'firstname': $('#firstname').val(),
+                'lastname': $('#lastname').val(),
+                'email': $('#email').val(),
+                'phone': $('#phone').val(),
+                'address': $('#address').val(),
+            },
+            success: function (responce) {
+                alert(responce.link)
+                window.location.href = responce.link
+            }
+        })
+    }
+</script>
 
 
 {% endblock %}

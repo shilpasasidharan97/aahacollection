@@ -193,3 +193,10 @@ class RestoSave(models.Model):
 
     def __str__(self):
         return str(self.user_session_id)
+
+class BreakingNews(models.Model):
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    news = models.CharField(max_length=5000, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.news)

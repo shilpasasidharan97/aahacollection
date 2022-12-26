@@ -366,6 +366,10 @@ def banner(request):
     return render(request, 'shop/banner.html', context)
 
 
+# breaking News
+def breakingNews(request):
+    return render(request, 'shop/news.html')
+
 def profile(request):
     profile = request.user.shop
     context = {
