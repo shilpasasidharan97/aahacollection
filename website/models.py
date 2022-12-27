@@ -205,3 +205,17 @@ class AdminHomeBanner(models.Model):
         return str(self.banner)
 
 
+class AdminNewArrivalBanner(models.Model):
+    banner = models.FileField(upload_to="Admin home banner", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
+class AdminProductBanner(models.Model):
+    banner = models.FileField(upload_to="Admin home banner", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from website.models import CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
+from website.models import AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -23,12 +23,20 @@ def collectionHome(request,id):
     category_list = Products.objects.select_related('subcategory').filter(subcategory__category__shop=shop_obj).values("subcategory__category__name", "subcategory__category__icon", "subcategory__category__id").distinct() 
     category_looping = Category.objects.filter(shop=shop_obj)
     social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if AdminHomeBanner:
+        banner_status = 1
+        home_banner = AdminHomeBanner.objects.all().last()
+    else :
+        banner_status = 2
+        home_banner = ""
     if RestoSave.objects.filter(user_session_id=_rest_id(request), resto_pk=id).exists():
         resto_save = RestoSave.objects.get(user_session_id=_rest_id(request), resto_pk=id)
     else:
         resto_save = RestoSave.objects.create(user_session_id=_rest_id(request), resto_pk=id)
         resto_save.save()
     context = {
+        'status':banner_status,
+        'home_banner':home_banner,
         'category_list':category_list,
         "category_looping":category_looping,
         "shop_obj":shop_obj,
@@ -43,7 +51,15 @@ def subCategory(request,id):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    if AdminProductBanner:
+        banner_status = 1
+        product_banner = AdminProductBanner.objects.all().last()
+    else :
+        banner_status = 2
+        product_banner = ""
     context = {
+        "status":banner_status,
+        "product_banner":product_banner,
         'subcatgory_list':subcatgory_list,
         "category_looping":category_looping,
         "shop_obj":shop_obj
@@ -230,7 +246,15 @@ def newArrivals(request):
     new_arrivals = Products.objects.filter(is_new_arrival=True, subcategory__category__shop__id=shops.resto_pk)
     shop_obj = Shop.objects.get(id=shops.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    if AdminNewArrivalBanner:
+        banner_status = 1
+        arrival_banner = AdminNewArrivalBanner.objects.all().last()
+    else :
+        banner_status = 2
+        arrival_banner = ""
     context = {
+        'status':banner_status,
+        "new_banner":arrival_banner,
         "new_arrivals":new_arrivals,
         "category_looping":category_looping,
         "shop_obj":shop_obj
