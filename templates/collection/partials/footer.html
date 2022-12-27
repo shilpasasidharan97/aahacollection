@@ -25,7 +25,9 @@ position:absolute;
     <div class="row">
         <div class="col-lg-12 p-0">
             <div class="responsive-map">
-                <iframe src="{{social_link.location}}" frameborder="0"></iframe>
+                {% autoescape off %}
+                <iframe src="{{social_link.iframe|safe|striptags}}" frameborder="0"></iframe>
+                {% endautoescape %}
                 <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7830.496655374881!2d75.84064002100834!3d11.094861018423579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba653d791682b85%3A0x357e3b847d947097!2sG%20U%20P%20School%20Ariyallur!5e0!3m2!1sen!2sin!4v1672035906374!5m2!1sen!2sin" ></iframe> -->
                 <!-- <iframe src="https://www.google.com/maps/embed?pb=https://www.google.com/maps/place/G+U+P+School+Ariyallur/@11.094861,75.84064,16z/data=!4m5!3m4!1s0x3ba653d791682b85:0x357e3b847d947097!8m2!3d11.0936459!4d75.8428495" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                 -->
             </div>

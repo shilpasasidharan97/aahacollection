@@ -6,44 +6,14 @@
 <!-- Home slider -->
 <section class="p-0">
     <div class="slider-animate home-slider">
+        {% for i in sliders %}
         <div>
             <div class="home height-apply p-bottom">
-                <img src="{% static 'collection/images/gradient/slider/1.jpg' %}" alt="" class="bg-img blur-up lazyload">
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col">
-                            <div class="slider-contain height-apply">
-                                <div>
-                                    <h4>save 30%</h4>
-                                    <h1>special products</h1><a href="#"
-                                        class="btn btn-solid btn-gradient animated">shop
-                                        now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <img src="{{i.banner.url}}" alt="" class="bg-img blur-up lazyload">
+                
             </div>
         </div>
-        <div>
-            <div class="home height-apply p-bottom">
-                <img src="{% static 'collection/images/gradient/slider/2.jpg' %}" alt="" class="bg-img blur-up lazyload">
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col">
-                            <div class="slider-contain height-apply">
-                                <div>
-                                    <h4>save 30%</h4>
-                                    <h1>special products</h1><a href="#"
-                                        class="btn btn-solid btn-gradient animated">shop
-                                        now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 
@@ -75,45 +45,27 @@
 <section class="pb-0 ratio2_1">
     <div class="container container-lg">
         <div class="row partition2">
+            {% for j in shophome_banner %}
             <div class="col-md-6">
                 <a href="#">
                     <div class="collection-banner p-right text-center">
                         <div class="img-part">
-                            <img src="{% static 'collection/images/gradient/banner/4.jpg' %}"
+                            <img src="{{j.banner.url}}"
                                 class="img-fluid blur-up lazyload bg-img" alt="">
                         </div>
-                        <div class="contain-banner">
-                            <div>
-                                <h4>save 30%</h4>
-                                <h2>men</h2>
-                            </div>
-                        </div>
+                        
                     </div>
                 </a>
             </div>
-            <div class="col-md-6">
-                <a href="#">
-                    <div class="collection-banner p-right text-center">
-                        <div class="img-part">
-                            <img src="{% static 'collection/images/gradient/banner/5.jpg' %}"
-                                class="img-fluid blur-up lazyload bg-img" alt="">
-                        </div>
-                        <div class="contain-banner">
-                            <div>
-                                <h4>save 60%</h4>
-                                <h2>women</h2>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            {% endfor %}
+            
         </div>
     </div>
 </section>
 
 
 <!-- collection banner start -->
-<section class="banner-goggles ratio2_1 banner-padding">
+<!-- <section class="banner-goggles ratio2_1 banner-padding">
     <div class="container container-lg">
         <div class="row partition3">
             <div class="col-md-4">
@@ -166,7 +118,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 <!-- product slider -->

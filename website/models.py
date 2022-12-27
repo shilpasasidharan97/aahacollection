@@ -93,6 +93,7 @@ class ShopSocialMediaLinks(models.Model):
     instagram = models.CharField(max_length=20000, null=True, blank=True)
     location = models.CharField(max_length=20000, null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
+    iframe = HTMLField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = ("Shop Links")
@@ -203,14 +204,14 @@ class AdminHomeBanner(models.Model):
 
 
 class AdminNewArrivalBanner(models.Model):
-    banner = models.FileField(upload_to="Admin home banner", null=True)
+    banner = models.FileField(upload_to="Admin home1 banner", null=True)
 
     def __str__(self):
         return str(self.banner)
 
 
 class AdminProductBanner(models.Model):
-    banner = models.FileField(upload_to="Admin home banner", null=True)
+    banner = models.FileField(upload_to="Admin home2 banner", null=True)
 
     def __str__(self):
         return str(self.banner)
@@ -222,3 +223,35 @@ class BreakingNews(models.Model):
 
     def __str__(self):
         return str(self.news)
+
+
+class ShopSliderBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+    banner = models.FileField(upload_to="Shop banner1", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
+class ShopHomeBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+    banner = models.FileField(upload_to="Shop banner1", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
+class ShopNewArrivalBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+    banner = models.FileField(upload_to="Shop banner2", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
+class ShopProductBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+    banner = models.FileField(upload_to="Shop home banner3", null=True)
+
+    def __str__(self):
+        return str(self.banner)

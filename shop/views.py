@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 
-from website.models import BreakingNews, Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
+from website.models import BreakingNews, Category, HotDealPrice, Products, Shop, ShopHomeBanner, ShopNewArrivalBanner, ShopProductBanner, ShopQrcode, ShopSliderBanner, ShopSocialMediaLinks, Subcategory, User
 from django.contrib import messages
 from django.db.models import Count
 from django.http import JsonResponse
@@ -383,11 +383,49 @@ def socialMediaLinks(request):
 
 @auth_shop
 @login_required(login_url="/official/login-page")
+# slider banner
 def banner(request):
+    all_slider_banner = ShopSliderBanner.objects.filter(shop=request.user.shop)
+    all_home_banner = ShopHomeBanner.objects.filter(shop=request.user.shop)
+    all_prd_banner = ShopProductBanner.objects.filter(shop=request.user.shop)
+    all_new_banner = ShopNewArrivalBanner.objects.filter(shop=request.user.shop)
+    if request.method == "POST":
+        slider_banner = request.FILES["slider-image"]
+        new_banner = ShopSliderBanner(banner=slider_banner, shop=request.user.shop)
+        new_banner.save()
     context = {
         'is_banner':True,
+        "all_slider_banner":all_slider_banner,
+        "all_home_banner":all_home_banner,
+        "all_prd_banner":all_prd_banner,
+        "all_new_banner":all_new_banner
     }
     return render(request, 'shop/banner.html', context)
+
+# home banner
+def HomeBanner(request):
+    if request.method == "POST":
+        home_image = request.FILES["home-image"]
+        home_banner = ShopHomeBanner(banner=home_image, shop=request.user.shop)
+        home_banner.save()
+    return redirect("shop:banner")
+
+# product banner
+def ProductBanner(request):
+    if request.method == "POST":
+        product_image = request.FILES["prd-image"]
+        product_banner = ShopProductBanner(banner=product_image, shop=request.user.shop)
+        product_banner.save()
+    return redirect("shop:banner")
+
+# product banner
+def NewBanner(request):
+    if request.method == "POST":
+        new_image = request.FILES["new-image"]
+        new_banner = ShopNewArrivalBanner(banner=new_image, shop=request.user.shop)
+        new_banner.save()
+    return redirect("shop:banner")
+
 
 
 # breaking News

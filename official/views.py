@@ -5,7 +5,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from aahacollection.decorators import auth_official
 
-from website.models import AdminSocialMediaLinks, Shop, ShopQrcode, ShopSocialMediaLinks
+from website.models import AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, AdminSocialMediaLinks, Shop, ShopQrcode, ShopSocialMediaLinks
 import datetime
 from django.contrib import messages
 
@@ -104,10 +104,38 @@ def customerList(request):
 
 
 def banners(request):
+    all_home_banner = AdminHomeBanner.objects.all()
+    all_prd_banner = AdminProductBanner.objects.all()
+    all_new_banner = AdminNewArrivalBanner.objects.all()
+    if request.method == "POST":
+        product_image = request.FILES["home-image"]
+        product_banner = AdminHomeBanner(banner=product_image)
+        product_banner.save()
     context = {
         'is_banner':True,
+        "all_home_banner":all_home_banner,
+        "all_prd_banner":all_prd_banner,
+        "all_new_banner":all_new_banner
     }
     return render(request, 'official/banner.html', context)
+
+
+# product banner
+def ProductBanner(request):
+    if request.method == "POST":
+        product_image = request.FILES["prd-image"]
+        product_banner = AdminProductBanner(banner=product_image)
+        product_banner.save()
+    return redirect("official:banners")
+
+# product banner
+def NewBanner(request):
+    if request.method == "POST":
+        new_image = request.FILES["new-image"]
+        new_banner = AdminNewArrivalBanner(banner=new_image)
+        new_banner.save()
+    return redirect("official:banners")
+
 
 
 @auth_official

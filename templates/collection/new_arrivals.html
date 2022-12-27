@@ -35,10 +35,12 @@
                     <div class="page-main-content">
                         <div class="row">
                             <div class="col-sm-12">
+                                {% if newbanners_status == 1 %}
                                 <div class="top-banner-wrapper">
-                                    <a href=""><img src="{% static 'collection/images/mega-menu/2.jpg' %}"
+                                    <a href=""><img src="{{shopnew_banner.banner.url}}"
                                             class="img-fluid blur-up lazyload" alt=""></a>
                                 </div>
+                                {% endif %}
                                 <div class="collection-product-wrapper">
                                     <div class="product-wrapper-grid">
                                         <div class="row margin-res">
