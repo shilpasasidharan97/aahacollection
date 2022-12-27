@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from aahacollection.decorators import auth_official
 
 from website.models import AdminSocialMediaLinks, Shop, ShopQrcode, ShopSocialMediaLinks
 import datetime
@@ -34,6 +36,8 @@ def logout_shop(request):
     return redirect('official:loginpage')
 
 
+@auth_official
+@login_required(login_url="/official/login-page")
 def officialHome(request):
     social_media = AdminSocialMediaLinks.objects.get(user=request.user)
     five_shop = Shop.objects.all()[:5]
@@ -47,6 +51,8 @@ def officialHome(request):
     return render(request, 'official/home.html', context)
 
 
+@auth_official
+@login_required(login_url="/official/login-page")
 def newUserRegistration(request):
     if request.method == 'POST':
         name = request.POST['s-name']
@@ -83,6 +89,8 @@ def newUserRegistration(request):
     return render(request, 'official/new_user.html', context)
 
 
+@auth_official
+@login_required(login_url="/official/login-page")
 def customerList(request):
     all_shops = Shop.objects.all().order_by('shop_name')
     context = {
@@ -99,6 +107,8 @@ def banners(request):
     return render(request, 'official/banner.html', context)
 
 
+@auth_official
+@login_required(login_url="/official/login-page")
 def socialMedia(request):
     if request.method == 'POST':
         facebook = request.POST['facebook']
@@ -127,6 +137,8 @@ def socialMedia(request):
     # return render(request, 'official/social_medias.html', context)
 
 
+@auth_official
+@login_required(login_url="/official/login-page")
 def profile(request):
     context = {
         'is_profile':True

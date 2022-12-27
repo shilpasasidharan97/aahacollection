@@ -39,4 +39,5 @@ urlpatterns = [
     path('news',views.breakingNews, name='news'),
 
     path('profile',views.profile, name='profile'),
+    path('settings',views.settings, name='settings'),
 ]

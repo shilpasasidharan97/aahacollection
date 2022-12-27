@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from website.models import CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
+from website.models import BreakingNews, CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -23,6 +23,12 @@ def collectionHome(request,id):
     category_list = Products.objects.select_related('subcategory').filter(subcategory__category__shop=shop_obj).values("subcategory__category__name", "subcategory__category__icon", "subcategory__category__id").distinct() 
     category_looping = Category.objects.filter(shop=shop_obj)
     social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     if RestoSave.objects.filter(user_session_id=_rest_id(request), resto_pk=id).exists():
         resto_save = RestoSave.objects.get(user_session_id=_rest_id(request), resto_pk=id)
     else:
@@ -32,7 +38,8 @@ def collectionHome(request,id):
         'category_list':category_list,
         "category_looping":category_looping,
         "shop_obj":shop_obj,
-        "social_link":social_link
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/home.html', context)
 

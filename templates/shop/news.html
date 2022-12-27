@@ -37,12 +37,12 @@
                 <div class="tab-pane show active" id="basictab1">
                     
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
+                            {% for n in all_news %}
                             <div class="card invoices-grid-card">
-                                <a href="">
-                                    <img class="avatars text-center images me-2 avatar-img " height="auto" src="{% static 'web/img/banner/Necklace.png' %}" alt="User Image"> 
-                                </a>
+                                <p>{{n.news|capfirst}}</p>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                     
@@ -64,15 +64,15 @@
                     <div class="col-lg-12">
                         <div class="card invoice-info-card">
                             <div class="card-header">
-                                <h5 class="card-title">Add Category</h5>
+                                <h5 class="card-title">Add News</h5>
                             </div>
                             <div class="card-body pb-0">
                                 <form action="#" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="form-group row">
-                                        <label class="col-form-label col-md-4">File Input</label>
-                                        <div class="col-md-8">
-                                            <input class="form-control" type="file" name="front-image">
+                                        <label class="col-form-label col-md-2">News</label>
+                                        <div class="col-md-10">
+                                            <textarea name="news" id="" cols="40" rows="10" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="text-end mt-4">

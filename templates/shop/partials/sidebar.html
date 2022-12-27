@@ -34,8 +34,8 @@
                 <li>
                     <a href="{% url 'shop:news' %}"><i class="fa fa-gear"></i> <span>News</span></a>
                 </li>
-                <li>
-                    <a href=""><i class="fa fa-gear"></i> <span>Settings</span></a>
+                <li {% if is_settings %} class="active" {% endif %}>
+                    <a href="{% url 'shop:settings' %}"><i class="fa fa-gear"></i> <span>Settings</span></a>
                 </li>
             </ul>
         </div>

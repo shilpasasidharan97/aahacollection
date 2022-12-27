@@ -1,0 +1,123 @@
+{% extends 'shop/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="page-title">Settings</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+                </li>
+                <li class="active">Profile Settings</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- basic information -->
+<div class="col-xl-12 col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Basic information</h5>
+        </div>
+        <div class="card-body">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="row form-group">
+                    <label for="location" class="col-sm-3 col-form-label input-label">Registered Date</label>
+                    <div class="col-sm-9">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="date" readonly placeholder="Country"
+                                value="{{shop_data.date}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="name" class="col-sm-3 col-form-label input-label">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="name" placeholder="Your Name"
+                            value="{{shop_data.shop_name}}">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="email" class="col-sm-3 col-form-label input-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" name="email" placeholder="Email"
+                            value="{{shop_data.email}}">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="phone" class="col-sm-3 col-form-label input-label">Phone <span
+                            class="text-muted"></span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="phone" placeholder="+x(xxx)xxx-xx-xx"
+                            value="{{shop_data.phone}}">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="location" class="col-sm-3 col-form-label input-label">Place</label>
+                    <div class="col-sm-9">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="place" placeholder="Country"
+                                value="{{shop_data.place}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="location" class="col-sm-3 col-form-label input-label">District</label>
+                    <div class="col-sm-9">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="location" placeholder="Country"
+                                value="{{shop_data.district}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="location" class="col-sm-3 col-form-label input-label">State</label>
+                    <div class="col-sm-9">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="state" placeholder="Country"
+                                value="{{shop_data.state}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="location" class="col-sm-3 col-form-label input-label">Password</label>
+                    <div class="col-sm-9">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="password" placeholder="Country"
+                                value="{{shop_data.password}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="addressline2" class="col-sm-3 col-form-label input-label">Address
+                        line 2 <span class="text-muted">(Optional)</span></label>
+                    <div class="col-sm-9">
+                        <textarea name="address" value="{{shop_data.address}}" id="addressline2" cols="10" rows="10"
+                            class="form-control">{{shop_data.address}}</textarea>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}
