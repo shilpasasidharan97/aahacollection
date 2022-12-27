@@ -93,6 +93,7 @@ class ShopSocialMediaLinks(models.Model):
     instagram = models.CharField(max_length=20000, null=True, blank=True)
     location = models.CharField(max_length=20000, null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
+    iframe = HTMLField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = ("Shop Links")
