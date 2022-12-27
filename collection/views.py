@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory, ShopSliderBanner, ShopHomeBanner
+from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopNewArrivalBanner, ShopProductBanner, ShopSocialMediaLinks, Subcategory, ShopSliderBanner, ShopHomeBanner
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -93,6 +93,12 @@ def products(request,id):
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
     social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if ShopProductBanner:
+        banners_status = 1
+        shopproduct_banner = ShopProductBanner.objects.all().last()
+    else :
+        banners_status = 2
+        shopproduct_banner = ""
     if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
         news = BreakingNews.objects.filter(shop=shop_obj).last()
         latest_news = news.news
@@ -104,7 +110,9 @@ def products(request,id):
         "category_looping":category_looping,
         "shop_obj":shop_obj,
         "social_link":social_link,
-        "news":latest_news
+        "news":latest_news,
+        "shopproduct_banner":shopproduct_banner,
+        "banners_status":banners_status,
     }
     return render(request, 'collection/product.html', context)
 
@@ -315,6 +323,12 @@ def newArrivals(request):
     else :
         banner_status = 2
         arrival_banner = ""
+    if ShopNewArrivalBanner:
+        newbanners_status = 1
+        shopnew_banner = ShopNewArrivalBanner.objects.all().last()
+    else :
+        newbanners_status = 2
+        shopnew_banner = ""
     context = {
         "is_new":True,
         'status':banner_status,
@@ -323,7 +337,9 @@ def newArrivals(request):
         "category_looping":category_looping,
         "shop_obj":shop_obj,
         "social_link":social_link,
-        "news":latest_news
+        "news":latest_news,
+        "newbanners_status":newbanners_status,
+        "shopnew_banner":shopnew_banner,
     }
     return render(request, 'collection/new_arrivals.html', context)
 
