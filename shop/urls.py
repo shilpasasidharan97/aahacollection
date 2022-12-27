@@ -35,7 +35,12 @@ urlpatterns = [
     path('delete-deal/<int:id>',views.deleteHotDeal, name='deletedeal'),
 
     path('social-media/',views.socialMediaLinks, name='socialmedialink'),
-    path('banner',views.banner, name='banner'),
+
+    path('banner/',views.banner, name='banner'),
+    path('homebanner/',views.HomeBanner, name='homebanner'),
+    path('product-banner/',views.ProductBanner, name='productbanner'),
+    path('new-banner/',views.NewBanner, name='newbanner'),
+
     path('news',views.breakingNews, name='news'),
 
     path('profile',views.profile, name='profile'),

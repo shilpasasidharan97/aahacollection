@@ -226,6 +226,7 @@ class BreakingNews(models.Model):
 
 
 class ShopSliderBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
     banner = models.FileField(upload_to="Shop banner1", null=True)
 
     def __str__(self):
@@ -233,6 +234,7 @@ class ShopSliderBanner(models.Model):
 
 
 class ShopHomeBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
     banner = models.FileField(upload_to="Shop banner1", null=True)
 
     def __str__(self):
@@ -240,6 +242,7 @@ class ShopHomeBanner(models.Model):
 
 
 class ShopNewArrivalBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
     banner = models.FileField(upload_to="Shop banner2", null=True)
 
     def __str__(self):
@@ -247,6 +250,7 @@ class ShopNewArrivalBanner(models.Model):
 
 
 class ShopProductBanner(models.Model):
+    shop =models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
     banner = models.FileField(upload_to="Shop home banner3", null=True)
 
     def __str__(self):

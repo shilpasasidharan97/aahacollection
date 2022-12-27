@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
+from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory, ShopSliderBanner, ShopHomeBanner
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -23,6 +23,8 @@ def collectionHome(request,id):
     category_list = Products.objects.select_related('subcategory').filter(subcategory__category__shop=shop_obj).values("subcategory__category__name", "subcategory__category__icon", "subcategory__category__id").distinct() 
     category_looping = Category.objects.filter(shop=shop_obj)
     social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    slider = ShopSliderBanner.objects.filter(shop=shop_obj).order_by('-id')[:2]
+    shophome_banner = ShopHomeBanner.objects.filter(shop=shop_obj).order_by('-id')[:2]
     if AdminHomeBanner:
         banner_status = 1
         home_banner = AdminHomeBanner.objects.all().last()
@@ -47,7 +49,9 @@ def collectionHome(request,id):
         "category_looping":category_looping,
         "shop_obj":shop_obj,
         "social_link":social_link,
-        "news":latest_news
+        "news":latest_news,
+        "sliders":slider,
+        "shophome_banner":shophome_banner,
     }
     return render(request, 'collection/home.html', context)
 
