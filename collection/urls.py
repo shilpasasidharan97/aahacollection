@@ -23,4 +23,6 @@ urlpatterns = [
 
     path('order-success/',views.orderSuccess,name='ordersuccess'),
     path('contact/',views.contact,name='contact'),
+    path('contactdata/',views.contactData,name='contactdata'),
+
 ]

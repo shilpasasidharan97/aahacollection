@@ -21,25 +21,11 @@
                 <img class="profile-cover-img" src="{% static 'web/img/profiles/default.jpg' %}"
                     alt="Profile Cover">
 
-                <div class="cover-content">
-                    <div class="custom-file-btn">
-                        <input type="file" class="custom-file-btn-input" id="cover_upload">
-                        <label class="custom-file-btn-label btn btn-sm btn-white" for="cover_upload">
-                            <i class="fas fa-camera"></i>
-                            <span class="d-none d-sm-inline-block ms-1">Update Cover</span>
-                        </label>
-                    </div>
-                </div>
-
             </div>
         </div>
         <div class="text-center mb-5">
             <label class="avatar avatar-xxl profile-cover-avatar" for="avatar_upload">
                 <img class="avatar-img" src="{{profile.logo.url}}" alt="Profile Image">
-                <input type="file" id="avatar_upload">
-                <span class="avatar-edit">
-                    <i data-feather="edit-2" class="avatar-uploader-icon shadow-soft"></i>
-                </span>
             </label>
             <h2>{{profile.shop_name}} <i class="fas fa-certificate text-primary small" data-toggle="tooltip"
                     data-placement="top" title="" data-original-title="Verified"></i></h2>

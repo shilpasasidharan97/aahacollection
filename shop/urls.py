@@ -36,6 +36,8 @@ urlpatterns = [
 
     path('social-media/',views.socialMediaLinks, name='socialmedialink'),
     path('banner',views.banner, name='banner'),
+    path('news',views.breakingNews, name='news'),
 
     path('profile',views.profile, name='profile'),
+    path('settings',views.settings, name='settings'),
 ]
