@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopNewArrivalBanner, ShopProductBanner, ShopSocialMediaLinks, Subcategory, ShopSliderBanner, ShopHomeBanner
+from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, HotDealPrice, Products, RestoSave, Shop, ShopNewArrivalBanner, ShopProductBanner, ShopSocialMediaLinks, Subcategory, ShopSliderBanner, ShopHomeBanner
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -342,6 +342,19 @@ def newArrivals(request):
         "shopnew_banner":shopnew_banner,
     }
     return render(request, 'collection/new_arrivals.html', context)
+
+
+def hotdeals(request):
+    shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    hot_deals = HotDealPrice.objects.filter(product__subcategory__category__shop__id=shops.resto_pk)
+    shop_obj = Shop.objects.get(id=shops.resto_pk)
+    
+    context = {
+        "hot_deals":hot_deals,
+        "shop_obj":shop_obj,
+    }
+    return render(request, 'collection/hotdeals.html', context)
+
 
 @csrf_exempt
 def contact(request):

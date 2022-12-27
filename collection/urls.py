@@ -21,6 +21,9 @@ urlpatterns = [
 
     path('new-arrivals/',views.newArrivals,name='newarrivals'),
 
+    # hot deals
+    path('hot-deals/',views.hotdeals,name='hotdeals'),
+
     path('order-success/',views.orderSuccess,name='ordersuccess'),
     path('contact/',views.contact,name='contact'),
     path('contactdata/',views.contactData,name='contactdata'),

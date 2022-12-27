@@ -1,0 +1,127 @@
+{% extends 'collection/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>collection</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class=""><a href="">home / </a></li>
+                        <li class="" aria-current="page"> &nbsp; collection</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+
+<!-- section start -->
+<section class=" ratio_asos pt-3">
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="collection-content col">
+                    <div class="page-main-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="collection-product-wrapper">
+                                    <div class="product-wrapper-grid">
+                                        <div class="row margin-res">
+                                            {% for prd in hot_deals %}
+                                            <div class="col-xl-3 col-6 col-grid-box">
+                                                <div class="product-box">
+                                                    <div class="img-wrapper">
+                                                        <div class="front">
+                                                            <a href="{% url 'collection:productdetails' prd.id %}"><img src="{{prd.product.image.url}}"
+                                                                    class="img-fluid blur-up lazyload bg-img"
+                                                                    alt=""></a>
+                                                        </div>
+                                                        <div class="cart-info cart-wrap">
+                                                            <button data-bs-toggle="modal"
+                                                                data-bs-target="#addtocart" title="Add to cart"><i
+                                                                    class="fa fa-shopping-cart"></i>
+                                                                </button> <a
+                                                                href="javascript:void(0)" title="Add to Wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-detail">
+                                                        <div>
+                                                            <div class="rating"><i class="fa fa-star"></i> <i
+                                                                    class="fa fa-star"></i> <i
+                                                                    class="fa fa-star"></i> <i
+                                                                    class="fa fa-star"></i> <i
+                                                                    class="fa fa-star"></i></div>
+                                                            <a href="{% url 'collection:productdetails' prd.product.id %}">
+                                                                <h6>{{prd.product.name}}</h6>
+                                                            </a>
+                                                            <h4>₹{{prd.product.price}}</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="product-pagination">
+                                        <div class="theme-paggination-block">
+                                            <div class="container-fluid p-0">
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                        <nav aria-label="Page navigation">
+                                                            <ul class="pagination">
+                                                                <li class="page-item"><a class="page-link" href="#"
+                                                                        aria-label="Previous"><span
+                                                                            aria-hidden="true"><i
+                                                                                class="fa fa-chevron-left"
+                                                                                aria-hidden="true"></i></span> <span
+                                                                            class="sr-only">Previous</span></a></li>
+                                                                <li class="page-item active"><a class="page-link"
+                                                                        href="#">1</a></li>
+                                                                <li class="page-item"><a class="page-link"
+                                                                        href="#">2</a></li>
+                                                                <li class="page-item"><a class="page-link"
+                                                                        href="#">3</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#"
+                                                                        aria-label="Next"><span
+                                                                            aria-hidden="true"><i
+                                                                                class="fa fa-chevron-right"
+                                                                                aria-hidden="true"></i></span> <span
+                                                                            class="sr-only">Next</span></a></li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                        <div class="product-search-count-bottom">
+                                                            <h5>Showing Products 1-24 of 10 Result</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+{% endblock %}
