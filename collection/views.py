@@ -346,6 +346,7 @@ def newArrivals(request):
 @csrf_exempt
 def contact(request):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    print(shop_session)
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
     social_objects = ShopSocialMediaLinks.objects.filter(shop=shop_obj).last()
