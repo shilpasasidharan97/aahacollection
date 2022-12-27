@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
-
 from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopSocialMediaLinks, Subcategory
-
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -19,6 +17,7 @@ def _rest_id(request):
     return cuser
 
 
+# hHOME
 def collectionHome(request,id):
     shop_obj = Shop.objects.get(id=id)
     category_list = Products.objects.select_related('subcategory').filter(subcategory__category__shop=shop_obj).values("subcategory__category__name", "subcategory__category__icon", "subcategory__category__id").distinct() 
@@ -41,6 +40,7 @@ def collectionHome(request,id):
         resto_save = RestoSave.objects.create(user_session_id=_rest_id(request), resto_pk=id)
         resto_save.save()
     context = {
+        "is_home":True,
         'status':banner_status,
         'home_banner':home_banner,
         'category_list':category_list,
@@ -52,12 +52,18 @@ def collectionHome(request,id):
     return render(request, 'collection/home.html', context)
 
 
-
+# SUBCATEGORY
 def subCategory(request,id):
     subcatgory_list = Subcategory.objects.filter(category__id=id)
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     if AdminProductBanner:
         banner_status = 1
         product_banner = AdminProductBanner.objects.all().last()
@@ -65,11 +71,14 @@ def subCategory(request,id):
         banner_status = 2
         product_banner = ""
     context = {
+        "is_home":True,
         "status":banner_status,
         "product_banner":product_banner,
         'subcatgory_list':subcatgory_list,
         "category_looping":category_looping,
-        "shop_obj":shop_obj
+        "shop_obj":shop_obj,
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/subcategory.html', context)
 
@@ -79,10 +88,19 @@ def products(request,id):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     context = {
+        "is_product":True,
         'product_list':product_list,
         "category_looping":category_looping,
-        "shop_obj":shop_obj
+        "shop_obj":shop_obj,
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/product.html', context)
 
@@ -92,10 +110,19 @@ def productDetails(request,id):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     context = {
+        "is_product_details":True,
         'product_details':product_details,
         "category_looping":category_looping,
-        "shop_obj":shop_obj
+        "shop_obj":shop_obj,
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/product-details.html', context)
 
@@ -145,10 +172,20 @@ def cart(request):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     context = {
+        "is_cart":True,
         'cart_item':cart_item,
         'sub_total':sub_total,
         "category_looping":category_looping,
+        "shop_obj":shop_obj,
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/cart.html', context)
 
@@ -175,11 +212,20 @@ def checkout(request):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     context = {
+        "is_checkout":True,
         'cart_item':cart_item,
         'grand_total':grand_total,
         "category_looping":category_looping,
-        "shop_obj":shop_obj
+        "shop_obj":shop_obj,
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/checkout.html',context)
 
@@ -252,8 +298,13 @@ def newArrivals(request):
     shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     new_arrivals = Products.objects.filter(is_new_arrival=True, subcategory__category__shop__id=shops.resto_pk)
     shop_obj = Shop.objects.get(id=shops.resto_pk)
-    
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
     category_looping = Category.objects.filter(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     if AdminNewArrivalBanner:
         banner_status = 1
         arrival_banner = AdminNewArrivalBanner.objects.all().last()
@@ -261,11 +312,14 @@ def newArrivals(request):
         banner_status = 2
         arrival_banner = ""
     context = {
+        "is_new":True,
         'status':banner_status,
         "new_banner":arrival_banner,
         "new_arrivals":new_arrivals,
         "category_looping":category_looping,
-        "shop_obj":shop_obj
+        "shop_obj":shop_obj,
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/new_arrivals.html', context)
 
@@ -276,57 +330,18 @@ def contact(request):
     category_looping = Category.objects.filter(shop=shop_obj)
     social_objects = ShopSocialMediaLinks.objects.filter(shop=shop_obj).last()
     shop_number = social_objects.whatsapp
-    print(shop_number)
-
-    # first_name = request.POST['firstname']
-    # last_name = request.POST['lastname']
-    # phone = request.POST['phone']
-    # email = request.POST['email']
-    # address = request.POST['address']
-    # messagestring = ""
-    # messagestring = "https://wa.me/+91" + shop_number + "?text=First Name :" + first_name + "?text=Last Name :" + last_name  + "?text=Phone:" + phone + "?text=Email:" + email + "%0a------Order Details------"
-    # try:
-    #     messagestring = "https://wa.me/+91" + shop_number + "?text=First Name :" + first_name + "?text=Last Name :" + last_name  + "?text=Phone:" + phone + "?text=Email:" + email + "%0a------Order Details------"
-    #     for i in cart_items:
-    #         data1 = {
-    #             "Product-Id":i.product.product_id,
-    #             "Product-name": i.product.name,
-    #             "quantity": i.quantity,
-    #             "size":i.size,
-    #             "price": i.product.price,
-    #             "sub_total": i.total,
-    #         }
-    #         data.append(data1)
-    #         i.delete()
-    #     for j in data:
-    #         messagestring += (
-    #             "%0aProduct-Id:"
-    #             + str(j["Product-Id"])
-    #             + "%0aProduct-Name:"
-    #             + str(j["Product-name"])
-    #             + "%0aQuantity:"
-    #             + str(j["quantity"])
-    #             + "%0aSize:"
-    #             + str(j["size"])
-    #             + "%0aUnit-Price:"
-    #             + str(j["price"])
-    #             + "%0aTotal :"
-    #             + str(j["sub_total"])
-    #             + "%0a-----------------------------"
-    #         )
-    #         messagestring += "%0a-----------------------------"
-    #     messagestring += (
-    #         "%0a-----------------------------\
-    #     Grand Total :"
-    #         + str(sub_total["total__sum"])
-    #         + "%0a-----------------------------"
-    #     )
-    #     cart_obj.delete()
-    # except Exception:
-    #     pass
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     context = {
+        "is_contact":True,
         "category_looping":category_looping,
         "shop_obj":shop_obj,
+        "social_link":social_link,
+        "news":latest_news
     }
     return render(request, 'collection/contact.html', context)
 
