@@ -194,6 +194,28 @@ class RestoSave(models.Model):
     def __str__(self):
         return str(self.user_session_id)
 
+
+class AdminHomeBanner(models.Model):
+    banner = models.FileField(upload_to="Admin home banner", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
+class AdminNewArrivalBanner(models.Model):
+    banner = models.FileField(upload_to="Admin home banner", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
+class AdminProductBanner(models.Model):
+    banner = models.FileField(upload_to="Admin home banner", null=True)
+
+    def __str__(self):
+        return str(self.banner)
+
+
 class BreakingNews(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     news = models.CharField(max_length=5000, null=True, blank=True)

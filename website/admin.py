@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from website.models import AdminSocialMediaLinks, BreakingNews, CartItems, Category, HotDealPrice, Products, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
+from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, AdminSocialMediaLinks, CartItems, Category, HotDealPrice, Products, RestoSave, Shop, ShopQrcode, ShopSocialMediaLinks, Subcategory, User
+
 
 # Register your models here.
 
@@ -64,4 +65,22 @@ class CartItemsAdmin(admin.ModelAdmin):
     search_fields=('product','quantity', 'total', )
 admin.site.register(CartItems,CartItemsAdmin)
 
+class AdminHomeBannerAdmin(admin.ModelAdmin):
+    list_display = ('id',)
+    search_fields=('banner',)
+admin.site.register(AdminHomeBanner,AdminHomeBannerAdmin)
+
+class AdminNewArrivalBannerAdmin(admin.ModelAdmin):
+    list_display = ('id',)
+    search_fields=('banner',)
+admin.site.register(AdminNewArrivalBanner,AdminNewArrivalBannerAdmin)
+
+
+class AdminProductBannerAdmin(admin.ModelAdmin):
+    list_display = ('id',)
+    search_fields=('banner',)
+admin.site.register(AdminProductBanner,AdminProductBannerAdmin)
+
+admin.site.register(RestoSave)
 admin.site.register(BreakingNews)
+

@@ -39,7 +39,10 @@ def logout_shop(request):
 @auth_official
 @login_required(login_url="/official/login-page")
 def officialHome(request):
-    social_media = AdminSocialMediaLinks.objects.get(user=request.user)
+    if AdminSocialMediaLinks.objects.all().exists():
+        social_media = AdminSocialMediaLinks.objects.all().last()
+    else :
+        social_media = AdminSocialMediaLinks.objects.create(user=request.user)
     five_shop = Shop.objects.all()[:5]
     all_shop_count = Shop.objects.all().count()
     context = {
