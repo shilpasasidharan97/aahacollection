@@ -12,7 +12,7 @@ from aahacollection.decorators import auth_shop
 # Create your views here.
 
 
-
+# shop home
 @login_required(login_url="/official/login-page")
 @auth_shop
 def shopHome(request):
@@ -39,8 +39,9 @@ def shopHome(request):
     return render(request, 'shop/home.html',context)
 
 
-@auth_shop
+# CATEGORY LIST
 @login_required(login_url="/official/login-page")
+@auth_shop
 def categoryList(request):
     shops= request.user.shop
     # all_categories = Category.objects.filter(shop=request.user.shop)
@@ -53,8 +54,9 @@ def categoryList(request):
     return render(request, 'shop/category_list.html', context)
 
 
-@auth_shop
+# SUBCATEGORY LIST
 @login_required(login_url="/official/login-page")
+@auth_shop
 def subcategoryList(request,id):
     shops= request.user.shop
     all_subcategories = Products.objects.select_related('subcategory').filter(subcategory__category__shop=request.user.shop, subcategory__category__id=id).values('subcategory__name','subcategory__id').annotate(count=Count('id')).distinct()
@@ -66,8 +68,9 @@ def subcategoryList(request,id):
     return render(request, 'shop/subcategory_list.html', context)
 
 
-@auth_shop
+# PRODUCT LIST
 @login_required(login_url="/official/login-page")
+@auth_shop
 def productList(request,id):
     shops= request.user.shop
     all_products = Products.objects.filter(subcategory__category__shop=request.user.shop, subcategory__id=id)
@@ -81,14 +84,6 @@ def productList(request,id):
         product_object.hotdeal_price = price
         product_object.save()
         return redirect('/shop/product-list/'+str(id))
-        # if HotDealPrice.objects.filter(product=product_object).exists():
-        #     HotDealPrice.objects.filter(product=product_object).update(price=price, date=date)
-        #     return redirect('/shop/product-list/'+str(id))
-        # else:
-        #     hot_price = HotDealPrice(product=product_object, price=price)
-        #     hot_price.save()
-        #     return redirect('/shop/product-list/'+str(id))
-
     context = {
         'is_list':True,
         'all_products':all_products,
@@ -97,6 +92,7 @@ def productList(request,id):
     return render(request, 'shop/product_list.html', context)
 
 
+# ADD TO NEW ARRIVALS
 def addToNewArrivals(request, id):
     new = Products.objects.get(id=id)
     if  new.is_new_arrival == False:
@@ -111,11 +107,6 @@ def addToNewArrivals(request, id):
 
 def getProductData(request,id):
     product_details = Products.objects.get(id=id)
-    # try:
-    #     hotdeal_obj = HotDealPrice.objects.get(product=product_details)
-    #     hot_deal_price = hotdeal_obj.price
-    # except:
-    #     hot_deal_price = 0
     data = {
         'product_name':product_details.name,
         'id':product_details.id,
@@ -125,8 +116,8 @@ def getProductData(request,id):
 
 
 # ADD CATEGORY
-@auth_shop
 @login_required(login_url="/official/login-page")
+@auth_shop
 def addCategory(request):
     shops= request.user.shop
     if request.method == 'POST':
@@ -178,8 +169,8 @@ def deleteCategory(request, id):
 
 
 # SUBCATEGORY ADDING
-@auth_shop
 @login_required(login_url="/official/login-page")
+@auth_shop
 def addSubCategory(request, id):
     shops= request.user.shop
     category_id = Category.objects.get(id=id)
@@ -333,8 +324,9 @@ def viewProduct(request,id):
     return JsonResponse(data)
 
 
-@auth_shop
+# NEW ARRIVALS
 @login_required(login_url="/official/login-page")
+@auth_shop
 def newArrivals(request):
     shops= request.user.shop
     new_arrivals = Products.objects.filter(subcategory__category__shop=request.user.shop, is_new_arrival=True)
@@ -346,10 +338,12 @@ def newArrivals(request):
     return render(request, 'shop/new_arrivals.html', context)
 
 
-@auth_shop
+# HOTE DEAL PRODUCTS
 @login_required(login_url="/official/login-page")
+@auth_shop
 def hotDealProducts(request):
-    hot_deal_products = Products.objects.filter(is_hot_deal=True)
+    shops= request.user.shop
+    hot_deal_products = Products.objects.filter(subcategory__category__shop=request.user.shop, is_hot_deal=True)
     if request.method == 'POST':
         pname = request.POST['h-name']
         pid = request.POST['pk']
@@ -371,13 +365,15 @@ def hotDealProducts(request):
     return render(request, 'shop/hot_deal.html',context)
 
 
+# DELETE HOTDEAL
 def deleteHotDeal(request,id):
     Products.objects.filter(id=id).update(is_hot_deal=False,hotdeal_price=0)
     return redirect('shop:hotdealproducts')
 
 
-@auth_shop
+# SOCIAL MEDIA
 @login_required(login_url="/official/login-page")
+@auth_shop
 def socialMediaLinks(request):
     shops= request.user.shop
     if request.method == 'POST':
@@ -406,9 +402,9 @@ def socialMediaLinks(request):
     return render(request, 'shop/social_media.html', context)
 
 
-@auth_shop
-@login_required(login_url="/official/login-page")
 # slider banner
+@login_required(login_url="/official/login-page")
+@auth_shop
 def banner(request):
     shops= request.user.shop
     all_slider_banner = ShopSliderBanner.objects.filter(shop=request.user.shop)
@@ -429,6 +425,7 @@ def banner(request):
     }
     return render(request, 'shop/banner.html', context)
 
+
 # home banner
 def HomeBanner(request):
     if request.method == "POST":
@@ -437,6 +434,7 @@ def HomeBanner(request):
         home_banner.save()
     return redirect("shop:banner")
 
+
 # product banner
 def ProductBanner(request):
     if request.method == "POST":
@@ -444,6 +442,7 @@ def ProductBanner(request):
         product_banner = ShopProductBanner(banner=product_image, shop=request.user.shop)
         product_banner.save()
     return redirect("shop:banner")
+
 
 # product banner
 def NewBanner(request):
@@ -454,10 +453,9 @@ def NewBanner(request):
     return redirect("shop:banner")
 
 
-
 # breaking News
-@auth_shop
 @login_required(login_url="/official/login-page")
+@auth_shop
 def breakingNews(request):
     shops= request.user.shop
     if request.method == 'POST':
@@ -472,8 +470,9 @@ def breakingNews(request):
     return render(request, 'shop/news.html', context)
 
 
-@auth_shop
+# PROFILE
 @login_required(login_url="/official/login-page")
+@auth_shop
 def profile(request):
     profile = request.user.shop
     context = {
@@ -484,8 +483,9 @@ def profile(request):
     return render(request, 'shop/profile.html', context)
 
 
-@auth_shop
+# SETTINGS
 @login_required(login_url="/official/login-page")
+@auth_shop
 def settings(request):
     shop_data = Shop.objects.get(id=request.user.shop.id)
     if request.method == "POST":

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, AdminSocialMediaLinks, CartItems, Category, HotDealPrice, Products, RestoSave, Shop, ShopHomeBanner, ShopNewArrivalBanner, ShopProductBanner, ShopQrcode, ShopSliderBanner, ShopSocialMediaLinks, Subcategory, User
+from website.models import AdminData, BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, AdminSocialMediaLinks, CartItems, Category, HotDealPrice, Products, RestoSave, Shop, ShopHomeBanner, ShopNewArrivalBanner, ShopProductBanner, ShopQrcode, ShopSliderBanner, ShopSocialMediaLinks, Subcategory, User
 
 
 # Register your models here.
@@ -87,4 +87,5 @@ admin.site.register(ShopSliderBanner)
 admin.site.register(ShopHomeBanner)
 admin.site.register(ShopNewArrivalBanner)
 admin.site.register(ShopProductBanner)
+admin.site.register(AdminData)
 

@@ -89,6 +89,7 @@ def subCategory(request,id):
     return render(request, 'collection/subcategory.html', context)
 
 
+# PRODUCTS
 def products(request,id):
     product_list = Products.objects.filter(subcategory__id=id)
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
@@ -119,6 +120,7 @@ def products(request,id):
     return render(request, 'collection/product.html', context)
 
 
+# PRODUCT DETAILS
 def productDetails(request,id):
     product_details = Products.objects.get(id=id)
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
@@ -148,6 +150,7 @@ def _cart_id(request):
     return cart
 
 
+# ADD TO CART
 def AddToCart(request, pid, qty):
     product = Products.objects.get(id=pid)
     size = request.GET['size']
@@ -188,6 +191,7 @@ def AddToCart(request, pid, qty):
     return redirect("/collection/product-details/"+str(product.id))
 
 
+# CART
 def cart(request):
     cart_item = CartItems.objects.filter(cart__cart_id=_cart_id(request))
     sub_total = CartItems.objects.filter(cart__cart_id=_cart_id(request)).aggregate(Sum("total"))
@@ -212,6 +216,7 @@ def cart(request):
     return render(request, 'collection/cart.html', context)
 
 
+# QUANTITY
 @csrf_exempt
 def addquantity(request):
     quantity = request.GET["quantity"]
@@ -231,6 +236,7 @@ def addquantity(request):
     return JsonResponse(data)
 
 
+# CHECKOUT
 def checkout(request):
     cart_item = CartItems.objects.filter(cart__cart_id=_cart_id(request))
     grand_total = CartItems.objects.filter(cart__cart_id=_cart_id(request)).aggregate(Sum("total"))
@@ -255,6 +261,7 @@ def checkout(request):
     return render(request, 'collection/checkout.html',context)
 
 
+# CUSTOMER CHECKOUT
 @csrf_exempt
 def customerCheckout(request):
     first_name = request.POST['fisrtname']
@@ -308,17 +315,23 @@ def customerCheckout(request):
         cart_obj.delete()
     except Exception:
         pass
-    print(messagestring)
     data = {
         "link":messagestring,
     }
     return JsonResponse(data)
 
 
+# DELETE CART
+def deleteCart(request, id):
+    CartItems.objects.get(id=id).delete()
+    return redirect("collection:cart")
+
+
 def orderSuccess(request):
     return render(request, 'collection/order_success.html')
 
 
+# NEW ARRIVALS
 def newArrivals(request):
     shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     new_arrivals = Products.objects.filter(is_new_arrival=True, subcategory__category__shop__id=shops.resto_pk)
@@ -357,23 +370,33 @@ def newArrivals(request):
     return render(request, 'collection/new_arrivals.html', context)
 
 
+# HOT DEAL
 def hotdeals(request):
     shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
     # hot_deals = HotDealPrice.objects.filter(product__subcategory__category__shop__id=shops.resto_pk)
     hot_deals = Products.objects.filter(subcategory__category__shop__id=shops.resto_pk,is_hot_deal=True)
     shop_obj = Shop.objects.get(id=shops.resto_pk)
-    
+    category_looping = Category.objects.filter(shop=shop_obj)
+    social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
+    if BreakingNews.objects.filter(shop__id=shop_obj.id).exists():
+        news = BreakingNews.objects.filter(shop=shop_obj).last()
+        latest_news = news.news
+    else:
+        latest_news = "............ Coming soon ..........."
     context = {
         "hot_deals":hot_deals,
         "shop_obj":shop_obj,
+        "category_looping":category_looping,
+        "social_link":social_link,
+        "news":latest_news,
     }
     return render(request, 'collection/hotdeals.html', context)
 
 
+# CONTACT
 @csrf_exempt
 def contact(request):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
-    print(shop_session)
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
     social_objects = ShopSocialMediaLinks.objects.filter(shop=shop_obj).last()
@@ -401,7 +424,6 @@ def contactData(request):
     social_objects = ShopSocialMediaLinks.objects.filter(shop=shop_obj).last()
     shop_number = social_objects.whatsapp
     first_name = request.POST['firstname']
-    print(first_name,'1'*7)
     last_name = request.POST['lastname']
     phone = request.POST['phone']
     email = request.POST['email']
