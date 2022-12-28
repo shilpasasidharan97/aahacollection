@@ -255,3 +255,22 @@ class ShopProductBanner(models.Model):
 
     def __str__(self):
         return str(self.banner)
+
+
+class AdminData(models.Model):
+    name = models.CharField(max_length=350,null=True)
+    email=models.EmailField(unique=True, null=True)
+    phone = models.CharField(max_length=20,unique=True)
+    place = models.CharField(max_length=200,null=True)
+    district = models.CharField(max_length=150,null=True)
+    state = models.CharField(max_length=100,null=True)
+    address = models.CharField(max_length=300,null=True)
+
+    class Meta:
+        verbose_name_plural = ("Admin")
+
+    def __str__(self):
+        return str(self.shop_name)
+
+
+

@@ -181,12 +181,11 @@
                 </div>
             </div>
         </div>
+        {% for b in twohome_banner %}
         <div class="col-lg-12 banner">
-            <img src="{% static 'web/img/banner/Necklace.png' %}" alt="" class="banner" style="padding: 5px;">
+            <img src="{{b.banner.url}}" alt="" class="banner" style="padding: 5px;">
         </div>
-        <div class="col-lg-12 banner">
-            <img src="{% static 'web/img/banner/images.jpeg' %}" alt="" class="banner" style="padding: 5px;">
-        </div>
+        {% endfor %}
     </div>
 </div>
 

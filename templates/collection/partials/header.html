@@ -280,7 +280,7 @@
                                 </div>
                             </div>
                             <div class="brand-logo">
-                                <a href="{% url 'collection:home' shop_obj.id %}"><img src="{% static 'collection/images/logo/179X34.png' %}"
+                                <a href="{% url 'collection:home' shop_obj.id %}"><img src="{{shop_obj.logo.url}}"
                                         class="img-fluid blur-up lazyload" alt=""></a>
                             </div>
                         </div>
