@@ -25,6 +25,7 @@ def collectionHome(request,id):
     social_link = ShopSocialMediaLinks.objects.get(shop=shop_obj)
     slider = ShopSliderBanner.objects.filter(shop=shop_obj).order_by('-id')[:2]
     shophome_banner = ShopHomeBanner.objects.filter(shop=shop_obj).order_by('-id')[:2]
+    five_new = Products.objects.filter(subcategory__category__shop=shop_obj, is_new_arrival=True)[:5]
     if AdminHomeBanner:
         banner_status = 1
         home_banner = AdminHomeBanner.objects.all().last()
@@ -52,6 +53,7 @@ def collectionHome(request,id):
         "news":latest_news,
         "sliders":slider,
         "shophome_banner":shophome_banner,
+        "five_new":five_new
     }
     return render(request, 'collection/home.html', context)
 
@@ -371,6 +373,7 @@ def hotdeals(request):
 @csrf_exempt
 def contact(request):
     shop_session = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    print(shop_session)
     shop_obj = Shop.objects.get(id=shop_session.resto_pk)
     category_looping = Category.objects.filter(shop=shop_obj)
     social_objects = ShopSocialMediaLinks.objects.filter(shop=shop_obj).last()

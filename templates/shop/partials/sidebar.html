@@ -17,10 +17,10 @@
                     <a href="{% url 'shop:addcategory' %}"><i class="fas fa-plus-circle"></i> <span>Product Adding</span></a>
                 </li>
                 <li {% if is_new %} class="active" {% endif %}>
-                    <a href="{% url 'shop:newarrivals' %}"><i class="fas fa-layer-plus"></i> <span>New Arrivals</span></a>
+                    <a href="{% url 'shop:newarrivals' %}"><i class="fa-brands fa-product-hunt"></i> <span>New Arrivals</span></a>
                 </li>
                 <li {% if is_hot %} class="active" {% endif %}>
-                    <a href="{% url 'shop:hotdealproducts' %}"><i class="fal fa-badge-percent"></i> <span>Hot Deals </span></a>
+                    <a href="{% url 'shop:hotdealproducts' %}"><i class="fa fa-gift" aria-hidden="true"></i> <span>Hot Deals </span></a>
                 </li>
                 <li {% if is_social %} class="active" {% endif %}>
                     <a href="{% url 'shop:socialmedialink' %}"><i class="fa-brands fa-facebook-f"></i> <span>Social Media </span></a>
@@ -32,7 +32,7 @@
                     <a href="{% url 'shop:profile' %}"><i class="fa fa-user"></i> <span>Profile </span></a>
                 </li>
                 <li>
-                    <a href="{% url 'shop:news' %}"><i class="fa fa-gear"></i> <span>News</span></a>
+                    <a href="{% url 'shop:news' %}"><i class="fa-solid fa-newspaper"></i> <span>News</span></a>
                 </li>
                 <li {% if is_settings %} class="active" {% endif %}>
                     <a href="{% url 'shop:settings' %}"><i class="fa fa-gear"></i> <span>Settings</span></a>

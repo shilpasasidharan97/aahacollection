@@ -156,7 +156,7 @@
                                 <input type="text" name="c_password" class="form-control" id="c_password"
                                     placeholder="Repeat your password" required data-error="Please enter correct password">
                                 <div class="help-block with-errors"></div>
-                                <span id="message"></span>
+                                <span id="message" style="color:darkred"></span>
                             </div>
                         </div>
 
@@ -192,6 +192,22 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
+    <script>
+        $('#c_password').change(function(){
+            var cpsw=$('#c_password').val()
+            var psw = $('#password').val()
+            if ( psw != cpsw){
+                $('#message').html('Please check your password')
+                // $("#buttondisabled").addClass("disabled");
+            }
+            else{
+                $('#message').hide()
+                // $("#buttondisabled").removeClass("disabled");
+            }
+        
+        })
+    </script>
 
 {% endblock %}

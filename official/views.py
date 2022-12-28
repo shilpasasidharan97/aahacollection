@@ -5,7 +5,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from aahacollection.decorators import auth_official
 
-from website.models import AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, AdminSocialMediaLinks, Shop, ShopQrcode, ShopSocialMediaLinks
+from website.models import AdminData, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, AdminSocialMediaLinks, Shop, ShopQrcode, ShopSocialMediaLinks
 import datetime
 from django.contrib import messages
 
@@ -43,6 +43,7 @@ def logout_shop(request):
 @auth_official
 @login_required(login_url="/official/login-page")
 def officialHome(request):
+    twohome_banner = AdminHomeBanner.objects.all()[:2]
     if AdminSocialMediaLinks.objects.all().exists():
         social_media = AdminSocialMediaLinks.objects.all().last()
     else :
@@ -53,7 +54,8 @@ def officialHome(request):
         'is_home':True,
         'social_media':social_media,
         'all_shop_count':all_shop_count,
-        'five_shop':five_shop
+        'five_shop':five_shop,
+        "twohome_banner":twohome_banner,
     }
     return render(request, 'official/home.html', context)
 
@@ -175,7 +177,35 @@ def socialMedia(request):
 @auth_official
 @login_required(login_url="/official/login-page")
 def profile(request):
+    data = AdminData.objects.all().last()
     context = {
-        'is_profile':True
+        'is_profile':True,
+        "data":data
     }
     return render(request, 'official/profile.html', context)
+
+@auth_official
+@login_required(login_url="/official/login-page")
+def profiledata(request):
+    if AdminData:
+        admin_data = AdminData.objects.all().last()
+    else:
+        admin_data = AdminData.objects.create()
+    if request.method == 'POST':
+        name = request.POST['s-name']
+        email = request.POST['s-email']
+        phone = request.POST['s-phone']
+        city = request.POST['s-city']
+        state = request.POST['s-state']
+        district = request.POST['s-district']
+        address = request.POST['s-address']
+            
+        admin_data = AdminData(name=name,email=email,phone=phone,place=city,district=district,state=state,address=address)
+        admin_data.save()
+        messages.success(request, 'Added successfully')
+        return redirect("official:profile")
+    context = {
+        'is_profile':True,
+        "admin_data":admin_data
+    }
+    return render(request, 'official/profile_data.html', context)

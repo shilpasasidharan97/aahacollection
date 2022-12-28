@@ -17,6 +17,7 @@ from aahacollection.decorators import auth_shop
 @auth_shop
 def shopHome(request):
     user = request.user
+    shops=user.shop
     qr_code = ShopQrcode.objects.get(shop=user.shop)
     social_media = ShopSocialMediaLinks.objects.get(shop=user.shop)
     category_count = Category.objects.filter(shop=user.shop).count()
@@ -33,6 +34,7 @@ def shopHome(request):
         "hotdeal_count":hotdeal_count,
         "new_arrival_count":new_arrival_count,
         "five_products":five_products,
+        "shops":shops
     }
     return render(request, 'shop/home.html',context)
 
@@ -40,11 +42,13 @@ def shopHome(request):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def categoryList(request):
+    shops= request.user.shop
     # all_categories = Category.objects.filter(shop=request.user.shop)
     all_categories = Products.objects.select_related('subcategory__category').filter(subcategory__category__shop=request.user.shop).values('subcategory__category__name','subcategory__category__id').annotate(count=Count('id')).distinct()
     context = {
         'is_list':True,
-        'all_categories':all_categories
+        'all_categories':all_categories,
+        "shops":shops
     }
     return render(request, 'shop/category_list.html', context)
 
@@ -52,10 +56,12 @@ def categoryList(request):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def subcategoryList(request,id):
+    shops= request.user.shop
     all_subcategories = Products.objects.select_related('subcategory').filter(subcategory__category__shop=request.user.shop, subcategory__category__id=id).values('subcategory__name','subcategory__id').annotate(count=Count('id')).distinct()
     context = {
         'is_list':True,
-        'all_subcategories':all_subcategories
+        'all_subcategories':all_subcategories,
+        "shops":shops
     }
     return render(request, 'shop/subcategory_list.html', context)
 
@@ -63,6 +69,7 @@ def subcategoryList(request,id):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def productList(request,id):
+    shops= request.user.shop
     all_products = Products.objects.filter(subcategory__category__shop=request.user.shop, subcategory__id=id)
     if request.method == 'POST':
         pname = request.POST['h-name']
@@ -84,7 +91,8 @@ def productList(request,id):
 
     context = {
         'is_list':True,
-        'all_products':all_products
+        'all_products':all_products,
+        "shops":shops
     }
     return render(request, 'shop/product_list.html', context)
 
@@ -120,6 +128,7 @@ def getProductData(request,id):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def addCategory(request):
+    shops= request.user.shop
     if request.method == 'POST':
         category_name = request.POST['category-name'] 
         category_image = request.FILES['category-image']
@@ -129,7 +138,8 @@ def addCategory(request):
     all_categories = Category.objects.filter(shop=request.user.shop)
     context = {
         'is_add':True,
-        'all_categories':all_categories
+        'all_categories':all_categories,
+        "shops":shops
     }
     return render(request, 'shop/add_category.html', context)
 
@@ -171,6 +181,7 @@ def deleteCategory(request, id):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def addSubCategory(request, id):
+    shops= request.user.shop
     category_id = Category.objects.get(id=id)
     if request.method == 'POST':
         subcategory_name = request.POST['subcategory-name'] 
@@ -181,7 +192,8 @@ def addSubCategory(request, id):
     all_subcategories = Subcategory.objects.filter(category__shop=request.user.shop,category=category_id)
     context = {
         'is_add':True,
-        'all_subcategories':all_subcategories
+        'all_subcategories':all_subcategories,
+        "shops":shops
     }
     return render(request, 'shop/add_subcategory.html', context)
 
@@ -224,6 +236,7 @@ def deleteSubCategory(request, id):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def addProduct(request, id):
+    shops= request.user.shop
     subcategory_id = Subcategory.objects.get(id=id)
     if Products.objects.exists():
         product = Products.objects.last().id
@@ -253,7 +266,8 @@ def addProduct(request, id):
     all_product = Products.objects.filter(subcategory__category__shop=request.user.shop, subcategory=subcategory_id)
     context = {
         'is_add':True,
-        'all_product':all_product
+        'all_product':all_product,
+        "shops":shops
     }
     return render(request, 'shop/add_product.html', context)
 
@@ -322,10 +336,12 @@ def viewProduct(request,id):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def newArrivals(request):
+    shops= request.user.shop
     new_arrivals = Products.objects.filter(subcategory__category__shop=request.user.shop, is_new_arrival=True)
     context = {
         'is_new':True,
-        'new_arrivals':new_arrivals
+        'new_arrivals':new_arrivals,
+        "shops":shops
     }
     return render(request, 'shop/new_arrivals.html', context)
 
@@ -349,7 +365,8 @@ def hotDealProducts(request):
             return redirect('shop:hotdealproducts')
     context = {
         'is_hot':True,
-        'hot_deal_products':hot_deal_products
+        'hot_deal_products':hot_deal_products,
+        "shops":shops
     }
     return render(request, 'shop/hot_deal.html',context)
 
@@ -362,6 +379,7 @@ def deleteHotDeal(request,id):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def socialMediaLinks(request):
+    shops= request.user.shop
     if request.method == 'POST':
         facebook = request.POST['facebook']
         instagram = request.POST['instagram']
@@ -383,6 +401,7 @@ def socialMediaLinks(request):
         pass
     context = {
         'is_social':True,
+        "shops":shops
     }
     return render(request, 'shop/social_media.html', context)
 
@@ -391,6 +410,7 @@ def socialMediaLinks(request):
 @login_required(login_url="/official/login-page")
 # slider banner
 def banner(request):
+    shops= request.user.shop
     all_slider_banner = ShopSliderBanner.objects.filter(shop=request.user.shop)
     all_home_banner = ShopHomeBanner.objects.filter(shop=request.user.shop)
     all_prd_banner = ShopProductBanner.objects.filter(shop=request.user.shop)
@@ -404,7 +424,8 @@ def banner(request):
         "all_slider_banner":all_slider_banner,
         "all_home_banner":all_home_banner,
         "all_prd_banner":all_prd_banner,
-        "all_new_banner":all_new_banner
+        "all_new_banner":all_new_banner,
+        "shops":shops
     }
     return render(request, 'shop/banner.html', context)
 
@@ -438,6 +459,7 @@ def NewBanner(request):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def breakingNews(request):
+    shops= request.user.shop
     if request.method == 'POST':
         news = request.POST['news']
         new_news = BreakingNews(news=news, shop=request.user.shop)
@@ -445,6 +467,7 @@ def breakingNews(request):
     all_news = BreakingNews.objects.filter(shop=request.user.shop)
     context = {
         "all_news":all_news,
+        "shops":shops
     }
     return render(request, 'shop/news.html', context)
 
@@ -455,7 +478,8 @@ def profile(request):
     profile = request.user.shop
     context = {
         'is_profile':True,
-        'profile':profile
+        'profile':profile,
+        "shops":profile
     }
     return render(request, 'shop/profile.html', context)
 
@@ -482,5 +506,5 @@ def settings(request):
         user.set_password(password)
         user.save()
         get_user_model().objects.filter(id=request.user.id).update(email=email, phone=phone)
-    context = {"is_settings": True, "shop_data": shop_data}
+    context = {"is_settings": True, "shop_data": shop_data, "shops":shop_data}
     return render(request, 'shop/settings.html', context)

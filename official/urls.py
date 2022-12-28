@@ -17,5 +17,6 @@ urlpatterns = [
     
     path('social-media-links/', views.socialMedia, name='socialmedialinks'),
 
-    path('profile/', views.profile, name='profile'),    
+    path('profile/', views.profile, name='profile'),  
+    path('profile-data/', views.profiledata, name='profiledata'),  
 ]
