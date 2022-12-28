@@ -43,7 +43,7 @@
                                                 <div class="product-box">
                                                     <div class="img-wrapper">
                                                         <div class="front">
-                                                            <a href="{% url 'collection:productdetails' prd.id %}"><img src="{{prd.product.image.url}}"
+                                                            <a href="{% url 'collection:productdetails' prd.id %}"><img src="{{prd.image.url}}"
                                                                     class="img-fluid blur-up lazyload bg-img"
                                                                     alt=""></a>
                                                         </div>
@@ -63,10 +63,10 @@
                                                                     class="fa fa-star"></i> <i
                                                                     class="fa fa-star"></i> <i
                                                                     class="fa fa-star"></i></div>
-                                                            <a href="{% url 'collection:productdetails' prd.product.id %}">
-                                                                <h6>{{prd.product.name}}</h6>
+                                                            <a href="{% url 'collection:productdetails' prd.id %}">
+                                                                <h6>{{prd.name}}</h6>
                                                             </a>
-                                                            <h4>₹{{prd.product.price}}</h4>
+                                                            <h4>₹{{prd.hotdeal_price}}</h4>
                                                         </div>
                                                     </div>
                                                 </div>

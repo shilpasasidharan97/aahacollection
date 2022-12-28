@@ -77,7 +77,11 @@
                             <span class="badge badge-grey-color">#1 Best seller</span>
                             <span class="label-text">in fashion</span>
                         </div>
-                        <h3 class="price-detail">₹<span id="unitprice">{{product_details.price}}</span> <del>₹459.00</del><span>55% off</span></h3>
+                        {% if product_details.is_hot_deal %}
+                        <h3 class="price-detail">₹<span id="unitprice">{{product_details.hotdeal_price}}</span> <del>₹{{product_details.price}}</del></h3>
+                        {% else %}
+                        <h3 class="price-detail">₹<span id="unitprice">{{product_details.price}}</span></h3>
+                        {% endif %}
                             <div id="selectSize" class="addeffect-section product-description border-product">
                                 <input type="text" value="{{product_details.size}}" id="sizewithcomma" hidden>
                                 <h6 class="error-message">please select size</h6>
@@ -191,7 +195,6 @@
         if ( $("input[type='radio'][name='size']").is(":checked") ) {
             size = $("input[type='radio'][name='size']:checked").val()
             qty = $('#quantity'+id).val()
-            alert(qty)
             window.location.href = "/collection/addtocart/" + id + "/" + qty + "?size=" + size ;
 
         }

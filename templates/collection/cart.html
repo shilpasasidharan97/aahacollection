@@ -49,26 +49,13 @@
                                 </td>
                                 <td>
                                     <a href="#">{{prd.product.name|capfirst}}</a>
-                                    <!-- <div class="mobile-cart-content row">
-                                        <div class="col">
-                                            <div class="qty-box">
-                                                <div class="input-group">
-                                                    <input type="text" name="quantity" value="{{prd.product.quantity}}" class="form-control input-number"
-                                                        value="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color">₹{{prd.product.price}}</h2>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                            </h2>
-                                        </div>
-                                    </div> -->
                                 </td>
                                 <td>
+                                    {% if prd.product.is_hot_deal %}
+                                    <h2>₹{{prd.product.hotdeal_price}}</h2>
+                                    {% else %}
                                     <h2>₹{{prd.product.price}}</h2>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     <div class="qty-box">
