@@ -14,7 +14,6 @@ def auth_shop(func):
                 return redirect("official:loginpage")
         except:
             return redirect("official:loginpage")
-
     return wrap
 
 

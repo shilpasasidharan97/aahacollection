@@ -149,7 +149,9 @@ class Products(models.Model):
     product_details = HTMLField(null=True, blank=True)
     image = models.FileField(upload_to='products')
     date = models.DateField(null=True, blank=True)
+    hotdeal_price = models.FloatField(default=0,blank=True)
     is_new_arrival = models.BooleanField(default=False)
+    is_hot_deal = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Products" 

@@ -317,7 +317,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li><a href="#">HOT DEALS</a></li>
+                                        <li><a href="{% url 'collection:hotdeals' %}">HOT DEALS</a></li>
                                         <li  {% if is_contact %} class="active" {% endif %}>
                                             <a href="{% url 'collection:contact' %}">CONTACT</a>
                                         </li>

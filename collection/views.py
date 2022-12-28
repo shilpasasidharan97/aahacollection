@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, Products, RestoSave, Shop, ShopNewArrivalBanner, ShopProductBanner, ShopSocialMediaLinks, Subcategory, ShopSliderBanner, ShopHomeBanner
+from website.models import BreakingNews, AdminHomeBanner, AdminNewArrivalBanner, AdminProductBanner, CartId, CartItems, Category, HotDealPrice, Products, RestoSave, Shop, ShopNewArrivalBanner, ShopProductBanner, ShopSocialMediaLinks, Subcategory, ShopSliderBanner, ShopHomeBanner
 
 from django.http import JsonResponse
 from django.contrib import messages
@@ -163,7 +163,10 @@ def AddToCart(request, pid, qty):
         cart_item.save()
         cart_item.size = size
         cart_item.save()
-        total_price = float(cart_item.quantity) * float(product.price)
+        if cart_item.product.is_hot_deal == True:
+            total_price = float(cart_item.quantity) * float(product.hotdeal_price)
+        else :
+            total_price = float(cart_item.quantity) * float(product.price)
         cart_item.total = total_price
         cart_item.save()
         cart.save()
@@ -172,7 +175,12 @@ def AddToCart(request, pid, qty):
         cart_item = CartItems.objects.create(product=product, quantity=qty, cart=cart, size=size)
         cart_item.save()
         cart_item.size = size
-        total_price = int(qty) * float(product.price)
+        # total_price = int(qty) * float(product.price)
+        if cart_item.product.is_hot_deal == True:
+            # total_price = float(cart_item.quantity) * float(product.hotdeal_price)
+            total_price = int(qty) * float(product.hotdeal_price)
+        else :
+            total_price = float(cart_item.quantity) * float(product.price)
         cart_item.total = total_price
         cart_item.save()
         cart.save()
@@ -210,7 +218,10 @@ def addquantity(request):
     id = request.GET["id"]
     cart_obj = CartItems.objects.get(id=id)
     new_quantity = int(quantity) 
-    product_total = float(new_quantity) * float(cart_obj.product.price)
+    if cart_obj.product.is_hot_deal:
+        product_total = float(new_quantity) * float(cart_obj.product.hotdeal_price)
+    else :
+        product_total = float(new_quantity) * float(cart_obj.product.price)
     cart_obj.total = product_total
     cart_obj.save()
     gtotal = CartItems.objects.filter(cart__cart_id=request.session.session_key).aggregate(Sum('total'))
@@ -344,6 +355,20 @@ def newArrivals(request):
         "shopnew_banner":shopnew_banner,
     }
     return render(request, 'collection/new_arrivals.html', context)
+
+
+def hotdeals(request):
+    shops = RestoSave.objects.filter(user_session_id=request.session.session_key).last()
+    # hot_deals = HotDealPrice.objects.filter(product__subcategory__category__shop__id=shops.resto_pk)
+    hot_deals = Products.objects.filter(subcategory__category__shop__id=shops.resto_pk,is_hot_deal=True)
+    shop_obj = Shop.objects.get(id=shops.resto_pk)
+    
+    context = {
+        "hot_deals":hot_deals,
+        "shop_obj":shop_obj,
+    }
+    return render(request, 'collection/hotdeals.html', context)
+
 
 @csrf_exempt
 def contact(request):

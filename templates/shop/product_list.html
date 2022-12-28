@@ -146,7 +146,7 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="h-name" value="" id="hname">
+                                            <input type="text" class="form-control" readonly name="h-name" value="" id="hname">
                                             <input type="text" name="pk" id="pk" hidden>
                                         </div>
                                     </div>
@@ -321,7 +321,6 @@
 
 <script>
     function getData(id) {
-        alert(id)
         $.ajax({
             url: "/shop/getproductdata/" + id,
             type: 'GET',

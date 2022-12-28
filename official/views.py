@@ -19,14 +19,18 @@ def loginpage(request):
         user = authenticate(request,phone=phone, password=password)
         if user is not None:
             if user.shop:
+                print("shop","#"*10)
                 login(request, user)
                 return redirect('shop:shophome')
             elif user.is_superuser == True:
+                print("superuser","#"*10)
                 login(request, user)
                 return redirect('official:officialhome')
             else:
+                print("else","#"*10)
                 return redirect('official:loginpage')
         else:
+            print("else second","#"*10)
             return redirect('official:loginpage')
     return render(request, 'official/login.html')
 

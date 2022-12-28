@@ -12,8 +12,9 @@ from aahacollection.decorators import auth_shop
 # Create your views here.
 
 
-@auth_shop
+
 @login_required(login_url="/official/login-page")
+@auth_shop
 def shopHome(request):
     user = request.user
     shops=user.shop
@@ -76,13 +77,18 @@ def productList(request,id):
         product_object = Products.objects.get(id=pid)
         price = request.POST['h-price']
         date = datetime.datetime.now()
-        if HotDealPrice.objects.filter(product=product_object).exists():
-            HotDealPrice.objects.filter(product=product_object).update(price=price, date=date)
-            return redirect('/shop/product-list/'+str(id))
-        else:
-            hot_price = HotDealPrice(product=product_object, price=price)
-            hot_price.save()
-            return redirect('/shop/product-list/'+str(id))
+        product_object.is_hot_deal = True
+        product_object.hotdeal_price = price
+        product_object.save()
+        return redirect('/shop/product-list/'+str(id))
+        # if HotDealPrice.objects.filter(product=product_object).exists():
+        #     HotDealPrice.objects.filter(product=product_object).update(price=price, date=date)
+        #     return redirect('/shop/product-list/'+str(id))
+        # else:
+        #     hot_price = HotDealPrice(product=product_object, price=price)
+        #     hot_price.save()
+        #     return redirect('/shop/product-list/'+str(id))
+
     context = {
         'is_list':True,
         'all_products':all_products,
@@ -105,15 +111,15 @@ def addToNewArrivals(request, id):
 
 def getProductData(request,id):
     product_details = Products.objects.get(id=id)
-    try:
-        hotdeal_obj = HotDealPrice.objects.get(product=product_details)
-        hot_deal_price = hotdeal_obj.price
-    except:
-        hot_deal_price = 0
+    # try:
+    #     hotdeal_obj = HotDealPrice.objects.get(product=product_details)
+    #     hot_deal_price = hotdeal_obj.price
+    # except:
+    #     hot_deal_price = 0
     data = {
         'product_name':product_details.name,
         'id':product_details.id,
-        'hot_deal_price':hot_deal_price
+        'hot_deal_price':product_details.hotdeal_price,
     }
     return JsonResponse(data)
 
@@ -343,8 +349,7 @@ def newArrivals(request):
 @auth_shop
 @login_required(login_url="/official/login-page")
 def hotDealProducts(request):
-    shops= request.user.shop
-    hot_deal_products = HotDealPrice.objects.filter(product__subcategory__category__shop=request.user.shop)
+    hot_deal_products = Products.objects.filter(is_hot_deal=True)
     if request.method == 'POST':
         pname = request.POST['h-name']
         pid = request.POST['pk']
@@ -367,7 +372,7 @@ def hotDealProducts(request):
 
 
 def deleteHotDeal(request,id):
-    HotDealPrice.objects.get(id=id).delete()
+    Products.objects.filter(id=id).update(is_hot_deal=False,hotdeal_price=0)
     return redirect('shop:hotdealproducts')
 
 
