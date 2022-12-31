@@ -382,15 +382,17 @@ def socialMediaLinks(request):
         whatsapp = request.POST['whatsapp']
         location = request.POST['location']
         number = request.POST['number']
+        iframe = request.POST['ilocation']
         if ShopSocialMediaLinks.objects.filter(shop=request.user.shop).exists():
-            ShopSocialMediaLinks.objects.filter(shop=request.user.shop).update(facebook=facebook, whatsapp=whatsapp, instagram=instagram, location=location, phone_number=number)
+            ShopSocialMediaLinks.objects.filter(shop=request.user.shop).update(iframe=iframe, facebook=facebook, whatsapp=whatsapp, instagram=instagram, location=location, phone_number=number)
         else:
-            new_link = ShopSocialMediaLinks(shop=request.user.shop, facebook=facebook, whatsapp=whatsapp, instagram=instagram, location=location, phone_number=number)
+            new_link = ShopSocialMediaLinks(shop=request.user.shop, iframe=iframe, facebook=facebook, whatsapp=whatsapp, instagram=instagram, location=location, phone_number=number)
             new_link.save()
     if ShopSocialMediaLinks.objects.filter(shop=request.user.shop).exists():
         links = ShopSocialMediaLinks.objects.get(shop=request.user.shop)
         context = {
-            "links":links
+            "links":links,
+            "shops":shops
         }
         return render(request, 'shop/social_media.html',context)
     else:

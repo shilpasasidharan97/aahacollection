@@ -235,7 +235,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="main-menu">
-
+                       
                         <!-- CATEGORY SIDEBAR -->
                         <div class="menu-left">
                             <div class="navbar">
@@ -279,9 +279,22 @@
                                     </nav>
                                 </div>
                             </div>
+                            <style>
+                                .brand-logo.global{
+                                    left: 55%;
+                                }
+                            </style>
                             <div class="brand-logo">
-                                <a href="{% url 'collection:home' shop_obj.id %}"><img src="{{shop_obj.logo.url}}"
-                                        class="img-fluid blur-up lazyload" alt=""></a>
+                                <div class="row">
+                                    <div class="col-6 global">
+                                        <img src="{% static 'collection/images/logo/Aaha137x78.png' %}"
+                                            class="img-fluid blur-up lazyload" alt="" style="height: 25px;">
+                                    </div>
+                                    <div class="col-6 shoplogo">
+                                        <a href="{% url 'collection:home' shop_obj.id %}"><img src="{{shop_obj.logo.url}}"
+                                            class="img-fluid blur-up lazyload" alt=""></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -329,10 +342,9 @@
                             <div>
                                 <div class="icon-nav">
                                     <ul>
-                                        <li class="onhover-div mobile-search">
+                                        <!-- <li class="onhover-div mobile-search">
                                             <div><img src="{% static 'collection/images/icon/search.png' %}" onclick="openSearch()"
-                                                    class="img-fluid blur-up lazyload" alt=""> <i class="ti-search"
-                                                    onclick="openSearch()"></i></div>
+                                                    class="img-fluid blur-up lazyload" alt=""> </div>
                                             <div id="search-overlay" class="search-overlay">
                                                 <div> <span class="closebtn" onclick="closeSearch()"
                                                         title="Close Overlay">×</span>
@@ -358,8 +370,7 @@
                                         </li>
                                         <li class="onhover-div mobile-setting">
                                             <div><img src="{% static 'collection/images/icon/setting.png' %}"
-                                                    class="img-fluid blur-up lazyload" alt=""> <i
-                                                    class="ti-settings"></i></div>
+                                                    class="img-fluid blur-up lazyload" alt=""></div>
                                             <div class="show-div setting">
                                                 <h6>language</h6>
                                                 <ul>
@@ -374,11 +385,11 @@
                                                     <li><a href="#">doller</a></li>
                                                 </ul>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <li class="onhover-div mobile-cart">
                                             <div href="javascript:void(0)" onclick="openCart()"><img
                                                     src="{% static 'collection/images/icon/cart.png' %}" class="img-fluid blur-up lazyload"
-                                                    alt=""> <i class="ti-shopping-cart"></i></div>
+                                                    alt=""> </div>
                                         </li>
                                     </ul>
                                 </div>

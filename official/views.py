@@ -28,6 +28,7 @@ def loginpage(request):
             else:
                 return redirect('official:loginpage')
         else:
+            messages.success(request, 'Check your username or password')
             return redirect('official:loginpage')
     return render(request, 'official/login.html')
 

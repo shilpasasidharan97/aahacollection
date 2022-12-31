@@ -10217,8 +10217,8 @@ header.header-style .onhover-dropdown:before {
 
 .main-menu .brand-logo {
     display: inline-block;
-    padding-top: 35px;
-    padding-bottom: 35px
+    /* padding-top: 35px;
+    padding-bottom: 35px */
 }
 
 .main-menu .menu-left {
@@ -14296,12 +14296,21 @@ header.stickycls {
 
     .brand-logo {
         position: absolute;
-        left: 50%;
+        /* left: 50%; */
         margin-right: -50%;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         padding-top: 25px !important;
         padding-bottom: 25px !important
+    }
+
+    .brand-logo .global{
+        position:relative;
+        left: 55%;
+    }
+    .brand-logo .shoplogo{
+        position:relative;
+        left: 80%;
     }
 
     .toggle-nav {
