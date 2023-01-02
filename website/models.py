@@ -112,6 +112,17 @@ class AdminSocialMediaLinks(models.Model):
         verbose_name_plural = ("Admin Links")
 
 
+class DefaultCats(models.Model):
+    name = models.CharField(max_length=15, null=True)
+    image = models.FileField(upload_to="defaultcatagory", null=True)
+
+    class Meta:
+        verbose_name_plural = "Default Categories"
+
+    def __str__(self):
+        return str(self.name)
+
+
 class Category(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=30, null=True)
