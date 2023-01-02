@@ -14296,21 +14296,12 @@ header.stickycls {
 
     .brand-logo {
         position: absolute;
-        /* left: 50%; */
+        left: 50%;
         margin-right: -50%;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         padding-top: 25px !important;
         padding-bottom: 25px !important
-    }
-
-    .brand-logo .global{
-        position:relative;
-        left: 55%;
-    }
-    .brand-logo .shoplogo{
-        position:relative;
-        left: 80%;
     }
 
     .toggle-nav {
@@ -40412,6 +40403,22 @@ position:absolute;
 @media screen and (max-width:420px) {
     .footer-logo img{
         width: 120px;
+    }
+}
+.brand-logo.global{
+    left: 55%;
+}
+@media screen and (min-width:320px) and (max-width:550px) {
+    .global{
+        height: 25%;
+    }
+}
+@media screen and (min-width:555px) and (max-width:1630px) {
+    .global img{
+        height: 60%;
+    }
+    .brand-logo{
+        padding-top: 26px;
     }
 }
   
