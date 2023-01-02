@@ -40417,6 +40417,9 @@ position:absolute;
     .global img{
         height: 60%;
     }
+    .shoplogo img{
+        height:30px;
+    }
     .brand-logo{
         padding-top: 26px;
     }
