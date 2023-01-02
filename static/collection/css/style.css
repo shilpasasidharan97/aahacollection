@@ -10217,8 +10217,8 @@ header.header-style .onhover-dropdown:before {
 
 .main-menu .brand-logo {
     display: inline-block;
-    padding-top: 35px;
-    padding-bottom: 35px
+    /* padding-top: 35px;
+    padding-bottom: 35px */
 }
 
 .main-menu .menu-left {
@@ -40403,6 +40403,22 @@ position:absolute;
 @media screen and (max-width:420px) {
     .footer-logo img{
         width: 120px;
+    }
+}
+.brand-logo.global{
+    left: 55%;
+}
+@media screen and (min-width:320px) and (max-width:550px) {
+    .global{
+        height: 25%;
+    }
+}
+@media screen and (min-width:555px) and (max-width:1630px) {
+    .global img{
+        height: 60%;
+    }
+    .brand-logo{
+        padding-top: 26px;
     }
 }
   

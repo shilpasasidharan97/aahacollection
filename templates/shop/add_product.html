@@ -148,7 +148,7 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product ID</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="p_id">
+                                            <input hidden type="text" class="form-control" name="p_id">
                                         </div>
                                     </div>
 
@@ -156,28 +156,28 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="p_name">
+                                            <input required type="text" class="form-control" name="p_name">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Price</label>
                                         <div class="col-md-8">
-                                            <input type="number" class="form-control" name="p_price">
+                                            <input required type="number" class="form-control" name="p_price">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Size Available</label>
                                         <div class="col-md-8">
                                             <span>Size added with ',',(eg:S,M,L)</span>
-                                            <input type="text" class="form-control" name="p_size">
+                                            <input required type="text" class="form-control" name="p_size">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Description</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="p_descriptions">
+                                            <input required type="text" class="form-control" name="p_descriptions">
                                         </div>
                                     </div>
 
@@ -192,12 +192,12 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-4">Product Image</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="file" name="p_image">
+                                            <input required class="form-control" type="file" name="p_image">
                                         </div>
                                     </div>
 
                             
-                                    <input type="checkbox" name="new_arrival" name="new_arrivals"> New Arrival
+                                    <input required type="checkbox" name="new_arrival" name="new_arrivals"> New Arrival
 
                                     <div class="text-end mt-4">
                                         <button type="submit" class="btn btn-primary">Add Product</button>

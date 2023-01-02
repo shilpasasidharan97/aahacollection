@@ -13,14 +13,14 @@
                         <h2>cart</h2>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="">Home / </a></li>
                             <li class=" active">&nbsp; cart</li>
                         </ol>
                     </nav>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
+                                <td><a href="{% url 'collection:deletecart' prd.id %}" class="icon"><i class="fa fa-window-close" aria-hidden="true"></i></a></td>
                                 <td>
                                     <h2 class="td-color" >₹<span id="total{{prd.id}}">{{prd.total}}</span></h2>
                                 </td>
@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="row cart-buttons">
-                <div class="col-6"><a href="#" class="btn btn-solid">continue shopping</a></div>
+                <div class="col-6"><a href="{% url 'collection:home' shop_obj.id %}" class="btn btn-solid">continue shopping</a></div>
                 <div class="col-6"><a href="{% url 'collection:checkout' %}" class="btn btn-solid">check out</a></div>
             </div>
         </div>

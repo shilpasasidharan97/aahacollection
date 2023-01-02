@@ -12,6 +12,7 @@ from django.contrib import messages
 # Create your views here.
 
 
+# LOGIN PAGE
 def loginpage(request):
     if request.method == 'POST':
         phone = request.POST['phone']
@@ -19,29 +20,28 @@ def loginpage(request):
         user = authenticate(request,phone=phone, password=password)
         if user is not None:
             if user.shop:
-                print("shop","#"*10)
                 login(request, user)
                 return redirect('shop:shophome')
             elif user.is_superuser == True:
-                print("superuser","#"*10)
                 login(request, user)
                 return redirect('official:officialhome')
             else:
-                print("else","#"*10)
                 return redirect('official:loginpage')
         else:
-            print("else second","#"*10)
+            messages.success(request, 'Check your username or password')
             return redirect('official:loginpage')
     return render(request, 'official/login.html')
 
 
+# LOGOUT
 def logout_shop(request):
     logout(request)
     return redirect('official:loginpage')
 
 
-@auth_official
+# HOME
 @login_required(login_url="/official/login-page")
+@auth_official
 def officialHome(request):
     twohome_banner = AdminHomeBanner.objects.all()[:2]
     if AdminSocialMediaLinks.objects.all().exists():
@@ -60,8 +60,9 @@ def officialHome(request):
     return render(request, 'official/home.html', context)
 
 
-@auth_official
+# NEW REGISTRATION
 @login_required(login_url="/official/login-page")
+@auth_official
 def newUserRegistration(request):
     if request.method == 'POST':
         name = request.POST['s-name']
@@ -86,20 +87,16 @@ def newUserRegistration(request):
                 ShopQrcode.objects.create(shop=new_shop,resto_url=url)
                 messages.success(request, 'Category added successfully')
                 links = ShopSocialMediaLinks(shop=new_shop)
-                links.save()
-                # if user is not None:
-                #     login(request, user)
-                #     return redirect('shop:shophome')
-                # else:
-                #     print("Not authenticated","*"*3) 
+                links.save() 
     context = {
         'is_new':True,
     }    
     return render(request, 'official/new_user.html', context)
 
 
-@auth_official
+# CUSTOMER LIST
 @login_required(login_url="/official/login-page")
+@auth_official
 def customerList(request):
     all_shops = Shop.objects.all().order_by('shop_name')
     context = {
@@ -109,6 +106,9 @@ def customerList(request):
     return render(request, 'official/customer_list.html', context)
 
 
+# BANNER
+@login_required(login_url="/official/login-page")
+@auth_official
 def banners(request):
     all_home_banner = AdminHomeBanner.objects.all()
     all_prd_banner = AdminProductBanner.objects.all()
@@ -134,6 +134,7 @@ def ProductBanner(request):
         product_banner.save()
     return redirect("official:banners")
 
+
 # product banner
 def NewBanner(request):
     if request.method == "POST":
@@ -143,9 +144,9 @@ def NewBanner(request):
     return redirect("official:banners")
 
 
-
-@auth_official
+# SCOCIAL MEDIA
 @login_required(login_url="/official/login-page")
+@auth_official
 def socialMedia(request):
     if request.method == 'POST':
         facebook = request.POST['facebook']
@@ -166,16 +167,11 @@ def socialMedia(request):
             'is_social':True,
         }
         return render(request, 'official/social_medias.html',context)
-    # else:
-    #     pass
-    # context = {
-    #     'is_social':True,
-    # }
-    # return render(request, 'official/social_medias.html', context)
 
 
-@auth_official
+# PROFILE
 @login_required(login_url="/official/login-page")
+@auth_official
 def profile(request):
     data = AdminData.objects.all().last()
     context = {
@@ -183,6 +179,7 @@ def profile(request):
         "data":data
     }
     return render(request, 'official/profile.html', context)
+
 
 @auth_official
 @login_required(login_url="/official/login-page")

@@ -8,8 +8,8 @@
         <div class="col-sm-12">
             <h3 class="page-title">Add Data</h3>
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">Dashboard / </a></li>
-                <li class=" active"><a href="{% url 'official:officialhome' %}">Add Customers</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'official:officialhome' %}">Dashboard / </a></li>
+                <li class=" active"><a href="">Add Customers</a></li>
             </ul>
         </div>
     </div>
@@ -52,17 +52,17 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" value="{{admin_data.name}}" name="s-name">
+                                <input type="text" required class="form-control" value="{{admin_data.name}}" name="s-name">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" value="{{admin_data.email}}"  name="s-email">
+                                <input type="email" required class="form-control" value="{{admin_data.email}}"  name="s-email">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="text" class="form-control" value="{{admin_data.phone}}"  name="s-phone">
+                                <input type="text" required class="form-control" value="{{admin_data.phone}}"  name="s-phone">
                             </div>
                         </div>
                     </div>
@@ -71,21 +71,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>City</label>
-                                <input type="text" class="form-control" value="{{admin_data.place}}"  name="s-city">
+                                <input type="text" required class="form-control" value="{{admin_data.place}}"  name="s-city">
                             </div>
                             <div class="form-group">
                                 <label>State</label>
-                                <input type="text" class="form-control" value="{{admin_data.state}}"  name="s-state">
+                                <input type="text" required class="form-control" value="{{admin_data.state}}"  name="s-state">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>District</label>
-                                <input type="text" class="form-control" value="{{admin_data.district}}"  name="s-district">
+                                <input type="text" required class="form-control" value="{{admin_data.district}}"  name="s-district">
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
-                                <textarea rows="5" cols="5" class="form-control" value="{{admin_data.address}}"  placeholder="Enter Address"
+                                <textarea rows="5" required cols="5" class="form-control" value="{{admin_data.address}}"  placeholder="Enter Address"
                                     name="s-address"></textarea>
                             </div>
                         </div>
