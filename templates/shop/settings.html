@@ -2,6 +2,56 @@
 {% load static %}
 {% block content %}
 
+<style>
+    /*  */
+    .profile-img-wrap.edit-img {
+        border-radius: 50%;
+        margin: 0 auto 30px;
+        position: relative;
+    }
+
+    .profile-img-wrap {
+        height: 120px;
+        position: absolute;
+        width: 120px;
+        background: #ffffff;
+        overflow: hidden;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        vertical-align: middle;
+    }
+
+    .profile-img-wrap .fileupload {
+        background: rgba(33, 33, 33, 0.5);
+        border: none;
+        padding: 3px 10px;
+        border-radius: 0;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .profile-img-wrap .fileupload .btn-text {
+        color: #ffffff;
+    }
+
+    .profile-img-wrap .fileupload .upload {
+        cursor: pointer;
+        filter: alpha(opacity=0);
+        font-size: 20px;
+        opacity: 0;
+        margin: 0;
+        padding: 5px;
+        position: absolute;
+        top: -3px;
+        right: -3px;
+    }
+</style>
+
 
 
 <div class="page-header">
@@ -26,8 +76,18 @@
         </div>
         <div class="card-body">
 
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+
+                <div class="form-group row">
+                    <div class="profile-img-wrap edit-img">
+                        <img class="inline-block" src="{{shop_data.logo.url}}" id="logo" alt="user">
+                        <div class="fileupload btn">
+                            <span class="btn-text">edit</span>
+                            <input class="upload" name="productphoto" type="file" id="productphoto">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row form-group">
                     <label for="location" class="col-sm-3 col-form-label input-label">Registered Date</label>

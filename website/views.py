@@ -33,8 +33,8 @@ def registration(request):
                 User = get_user_model()
                 User.objects.create_user(phone=phone_number, password=password,email=email,shop=new_shop)
                 user = authenticate(request,phone=phone_number,password=password)
-                url = "http://live.aahaaglobal.com/collection/collection/"+str(new_shop.id)
-                # url = "http://127.0.0.1:9000/collection/collection/"+str(new_shop.id)
+                # url = "http://live.aahaaglobal.com/collection/collection/"+str(new_shop.id)
+                url = "http://127.0.0.1:9000/collection/collection/"+str(new_shop.id)
                 ShopQrcode.objects.create(shop=new_shop,resto_url=url)
                 links = ShopSocialMediaLinks(shop=new_shop, whatsapp=phone_number)
                 links.save()
@@ -42,6 +42,7 @@ def registration(request):
                 for i in default_cats:
                     category_obj = Category(shop=new_shop, name=i.name, icon=i.image)
                     category_obj.save()
+                    
                 if user is not None:
                     login(request, user)
                     return redirect('shop:shophome')
