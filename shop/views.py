@@ -246,16 +246,16 @@ def addProduct(request, id):
         description = request.POST['p_descriptions']
         product_details = request.POST['p_details']
         image = request.FILES['p_image']
-        if not Products.objects.filter(name=product_name).exists():
-            try:
-                # new_arrivals = request.POST['new_arrivals']
-                new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, date=now,is_new_arrival=True,)
-                new_product.save()
-                return redirect('/shop/add-product/'+str(subcategory_id.id))
-            except:
-                new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, is_new_arrival=False, date=now)
-                new_product.save()
-                return redirect('/shop/add-product/'+str(subcategory_id.id))
+        # if not Products.objects.filter(name=product_name).exists():
+        try:
+            # new_arrivals = request.POST['new_arrivals']
+            new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, date=now,is_new_arrival=True,)
+            new_product.save()
+            return redirect('/shop/add-product/'+str(subcategory_id.id))
+        except:
+            new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, is_new_arrival=False, date=now)
+            new_product.save()
+            return redirect('/shop/add-product/'+str(subcategory_id.id))
     all_product = Products.objects.filter(subcategory__category__shop=request.user.shop, subcategory=subcategory_id)
     context = {
         'is_add':True,

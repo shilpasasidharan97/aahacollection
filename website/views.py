@@ -4,7 +4,7 @@ from django.utils import timezone
 import datetime
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login
-
+from django.contrib import messages
 from website.models import Category, DefaultCats, Shop, ShopQrcode, ShopSocialMediaLinks
 
 # Create your views here.
@@ -33,8 +33,8 @@ def registration(request):
                 User = get_user_model()
                 User.objects.create_user(phone=phone_number, password=password,email=email,shop=new_shop)
                 user = authenticate(request,phone=phone_number,password=password)
-                # url = "http://live.aahaaglobal.com/collection/collection/"+str(new_shop.id)
-                url = "http://127.0.0.1:9000/collection/collection/"+str(new_shop.id)
+                url = "http://live.aahaaglobal.com/collection/collection/"+str(new_shop.id)
+                # url = "http://127.0.0.1:9000/collection/collection/"+str(new_shop.id)
                 ShopQrcode.objects.create(shop=new_shop,resto_url=url)
                 links = ShopSocialMediaLinks(shop=new_shop, whatsapp=phone_number)
                 links.save()
@@ -48,4 +48,6 @@ def registration(request):
                     return redirect('shop:shophome')
                 else:
                     print("Not authenticated","*"*3)
+            else :
+                messages.success(request, 'Phone Number alreay exists')
     return render(request, 'website/registration.html')
