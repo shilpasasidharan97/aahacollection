@@ -4,7 +4,7 @@ from django.utils import timezone
 import datetime
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login
-
+from django.contrib import messages
 from website.models import Category, DefaultCats, Shop, ShopQrcode, ShopSocialMediaLinks
 
 # Create your views here.
@@ -42,9 +42,12 @@ def registration(request):
                 for i in default_cats:
                     category_obj = Category(shop=new_shop, name=i.name, icon=i.image)
                     category_obj.save()
+                    
                 if user is not None:
                     login(request, user)
                     return redirect('shop:shophome')
                 else:
                     print("Not authenticated","*"*3)
+            else :
+                messages.success(request, 'Phone Number alreay exists')
     return render(request, 'website/registration.html')

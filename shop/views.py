@@ -8,6 +8,8 @@ from django.db.models import Count
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from aahacollection.decorators import auth_shop
+from django.contrib.auth import authenticate, login
+
 
 # Create your views here.
 
@@ -244,16 +246,16 @@ def addProduct(request, id):
         description = request.POST['p_descriptions']
         product_details = request.POST['p_details']
         image = request.FILES['p_image']
-        if not Products.objects.filter(name=product_name).exists():
-            try:
-                # new_arrivals = request.POST['new_arrivals']
-                new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, date=now,is_new_arrival=True,)
-                new_product.save()
-                return redirect('/shop/add-product/'+str(subcategory_id.id))
-            except:
-                new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, is_new_arrival=False, date=now)
-                new_product.save()
-                return redirect('/shop/add-product/'+str(subcategory_id.id))
+        # if not Products.objects.filter(name=product_name).exists():
+        try:
+            # new_arrivals = request.POST['new_arrivals']
+            new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, date=now,is_new_arrival=True,)
+            new_product.save()
+            return redirect('/shop/add-product/'+str(subcategory_id.id))
+        except:
+            new_product = Products(subcategory=subcategory_id, product_id=product_id, name=product_name, price=price, size=sizes, description=description, product_details=product_details, image=image, is_new_arrival=False, date=now)
+            new_product.save()
+            return redirect('/shop/add-product/'+str(subcategory_id.id))
     all_product = Products.objects.filter(subcategory__category__shop=request.user.shop, subcategory=subcategory_id)
     context = {
         'is_add':True,
@@ -489,7 +491,10 @@ def profile(request):
 @login_required(login_url="/official/login-page")
 @auth_shop
 def settings(request):
-    shop_data = Shop.objects.get(id=request.user.shop.id)
+    shop_pk = request.user.shop.id
+    shop_data = Shop.objects.get(id=shop_pk)
+    print(request.user.shop.id)
+    print(shop_data)
     if request.method == "POST":
         cname = request.POST["name"]
         email = request.POST["email"]
@@ -499,14 +504,30 @@ def settings(request):
         address = request.POST["address"]
         password = request.POST["password"]
         place = request.POST['place']
-        date = request.POST['date']
-        Shop.objects.filter(id=request.user.shop.id).update(
+        # date = request.POST['date']
+        Shop.objects.filter(id=shop_pk).update(
             shop_name=cname, email=email, phone=phone,place=place, district=location, state=state, address=address, password=password
         )
+        try :
+            print('try')
+            logo = request.FILES['productphoto']
+            shop_obj = Shop.objects.get(id=shop_pk)
+            shop_obj.logo = logo
+            shop_obj.save()
+        except :
+            pass
+        
+        
         # get_user_model().objects.filter(id=request.user.restaurant.id).update(email=email,phone=phone)
         user = User.objects.get(shop=request.user.shop)
         user.set_password(password)
         user.save()
-        get_user_model().objects.filter(id=request.user.id).update(email=email, phone=phone)
-    context = {"is_settings": True, "shop_data": shop_data, "shops":shop_data}
+        get_user_model().objects.filter(id=shop_pk).update(email=email, phone=phone)
+        login(request, user)
+        return redirect('shop:settings')
+    context = {
+        "is_settings": True, 
+        "shop_data": shop_data, 
+        "shops":shop_data,
+        }
     return render(request, 'shop/settings.html', context)
