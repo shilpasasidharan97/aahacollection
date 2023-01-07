@@ -25,7 +25,10 @@ urlpatterns = [
     path('edit-product',views.editProduct, name='editproduct'),
     path('delete-product/<int:id>',views.deleteProduct, name='delete'),
 
+    # new arrival
     path('new-arrivals/',views.newArrivals, name='newarrivals'),
+    path('remove-arrivals/<int:id>',views.removenewArrivals, name='removenewarrivals'),
+
 
     path('add-to-newarrivals/<int:id>', views.addToNewArrivals, name='addtonewarrivals'),
     path('getproductdata/<int:id>',views.getProductData, name='getproductdata'),

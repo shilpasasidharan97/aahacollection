@@ -339,6 +339,15 @@ def newArrivals(request):
     }
     return render(request, 'shop/new_arrivals.html', context)
 
+def removenewArrivals(request,id):
+    product = Products.objects.get(id=id)
+    if product.is_new_arrival:
+        product.is_new_arrival = False
+        product.save()
+    else:
+        pass
+    return redirect('shop:newarrivals')
+
 
 # HOTE DEAL PRODUCTS
 @login_required(login_url="/official/login-page")
@@ -352,13 +361,10 @@ def hotDealProducts(request):
         product_object = Products.objects.get(id=pid)
         price = request.POST['h-price']
         date = datetime.datetime.now()
-        if HotDealPrice.objects.filter(product=product_object).exists():
-            HotDealPrice.objects.filter(product=product_object).update(price=price, date=date)
-            return redirect('shop:hotdealproducts')
-        else:
-            hot_price = HotDealPrice(product=product_object, price=price)
-            hot_price.save()
-            return redirect('shop:hotdealproducts')
+        
+        product_object.is_hot_deal = True
+        product_object.hotdeal_price = price
+        product_object.save()
     context = {
         'is_hot':True,
         'hot_deal_products':hot_deal_products,

@@ -53,14 +53,14 @@
                                                                     class="img-fluid blur-up lazyload bg-img"
                                                                     alt=""></a>
                                                         </div>
-                                                        <div class="cart-info cart-wrap">
+                                                        <!-- <div class="cart-info cart-wrap">
                                                             <button data-bs-toggle="modal"
                                                                 data-bs-target="#addtocart" title="Add to cart"><i
                                                                     class="fa fa-shopping-cart"></i>
                                                                 </button> <a
                                                                 href="javascript:void(0)" title="Add to Wishlist"><i
                                                                     class="fa fa-heart" aria-hidden="true"></i></a> 
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                     <div class="product-detail">
                                                         <div>
@@ -72,7 +72,11 @@
                                                             <a href="{% url 'collection:productdetails' prd.id %}">
                                                                 <h6>{{prd.name}}</h6>
                                                             </a>
-                                                            <h4>₹{{prd.price}}</h4>
+                                                            {% if prd.is_hot_deal %}
+                                                            <h3 class="price-detail">₹<span id="unitprice">{{prd.hotdeal_price}}</span> <del>₹{{prd.price}}</del></h3>
+                                                            {% else %}
+                                                            <h3 class="price-detail">₹<span id="unitprice">{{prd.price}}</span></h3>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>
